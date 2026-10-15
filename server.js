@@ -203,7 +203,7 @@ app.post("/api/checkout", async (req, res) => {
     const userId = userRes.rows[0].id;
 
     // This preserves the customer data as it was at order time
-    const SOURCE = process.env.SOURCE || "syncore"; // set per server
+    const SOURCE = process.env.SOURCE || "newlandss"; // set per server
 
     // 2) ✅ Insert order WITH customer snapshot
     // This preserves the customer data as it was at order time

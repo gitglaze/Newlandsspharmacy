@@ -1,0 +1,586 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>product page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@600;700&display=swap">
+<style>
+/* Layout: sticky top bar with nav and search, dismissible notice, results toolbar, 3-up product grid beside a sidebar, pagination, 4-column footer. */
+:root {
+  --bg: #f8f9fc;
+  --surface: #ffffff;
+  --ink: #16213e;
+  --muted: #5d6783;
+  --line: #e3e7f0;
+  --accent: #3b6ef0;
+  --accent-hover: #2c58cf;
+  --on-accent: #ffffff;
+  --notice-bg: #d9eaf5;
+  --notice-line: #4a8fb8;
+  --notice-ink: #1f5778;
+  --footer-bar: #4a7df4;
+  --shade: rgba(22, 33, 62, .08);
+  --font: "Poppins", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --logo: "Lora", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1424; --surface: #151d33; --ink: #e6ebf8; --muted: #9aa5c2; --line: #263152;
+    --accent: #6c93ff; --accent-hover: #86a6ff; --on-accent: #0c1530;
+    --notice-bg: #17324a; --notice-line: #5aa2cc; --notice-ink: #bfe0f3;
+    --footer-bar: #2a4aa8; --shade: rgba(0, 0, 0, .35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1424; --surface: #151d33; --ink: #e6ebf8; --muted: #9aa5c2; --line: #263152;
+  --accent: #6c93ff; --accent-hover: #86a6ff; --on-accent: #0c1530;
+  --notice-bg: #17324a; --notice-line: #5aa2cc; --notice-ink: #bfe0f3;
+  --footer-bar: #2a4aa8; --shade: rgba(0, 0, 0, .35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 20px; }
+svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); box-shadow: 0 2px 8px var(--shade); }
+.top .wrap { display: flex; align-items: center; gap: 16px 40px; padding-block: 8px; }
+.brand { display: flex; align-items: center; gap: 10px; flex: none; }
+.brand svg { width: 46px; height: 46px; }
+.brand b { display: block; font-family: var(--logo); font-size: 21px; line-height: 1.05; color: var(--accent); }
+.brand small { display: block; font-family: var(--logo); font-size: 12px; font-weight: 700; color: var(--ink); }
+.menu { display: flex; align-items: center; gap: 4px 30px; margin-inline: auto; overflow-x: auto; scrollbar-width: none; }
+.menu::-webkit-scrollbar { display: none; }
+.menu a { display: inline-flex; align-items: center; gap: 10px; height: 62px; padding-inline: 4px; border-bottom: 3px solid transparent; font-size: 16px; font-weight: 500; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+.menu a[aria-current] { border-color: var(--ink); }
+.menu .i { width: 12px; height: 12px; fill: currentColor; stroke: none; }
+.top-search { width: 268px; height: 68px; flex: none; }
+.top-search input, .side-search input { width: 100%; height: 100%; border: 1px solid var(--line); background: var(--surface); padding-inline: 20px; color: var(--ink); font-size: 16px; }
+.top-search input::placeholder, .side-search input::placeholder { color: var(--muted); }
+
+/* notice */
+.notice { position: relative; margin-top: 13px; background: var(--notice-bg); border-left: 4px solid var(--notice-line); padding: 18px 56px 18px 21px; color: var(--notice-ink); }
+.notice h2 { margin: 0 0 4px; font-size: 24px; font-weight: 600; }
+.notice p { margin: 0; font-size: 20px; font-weight: 400; line-height: 1.4; }
+.notice button { position: absolute; top: 12px; right: 14px; width: 28px; height: 28px; background: none; border: 0; display: grid; place-items: center; color: var(--notice-ink); }
+.notice button .i { width: 16px; height: 16px; stroke-width: 2.2; }
+
+/* layout */
+.shop { display: grid; grid-template-columns: minmax(0, 1fr) 436px; gap: 0 64px; padding-top: 88px; padding-bottom: 70px; align-items: start; }
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 30px; }
+.count { margin: 0; font-size: 13.5px; font-weight: 500; letter-spacing: .3px; text-transform: uppercase; }
+/* Sorting styles retained but disabled with the sorting UI.
+.sort { position: relative; width: 246px; }
+.sort select { appearance: none; width: 100%; height: 50px; padding: 0 44px 0 20px; background: var(--surface); border: 1px solid var(--line); font-size: 16px; color: var(--ink); }
+.sort .i { position: absolute; right: 16px; top: 17px; width: 16px; height: 16px; pointer-events: none; color: var(--muted); }
+*/
+
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+.card { background: var(--surface); border-radius: 14px; padding: 19px 19px 24px; display: flex; flex-direction: column; text-align: center; min-width: 0; }
+.badge { align-self: flex-start; background: var(--accent); color: var(--on-accent); font-size: 14px; font-weight: 600; padding: 6px 17px; border-radius: 2px; }
+.thumb { width: calc(100% + 38px); margin: 6px -19px 18px; height: 260px; display: grid; place-items: center; }
+.thumb svg { width: 74%; height: 100%; }
+.thumb img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px; }
+.card .badge, .opt-label, .opts, .price { display: none !important; }
+.card h3 { margin: auto 0 10px; font-size: 20px; font-weight: 500; line-height: 1.35; text-wrap: balance; }
+.product-category { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+.opt-label { display: block; font-size: 18px; font-weight: 500; color: var(--muted); margin-bottom: 8px; }
+.opts { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin-bottom: 20px; }
+.opts button { min-width: 50px; height: 34px; padding-inline: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 3px; font-size: 14px; color: var(--muted); }
+.opts button[aria-pressed="true"] { border: 2px solid var(--ink); color: var(--ink); }
+.opts button:hover { border-color: var(--ink); }
+.price { font-size: 17px; font-weight: 500; font-variant-numeric: tabular-nums; margin-bottom: 18px; }
+.price s { color: var(--muted); margin-right: 8px; font-weight: 400; }
+.add { align-self: center; height: 42px; padding-inline: 26px; border: 0; border-radius: 4px; background: var(--accent); color: var(--on-accent); font-size: 14.5px; font-weight: 600; }
+.add:hover { background: var(--accent-hover); }
+.empty { grid-column: 1 / -1; padding: 40px 0; text-align: center; color: var(--muted); }
+
+.pager { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 56px; }
+.pager button { height: 50px; padding-inline: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: .3px; display: inline-flex; align-items: center; gap: 10px; }
+.pager button:hover:not(:disabled) { border-color: var(--ink); }
+.pager button:disabled { opacity: .45; cursor: default; }
+.pager .i { width: 14px; height: 14px; stroke-width: 2.2; }
+.pager span { font-size: 14px; color: var(--muted); padding-inline: 8px; }
+
+/* sidebar */
+.side h4 { margin: 0 0 18px; font-size: 25px; font-weight: 600; letter-spacing: -.3px; }
+.side-search { margin-bottom: 70px; }
+.side-search label { display: block; font-size: 18px; margin-bottom: 8px; }
+.side-search .row { display: flex; gap: 12px; height: 50px; }
+.side-search input { flex: 1; min-width: 0; font-size: 17px; }
+.side-search button { padding-inline: 22px; background: var(--accent); color: var(--on-accent); border: 0; border-radius: 3px; font-size: 16px; font-weight: 600; }
+.side-search button:hover { background: var(--accent-hover); }
+/* Recently viewed styles retained but disabled with the section.
+.recent { display: grid; gap: 18px; margin-bottom: 64px; }
+.recent a { display: flex; align-items: center; gap: 14px; }
+.recent .mini { width: 86px; height: 86px; flex: none; background: var(--surface); border-radius: 4px; display: grid; place-items: center; }
+.recent .mini svg { width: 70px; height: 70px; }
+.recent b { display: block; font-size: 18px; font-weight: 500; line-height: 1.35; }
+.recent span { display: block; font-size: 14px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+*/
+.cats { list-style: none; margin: 0; padding: 0; font-size: 18px; }
+.cats li { margin-bottom: 10px; }
+.cats ul { list-style: none; margin: 10px 0 0 31px; padding: 0; display: grid; gap: 10px; }
+.cats button { background: none; border: 0; padding: 0; text-align: left; color: var(--ink); font-size: 18px; }
+.cats button:hover, .cats button[aria-pressed="true"] { color: var(--accent); }
+.cats button[aria-pressed="true"] { font-weight: 600; }
+
+/* footer */
+.site-foot { --f-bg: #0f1a40; --f-ink: #eef2ff; --f-mute: #a9b6df; --f-line: rgba(255, 255, 255, .14); --f-acc: #9dbbff; --f-field: rgba(255, 255, 255, .08);
+  margin-top: 90px; background: var(--f-bg); color: var(--f-ink); border-radius: 28px 28px 0 0; }
+.site-foot a { color: inherit; }
+.site-foot svg.i { width: 18px; height: 18px; }
+.sf-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 64px; align-items: center; padding-block: 54px 44px; border-bottom: 1px solid var(--f-line); }
+.sf-brand .brand { margin-bottom: 14px; }
+.sf-brand .brand svg { width: 48px; height: 48px; }
+.sf-brand .brand b { color: #fff; font-size: 24px; }
+.sf-brand .brand small { color: var(--f-mute); font-size: 12.5px; }
+.sf-brand p { margin: 0; max-width: 360px; font-size: 14.5px; line-height: 1.7; color: var(--f-mute); }
+.sf-news label { display: block; margin-bottom: 12px; font-size: 17px; font-weight: 500; }
+.sf-row { display: flex; gap: 8px; padding: 6px; border-radius: 30px; background: var(--f-field); border: 1px solid var(--f-line); }
+.sf-row:focus-within { border-color: var(--f-acc); }
+.sf-row input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--f-ink); padding: 0 16px; font-size: 14.5px; }
+.sf-row input::placeholder { color: var(--f-mute); }
+.sf-row input:focus { outline: none; }
+.sf-row button { height: 42px; padding-inline: 22px; border: 0; border-radius: 22px; background: #fff; color: #14246a; font-size: 14px; font-weight: 600; transition: transform .2s, background .2s; }
+.sf-row button:hover { background: var(--f-acc); transform: scale(1.03); }
+.sf-msg { margin: 10px 0 0; min-height: 20px; font-size: 13px; color: var(--f-acc); }
+.sf-mid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr); gap: 36px 40px; padding-block: 44px 48px; }
+.sf-mid h6 { margin: 0 0 16px; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--f-acc); }
+.sf-mid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; font-size: 14.5px; color: var(--f-mute); }
+.sf-mid ul a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .3s, color .2s; padding-bottom: 2px; }
+.sf-mid ul a:hover { color: #fff; background-size: 100% 1px; }
+.sf-card { border: 1px solid var(--f-line); border-radius: 18px; padding: 22px 22px 20px; background: linear-gradient(160deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0)); }
+.sf-card h6 { margin-bottom: 8px; }
+.sf-card .hrs { margin: 0 0 14px; font-size: 16px; font-weight: 500; }
+.sf-card ul { gap: 10px; }
+.sf-card li { display: flex; align-items: center; gap: 12px; overflow-wrap: anywhere; }
+.sf-card li svg { color: var(--f-acc); }
+.sf-bot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 20px 26px; border-top: 1px solid var(--f-line); font-size: 12.5px; color: var(--f-mute); }
+.sf-bot nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.sf-bot a:hover { color: #fff; }
+.sf-demo { flex: 1 0 100%; font-size: 12px; opacity: .8; }
+@media (max-width: 900px) {
+  .sf-top { grid-template-columns: minmax(0, 1fr); padding-block: 40px 32px; }
+  .sf-mid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-card { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .sf-mid { grid-template-columns: minmax(0, 1fr); }
+  .sf-row button { padding-inline: 16px; }
+}
+@media (max-width: 1180px) {
+  .shop { grid-template-columns: minmax(0, 1fr); gap: 56px; padding-top: 56px; }
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 880px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .top .wrap { flex-wrap: wrap; }
+  .top-search { width: 100%; height: 48px; order: 3; margin-bottom: 6px; }
+  .menu { margin-inline: 0; flex: 1; justify-content: flex-end; }
+  .menu a { height: 52px; font-size: 14px; }
+  .notice h2 { font-size: 21px; }
+  .notice p { font-size: 16px; }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .menu { order: 4; flex: 1 0 100%; justify-content: flex-start; }
+  .bar { flex-direction: column; align-items: stretch; }
+  .sort { width: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .add, .pager button, .opts button { transition: background .15s, border-color .15s; }
+}
+
+/* phone polish */
+@media (max-width: 480px) { .top .menu { gap: 4px 11px; } .top .menu a { font-size: 12px; } }
+@media (max-width: 640px) {
+  .menu { gap: 4px 14px; }
+  .menu a { font-size: 12.5px; }
+  .sf-mid ul { gap: 0; }
+  .sf-mid ul a { display: inline-block; padding-block: 8px; }
+  .sf-bot a { display: inline-block; padding-block: 10px; }
+  .notice button { top: 4px; right: 4px; width: 44px; height: 44px; }
+  .opts button { height: 40px; }
+  .cats button { min-height: 36px; padding-block: 6px; }
+  .pager button { height: 52px; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-caret" viewBox="0 0 12 12"><path d="M1 3h10L6 9Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3.500 10 12 3.500 20.500 10v9.500a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="m4 10.500 8 6 8-6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M12 3.500a8.500 8.500 0 0 0-7.300 12.800L3.500 20.500l4.300-1.100A8.500 8.500 0 1 0 12 3.500Z"/><path d="M9 9.500c.3 2.600 2.900 5.200 5.500 5.500l1.200-1.500-2-1-1 .8a4.300 4.300 0 0 1-1.800-1.800l.8-1-1-2Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M12 7v5.500l3.500 2"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="Newlandss Pharmacy home">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="var(--accent)"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="var(--surface)"/></svg>
+      <span><b>Newlandss</b><small>Pharmacy</small></span>
+    </a>
+    <nav class="menu" aria-label="Main">
+      <a href="#" aria-current="page">Shop <svg class="i"><use href="#i-caret"/></svg></a>
+      <a href="#">Checkout</a>
+      <a href="#">Cart</a>
+      <a href="#">My Account</a>
+    </nav>
+    <div class="top-search"><input id="top-q" type="search" placeholder="Search Product" aria-label="Search product"></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="notice" id="notice" role="note">
+    <h2>Order Assistance</h2>
+    <p>Need help placing an order? Email hello@example.com and we will assist you shortly.</p>
+    <button type="button" id="notice-x" aria-label="Dismiss notice"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+
+  <div class="shop">
+    <main>
+      <div class="bar">
+        <p class="count" id="count" aria-live="polite"></p>
+        <!-- Sorting section hidden as requested.
+        <div class="sort">
+          <select id="sort" aria-label="Sort products">
+            <option value="default">Default sorting</option>
+            <option value="low">Price: low to high</option>
+            <option value="high">Price: high to low</option>
+            <option value="off">Biggest discount</option>
+          </select>
+          <svg class="i"><use href="#i-down"/></svg>
+        </div>
+        -->
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="pager">
+        <button type="button" id="prev"><svg class="i"><use href="#i-prev"/></svg>Prev</button>
+        <span id="pageinfo"></span>
+        <button type="button" id="next">Next<svg class="i"><use href="#i-next"/></svg></button>
+      </div>
+    </main>
+
+    <aside class="side">
+      <form class="side-search" onsubmit="return false">
+        <label for="side-q">Search</label>
+        <div class="row"><input id="side-q" type="search" placeholder="Search products..."><button type="submit" id="side-go">Search</button></div>
+      </form>
+      <!-- Recently viewed products hidden as requested.
+      <h4>Recently Viewed Products</h4>
+      <div class="recent" id="recent"></div>
+      -->
+      <ul class="cats" id="cats"></ul>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="sf-top">
+      <div class="sf-brand">
+        <a class="brand" href="#">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="#9dbbff"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="#0f1a40"/></svg>
+          <span><b>Newlandss</b><small>Pharmacy</small></span>
+        </a>
+        <p>Simple self-care and home essentials, delivered.</p>
+      </div>
+      <form class="sf-news" id="sf-news">
+        <label for="sf-mail">Get health tips and offers in your inbox</label>
+        <div class="sf-row">
+          <input id="sf-mail" type="email" placeholder="Your email address" autocomplete="email" required>
+          <button type="submit">Subscribe</button>
+        </div>
+        <p class="sf-msg" id="sf-msg" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="sf-mid">
+      <nav aria-label="Shop links">
+        <h6>Shop</h6>
+        <ul><li><a href="#">All products</a></li><li><a href="#">Checkout</a></li><li><a href="#">Cart</a></li><li><a href="#">My account</a></li></ul>
+      </nav>
+      <nav aria-label="Help links">
+        <h6>Help</h6>
+        <ul><li><a href="#">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">Refunds and returns</a></li><li><a href="#">FAQs</a></li></ul>
+      </nav>
+      <nav aria-label="Company links">
+        <h6>Company</h6>
+        <ul><li><a href="#">About us</a></li><li><a href="#">Privacy policy</a></li><li><a href="#">Terms of use</a></li></ul>
+      </nav>
+      <div class="sf-card">
+        <h6>Talk to us</h6>
+        <p class="hrs">Mon to Sat, 9:00 AM to 5:00 PM</p>
+        <ul>
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10 12 3.5 20.5 10v9.5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="m4 10.5 8 6 8-6"/></svg><span>hello@example.com</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.4 4-2 1.3a11 11 0 0 0 5.3 5.3l1.3-2 4 1.4v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2Z"/></svg><span>+91 00000 00000</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-bot">
+      <span>© 2026 Newlandss Pharmacy. All rights reserved.</span>
+      <nav aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></nav>
+      <span class="sf-demo">Demo storefront with dummy products and placeholder contact details. Not a real pharmacy.</span>
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  var f = document.getElementById('sf-news'); if (!f) return;
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('sf-msg').textContent = 'Thanks for subscribing. This is a demo, so no email was saved.';
+    f.querySelector('input').value = '';
+  });
+})();
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  // Fetch the catalog once. Category selection and search are filtered locally,
+  // avoiding a separate API request each time a category is clicked.
+  var PAGE_SIZE = 12;
+  var API_URL = '/products?categoryID=all';
+  var products = [];
+
+  // The selected category comes from the URL, so the page works with any category ID.
+  // Accept the existing parameter spelling plus common alternatives for compatibility.
+  function categoryFromURL() {
+    var params = new URLSearchParams(window.location.search);
+    var value = params.get('catogeries_ID');
+    if (value == null) value = params.get('categories_ID');
+    if (value == null) value = params.get('categoryID');
+    return value && value.trim() ? value.trim() : 'all';
+  }
+
+  var state = { category: categoryFromURL(), query: '', page: 1, loading: true, error: '' };
+
+  function updateCategoryURL(category, addHistoryEntry) {
+    var url = new URL(window.location.href);
+    if (category === 'all') {
+      url.searchParams.delete('catogeries_ID');
+      url.searchParams.delete('categories_ID');
+      url.searchParams.delete('categoryID');
+    } else {
+      // Keep the requested parameter name in the address bar; do not hardcode category IDs.
+      url.searchParams.set('catogeries_ID', category);
+      url.searchParams.delete('categories_ID');
+      url.searchParams.delete('categoryID');
+    }
+    if (addHistoryEntry) window.history.pushState({ category: category }, '', url);
+    else window.history.replaceState({ category: category }, '', url);
+  }
+
+  function applyCategoryFromURL() {
+    state.category = categoryFromURL();
+    state.page = 1;
+    render();
+  }
+
+  var $ = function (id) { return document.getElementById(id); };
+  var escapeHTML = function (value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char];
+    });
+  };
+
+  function productId(product) {
+    return product.product_id != null ? product.product_id : product.product_ID;
+  }
+
+  function productName(product) {
+    return product.product_name || product.name || 'Untitled product';
+  }
+
+  function productCategory(product) {
+    return String(product.category_id != null ? product.category_id : (product.categoryID != null ? product.categoryID : 'uncategorized'));
+  }
+
+  function productImage(product) {
+    return product.image_url || product.primary_img || product.primary_image || product.product_image || '';
+  }
+
+  function imageMarkup(product) {
+    var src = productImage(product);
+    if (!src) {
+      return '<div class="thumb" aria-label="No product image available"><span>No image available</span></div>';
+    }
+    return '<div class="thumb"><img loading="lazy" decoding="async" src="' + escapeHTML(src) +
+      '" alt="' + escapeHTML(productName(product)) +
+      '" onerror="this.onerror=null;this.style.display=\'none\';this.parentElement.insertAdjacentHTML(\'beforeend\',\'<span>Image unavailable</span>\')"></div>';
+  }
+
+  function filteredProducts() {
+    var query = state.query.trim().toLowerCase();
+    return products.filter(function (product) {
+      var matchesCategory = state.category === 'all' || productCategory(product) === state.category;
+      var searchable = (productName(product) + ' ' + productCategory(product) + ' ' +
+        (product.product_description || '')).toLowerCase();
+      return matchesCategory && (!query || searchable.indexOf(query) !== -1);
+    });
+  }
+
+  function renderCategories() {
+    var counts = Object.create(null);
+    products.forEach(function (product) {
+      var category = productCategory(product);
+      counts[category] = (counts[category] || 0) + 1;
+    });
+
+    var categoryIds = Object.keys(counts).sort(function (a, b) {
+      var an = Number(a), bn = Number(b);
+      if (Number.isFinite(an) && Number.isFinite(bn)) return an - bn;
+      return a.localeCompare(b);
+    });
+
+    function button(value, label, count) {
+      return '<li><button type="button" data-category="' + escapeHTML(value) +
+        '" aria-pressed="' + (state.category === value) + '">' +
+        escapeHTML(label) + ' (' + count + ')</button></li>';
+    }
+
+    $('cats').innerHTML = button('all', 'All products', products.length) +
+      categoryIds.map(function (id) {
+        return button(id, 'Category ' + id, counts[id]);
+      }).join('');
+  }
+
+  function render() {
+    var results = filteredProducts();
+    var totalPages = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
+    state.page = Math.min(Math.max(1, state.page), totalPages);
+    var startIndex = (state.page - 1) * PAGE_SIZE;
+    var visible = results.slice(startIndex, startIndex + PAGE_SIZE);
+
+    if (state.loading) {
+      $('count').textContent = 'Loading products…';
+      $('grid').innerHTML = '<p class="empty">Loading products…</p>';
+    } else if (state.error) {
+      $('count').textContent = 'Products unavailable';
+      $('grid').innerHTML = '<p class="empty">' + escapeHTML(state.error) + '</p>';
+    } else {
+      $('count').textContent = results.length
+        ? 'Showing ' + (startIndex + 1) + '–' + (startIndex + visible.length) + ' of ' + results.length + ' products'
+        : 'No products found';
+
+      $('grid').innerHTML = visible.length ? visible.map(function (product) {
+        var id = productId(product);
+        return '<article class="card" data-id="' + escapeHTML(id) + '">' +
+          imageMarkup(product) +
+          '<h3>' + escapeHTML(productName(product)) + '</h3>' +
+          '<p class="product-category">Category ' + escapeHTML(productCategory(product)) + '</p>' +
+          '<button class="add" type="button" data-product-id="' + escapeHTML(id) + '">View product</button>' +
+          '</article>';
+      }).join('') : '<p class="empty">No products match your search or category.</p>';
+    }
+
+    $('prev').disabled = state.loading || !!state.error || state.page <= 1;
+    $('next').disabled = state.loading || !!state.error || state.page >= totalPages;
+    $('pageinfo').textContent = state.loading || state.error ? '' : 'Page ' + state.page + ' of ' + totalPages;
+    renderCategories();
+  }
+
+  function setSearch(value) {
+    state.query = value;
+    state.page = 1;
+    render();
+  }
+
+  $('grid').addEventListener('click', function (event) {
+    var button = event.target.closest('[data-product-id]');
+    if (!button) return;
+    var id = button.getAttribute('data-product-id');
+    if (id) window.location.href = 'medicinePage.html?product_ID=' + encodeURIComponent(id);
+  });
+
+  $('cats').addEventListener('click', function (event) {
+    var button = event.target.closest('button[data-category]');
+    if (!button) return;
+    state.category = button.getAttribute('data-category');
+    state.page = 1;
+    updateCategoryURL(state.category, true);
+    render();
+  });
+
+  $('prev').addEventListener('click', function () {
+    if (state.page > 1) {
+      state.page--;
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+  $('next').addEventListener('click', function () {
+    state.page++;
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  $('top-q').addEventListener('input', function (event) {
+    $('side-q').value = event.target.value;
+    setSearch(event.target.value);
+  });
+  $('side-q').addEventListener('input', function (event) {
+    $('top-q').value = event.target.value;
+    setSearch(event.target.value);
+  });
+  $('side-go').addEventListener('click', function (event) {
+    event.preventDefault();
+    setSearch($('side-q').value);
+  });
+  $('notice-x').addEventListener('click', function () { $('notice').hidden = true; });
+
+  // Keep the category selection in sync when users navigate with browser Back/Forward.
+  window.addEventListener('popstate', applyCategoryFromURL);
+
+  // Sorting UI and its event handler are intentionally disabled.
+  /*
+  $('sort').addEventListener('change', function (event) {
+    state.sort = event.target.value;
+    state.page = 1;
+    render();
+  });
+  */
+
+  // Recently viewed product rendering intentionally disabled.
+  /*
+  $('recent').innerHTML = ...;
+  */
+
+  // Normalize the initial URL to the category parameter used by this page.
+  updateCategoryURL(state.category, false);
+  render();
+  fetch(API_URL, { headers: { Accept: 'application/json' }, credentials: 'same-origin' })
+    .then(function (response) {
+      if (!response.ok) throw new Error('Unable to load products (HTTP ' + response.status + ').');
+      return response.json();
+    })
+    .then(function (data) {
+      if (!Array.isArray(data)) throw new Error('The products API returned an unexpected response.');
+      products = data;
+      state.loading = false;
+      render();
+    })
+    .catch(function (error) {
+      state.loading = false;
+      state.error = 'Could not load products. Please refresh the page or try again later.';
+      console.error('Product catalog loading failed:', error);
+      render();
+    });
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,25 @@
+name: CI CD Pipeline
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+
+
+  deploy:
+     # ← CI must pass first
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: mclanduser
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            

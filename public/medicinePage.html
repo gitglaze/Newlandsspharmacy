@@ -1,0 +1,621 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+/* Dynamic medicine data and variant pricing table */
+.media { min-width: 0; }
+.media img { display: block; width: 100%; max-width: 380px; max-height: 420px; object-fit: contain; margin: 0 auto; }
+.image-fallback { min-height: 260px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 12px; color: var(--muted); background: var(--bg); font-size: 18px; }
+.product-short-description { color: var(--muted); margin: 14px 0 0; overflow-wrap: anywhere; }
+.variant-section { margin-top: 24px; }
+.variant-section h2 { font-size: 18px; margin: 0 0 8px; }
+.variant-intro { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+.variant-status { color: var(--muted); font-size: 14px; margin: 8px 0 12px; }
+.variant-table-wrap { width: fit-content; overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+.variant-table { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 13px; }
+.variant-table th, .variant-table td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.variant-table th { background: var(--bg); font-weight: 600; color: var(--ink); white-space: nowrap; }
+.variant-table tbody tr:last-child td { border-bottom: 0; }
+.variant-table .variant-price { font-weight: 600; white-space: nowrap; }
+.variant-table .variant-pills, .variant-table .variant-strength { white-space: nowrap; }
+.variant-table .buy-variant { border: 0; border-radius: 4px; padding: 9px 13px; background: var(--accent); color: var(--on-accent); font-weight: 600; white-space: nowrap; }
+.variant-table .buy-variant:hover:not(:disabled) { background: var(--accent-hover); }
+.variant-table .buy-variant:disabled { opacity: .55; cursor: wait; }
+.variant-table .old-price { color: var(--muted); text-decoration: line-through; display: block; font-size: 11px; font-weight: 400; }
+@media (max-width: 820px) { .variant-table { min-width: 590px; } }
+</style></head><body>
+<title>medicine Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@600;700&display=swap">
+<style>
+/* Layout: same top bar, notice and footer as the shop page; centered product card with breadcrumb, image left, purchase options right, details tabs below. */
+:root {
+  --bg: #f8f9fc;
+  --surface: #ffffff;
+  --ink: #16213e;
+  --muted: #5d6783;
+  --line: #e3e7f0;
+  --accent: #3b6ef0;
+  --accent-hover: #2c58cf;
+  --on-accent: #ffffff;
+  --notice-bg: #d9eaf5;
+  --notice-line: #4a8fb8;
+  --notice-ink: #1f5778;
+  --footer-bar: #4a7df4;
+  --shade: rgba(22, 33, 62, .08);
+  --font: "Poppins", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --logo: "Lora", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1424; --surface: #151d33; --ink: #e6ebf8; --muted: #9aa5c2; --line: #263152;
+    --accent: #6c93ff; --accent-hover: #86a6ff; --on-accent: #0c1530;
+    --notice-bg: #17324a; --notice-line: #5aa2cc; --notice-ink: #bfe0f3;
+    --footer-bar: #2a4aa8; --shade: rgba(0, 0, 0, .35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1424; --surface: #151d33; --ink: #e6ebf8; --muted: #9aa5c2; --line: #263152;
+  --accent: #6c93ff; --accent-hover: #86a6ff; --on-accent: #0c1530;
+  --notice-bg: #17324a; --notice-line: #5aa2cc; --notice-ink: #bfe0f3;
+  --footer-bar: #2a4aa8; --shade: rgba(0, 0, 0, .35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 20px; }
+svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); box-shadow: 0 2px 8px var(--shade); }
+.top .wrap { display: flex; align-items: center; gap: 16px 40px; padding-block: 8px; }
+.brand { display: flex; align-items: center; gap: 10px; flex: none; }
+.brand svg { width: 46px; height: 46px; }
+.brand b { display: block; font-family: var(--logo); font-size: 21px; line-height: 1.05; color: var(--accent); }
+.brand small { display: block; font-family: var(--logo); font-size: 12px; font-weight: 700; color: var(--ink); }
+.menu { display: flex; align-items: center; gap: 4px 30px; margin-inline: auto; overflow-x: auto; scrollbar-width: none; }
+.menu::-webkit-scrollbar { display: none; }
+.menu a { display: inline-flex; align-items: center; gap: 10px; height: 62px; padding-inline: 4px; border-bottom: 3px solid transparent; font-size: 16px; font-weight: 500; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+.menu a[aria-current] { border-color: var(--ink); }
+.menu .i { width: 12px; height: 12px; fill: currentColor; stroke: none; }
+.top-search { width: 268px; height: 68px; flex: none; }
+.top-search input { width: 100%; height: 100%; border: 1px solid var(--line); background: var(--surface); padding-inline: 20px; font-size: 16px; }
+.top-search input::placeholder { color: var(--muted); }
+
+/* notice */
+.notice { position: relative; margin-top: 13px; background: var(--notice-bg); border-left: 4px solid var(--notice-line); padding: 18px 56px 18px 21px; color: var(--notice-ink); }
+.notice h2 { margin: 0 0 4px; font-size: 24px; font-weight: 600; }
+.notice p { margin: 0; font-size: 20px; line-height: 1.4; }
+.notice button { position: absolute; top: 12px; right: 14px; width: 28px; height: 28px; background: none; border: 0; display: grid; place-items: center; color: var(--notice-ink); }
+.notice button .i { width: 16px; height: 16px; stroke-width: 2.2; }
+
+/* product card */
+.pdp { background: var(--surface); width: 100%; max-width: 938px; margin: 88px auto 90px; padding: 52px 52px 44px; border-radius: 4px; }
+.crumbs { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 14px; margin: 0 0 56px; font-size: 14px; text-transform: uppercase; }
+.crumbs a { color: var(--accent); }
+.crumbs a:hover { text-decoration: underline; }
+.crumbs .i { width: 12px; height: 12px; stroke-width: 2.2; }
+.top-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px 50px; align-items: start; }
+.media { position: relative; }
+.badge { position: absolute; top: 28px; left: 24px; z-index: 1; background: var(--accent); color: var(--on-accent); font-size: 14px; font-weight: 600; padding: 7px 17px; border-radius: 2px; }
+.media svg { display: block; width: 100%; height: auto; max-width: 380px; margin: 0 auto; }
+.buy h1 { margin: 6px 0 0; padding-bottom: 14px; border-bottom: 1px solid var(--line); font-size: 26px; font-weight: 600; letter-spacing: -.3px; line-height: 1.3; }
+.group { margin-top: 38px; }
+.group > p { margin: 0 0 20px; font-size: 17px; font-weight: 500; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 24px; }
+.chips.center { justify-content: center; }
+.chips button { min-width: 50px; height: 34px; padding-inline: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 3px; font-size: 14px; color: var(--muted); }
+.chips button:hover { border-color: var(--ink); }
+.chips button[aria-pressed="true"] { border: 1px solid var(--ink); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.chips .clear { margin-left: auto; border: 0; background: none; font-size: 15px; color: var(--ink); min-width: 0; }
+.chips .clear[hidden] { display: none; }
+.price { margin: 26px 0 28px; font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.price s { margin-left: 6px; font-size: 20px; color: var(--muted); font-weight: 600; }
+.buy-row { display: flex; gap: 13px; }
+.qty { display: flex; width: 112px; height: 63px; border: 1px solid var(--accent); border-radius: 3px; background: var(--surface); flex: none; }
+.qty input { width: 100%; min-width: 0; border: 0; background: transparent; text-align: center; font-size: 15px; font-weight: 500; padding: 0; -moz-appearance: textfield; }
+.qty input::-webkit-outer-spin-button, .qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.qty input:focus { outline: none; }
+.qty .step { display: flex; flex-direction: column; width: 28px; border-left: 1px solid var(--accent); flex: none; }
+.qty .step button { flex: 1; border: 0; background: var(--surface); color: var(--accent); display: grid; place-items: center; padding: 0; }
+.qty .step button + button { border-top: 1px solid var(--accent); }
+.qty .step .i { width: 13px; height: 13px; stroke-width: 2.2; }
+.add { flex: 1; min-width: 0; height: 63px; border: 0; border-radius: 3px; background: var(--accent); color: var(--on-accent); font-size: 17px; font-weight: 600; }
+.add:hover:not(:disabled) { background: var(--accent-hover); }
+.add:disabled { opacity: .5; cursor: not-allowed; }
+.hint { margin: 10px 0 0; min-height: 22px; font-size: 13px; color: var(--muted); }
+.meta { margin-top: 18px; padding-top: 22px; border-top: 1px solid var(--line); display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
+.meta b { color: var(--ink); font-weight: 500; }
+.meta a { color: var(--accent); }
+
+/* tabs */
+.tabs { margin-top: 60px; }
+.tab-list { display: flex; justify-content: center; gap: 8px 36px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.tab-list button { background: none; border: 0; border-bottom: 3px solid transparent; padding: 12px 2px; margin-bottom: -1px; font-size: 16px; font-weight: 500; color: var(--muted); }
+.tab-list button[aria-selected="true"] { color: var(--ink); border-color: var(--accent); }
+.panel { padding-top: 26px; font-size: 15.5px; line-height: 1.75; color: var(--muted); max-width: 70ch; margin-inline: auto; }
+.panel p { margin: 0 0 14px; }
+.panel ul { margin: 0 0 14px; padding-left: 20px; display: grid; gap: 6px; }
+.panel table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.panel th, .panel td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.panel th { width: 38%; color: var(--ink); font-weight: 500; }
+
+/* related */
+.rel { width: 100%; max-width: 938px; margin: -30px auto 90px; }
+.rel h3 { margin: 0 0 22px; font-size: 24px; font-weight: 600; letter-spacing: -.3px; }
+.rel-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.rel a { background: var(--surface); border-radius: 12px; padding: 16px; display: grid; gap: 6px; text-align: center; }
+.rel svg { width: 100%; height: 150px; }
+.rel b { font-size: 16px; font-weight: 500; }
+.rel span { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rel a:hover b { color: var(--accent); }
+
+/* footer */
+.site-foot { --f-bg: #0f1a40; --f-ink: #eef2ff; --f-mute: #a9b6df; --f-line: rgba(255, 255, 255, .14); --f-acc: #9dbbff; --f-field: rgba(255, 255, 255, .08);
+  margin-top: 90px; background: var(--f-bg); color: var(--f-ink); border-radius: 28px 28px 0 0; }
+.site-foot a { color: inherit; }
+.site-foot svg.i { width: 18px; height: 18px; }
+.sf-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 64px; align-items: center; padding-block: 54px 44px; border-bottom: 1px solid var(--f-line); }
+.sf-brand .brand { margin-bottom: 14px; }
+.sf-brand .brand svg { width: 48px; height: 48px; }
+.sf-brand .brand b { color: #fff; font-size: 24px; }
+.sf-brand .brand small { color: var(--f-mute); font-size: 12.5px; }
+.sf-brand p { margin: 0; max-width: 360px; font-size: 14.5px; line-height: 1.7; color: var(--f-mute); }
+.sf-news label { display: block; margin-bottom: 12px; font-size: 17px; font-weight: 500; }
+.sf-row { display: flex; gap: 8px; padding: 6px; border-radius: 30px; background: var(--f-field); border: 1px solid var(--f-line); }
+.sf-row:focus-within { border-color: var(--f-acc); }
+.sf-row input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--f-ink); padding: 0 16px; font-size: 14.5px; }
+.sf-row input::placeholder { color: var(--f-mute); }
+.sf-row input:focus { outline: none; }
+.sf-row button { height: 42px; padding-inline: 22px; border: 0; border-radius: 22px; background: #fff; color: #14246a; font-size: 14px; font-weight: 600; transition: transform .2s, background .2s; }
+.sf-row button:hover { background: var(--f-acc); transform: scale(1.03); }
+.sf-msg { margin: 10px 0 0; min-height: 20px; font-size: 13px; color: var(--f-acc); }
+.sf-mid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr); gap: 36px 40px; padding-block: 44px 48px; }
+.sf-mid h6 { margin: 0 0 16px; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--f-acc); }
+.sf-mid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; font-size: 14.5px; color: var(--f-mute); }
+.sf-mid ul a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .3s, color .2s; padding-bottom: 2px; }
+.sf-mid ul a:hover { color: #fff; background-size: 100% 1px; }
+.sf-card { border: 1px solid var(--f-line); border-radius: 18px; padding: 22px 22px 20px; background: linear-gradient(160deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0)); }
+.sf-card h6 { margin-bottom: 8px; }
+.sf-card .hrs { margin: 0 0 14px; font-size: 16px; font-weight: 500; }
+.sf-card ul { gap: 10px; }
+.sf-card li { display: flex; align-items: center; gap: 12px; overflow-wrap: anywhere; }
+.sf-card li svg { color: var(--f-acc); }
+.sf-bot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 20px 26px; border-top: 1px solid var(--f-line); font-size: 12.5px; color: var(--f-mute); }
+.sf-bot nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.sf-bot a:hover { color: #fff; }
+.sf-demo { flex: 1 0 100%; font-size: 12px; opacity: .8; }
+@media (max-width: 900px) {
+  .sf-top { grid-template-columns: minmax(0, 1fr); padding-block: 40px 32px; }
+  .sf-mid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-card { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .sf-mid { grid-template-columns: minmax(0, 1fr); }
+  .sf-row button { padding-inline: 16px; }
+}
+@media (max-width: 820px) {
+  .top .wrap { flex-wrap: wrap; }
+  .top-search { width: 100%; height: 48px; order: 3; margin-bottom: 6px; }
+  .menu { margin-inline: 0; flex: 1; justify-content: flex-end; }
+  .menu a { height: 52px; font-size: 14px; }
+  .notice h2 { font-size: 21px; }
+  .notice p { font-size: 16px; }
+  .pdp { margin-top: 48px; padding: 32px 22px 32px; }
+  .crumbs { margin-bottom: 32px; }
+  .top-row { grid-template-columns: minmax(0, 1fr); }
+  .media { order: -1; }
+  .rel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .menu { order: 4; flex: 1 0 100%; justify-content: flex-start; }
+  .buy-row { flex-direction: column; }
+  .qty { width: 100%; }
+  .rel-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .add, .chips button, .tab-list button { transition: background .15s, border-color .15s, color .15s; }
+}
+
+/* phone polish */
+@media (max-width: 480px) { .top .menu { gap: 4px 11px; } .top .menu a { font-size: 12px; } }
+@media (max-width: 640px) {
+  .menu { gap: 4px 14px; }
+  .menu a { font-size: 12.5px; }
+  .sf-mid ul { gap: 0; }
+  .sf-mid ul a { display: inline-block; padding-block: 8px; }
+  .sf-bot a { display: inline-block; padding-block: 10px; }
+  .notice button { top: 4px; right: 4px; width: 44px; height: 44px; }
+  .chips button { height: 42px; }
+  .crumbs a { padding-block: 8px; }
+  .chips.center { justify-content: flex-start; }
+  .tab-list { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; gap: 26px; scrollbar-width: none; }
+  .tab-list button { white-space: nowrap; }
+  .qty { height: 58px; }
+  .add { flex: none; width: 100%; height: 58px; }
+  .qty .step { width: 44px; }
+  .tab-list button { padding-block: 14px; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-caret" viewBox="0 0 12 12"><path d="M1 3h10L6 9Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3.500 10 12 3.500 20.500 10v9.500a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="m4 10.500 8 6 8-6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M12 3.500a8.500 8.500 0 0 0-7.300 12.800L3.500 20.500l4.300-1.100A8.500 8.500 0 1 0 12 3.500Z"/><path d="M9 9.500c.3 2.600 2.900 5.200 5.500 5.500l1.200-1.500-2-1-1 .8a4.300 4.300 0 0 1-1.800-1.800l.8-1-1-2Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M12 7v5.500l3.500 2"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="Newlandss Pharmacy home">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="var(--accent)"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="var(--surface)"/></svg>
+      <span><b>Newlandss</b><small>Pharmacy</small></span>
+    </a>
+    <nav class="menu" aria-label="Main">
+      <a href="#">Shop <svg class="i"><use href="#i-caret"/></svg></a>
+      <a href="#">Checkout</a>
+      <a href="#">Cart<span id="cartn" style="margin-left:6px"></span></a>
+      <a href="#">My Account</a>
+    </nav>
+    <div class="top-search"><input id="top-q" type="search" placeholder="Search Product" aria-label="Search product"></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="notice" id="notice" role="note">
+    <h2>Order Assistance</h2>
+    <p>Need help placing an order? Email hello@example.com and we will assist you shortly.</p>
+    <button type="button" id="notice-x" aria-label="Dismiss notice"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+
+  <main>
+    <article class="pdp">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Home</a><svg class="i"><use href="#i-next"/></svg>
+        <a href="productPage.html">Products</a><svg class="i"><use href="#i-next"/></svg>
+        <span id="breadcrumbProduct">Loading...</span>
+      </nav>
+
+      <div class="top-row">
+        <div class="media" id="productMedia">
+          <img id="productImage" src="" alt="" loading="eager" hidden>
+          <div id="imageFallback" class="image-fallback" aria-hidden="true">Medicine</div>
+        </div>
+
+        <div class="buy">
+          <h1 id="productTitle">Loading product...</h1>
+          <p id="productDescriptionShort" class="product-short-description"></p>
+          
+          <p class="hint" id="hint" aria-live="polite"></p>
+          <div class="meta" id="productMeta">
+            <div><b>Category ID:</b> <span id="productCategory">—</span></div>
+            <div id="productPackagingRow" hidden><b>Packaging:</b> <span id="productPackaging"></span></div>
+          </div>
+        </div>
+
+        <section class="variant-section" aria-labelledby="variantHeading">
+            <!-- <h2 id="variantHeading">Available strengths and pack sizes</h2> -->
+            <!-- <p class="variant-intro">Choose the exact strength and pack size you need. Prices are shown for each listed variant and are not multiplied by the pack quantity.</p> -->
+            <div id="variantStatus" class="variant-status" aria-live="polite">Loading variants...</div>
+            <div class="variant-table-wrap">
+              <table class="variant-table">
+                <thead><tr><th>Pack quantity</th><th>Strength</th><th>Price per box</th><th>Price per pill</th><th>Delivery</th><th></th></tr></thead>
+                <tbody id="variantRows"></tbody>
+              </table>
+            </div>
+          </section>
+      </div>
+
+      <section class="tabs" aria-label="Product details">
+        <div class="tab-list" role="tablist">
+          <button type="button" role="tab" id="t-desc" aria-selected="true" aria-controls="p-desc">Description</button>
+          <button type="button" role="tab" id="t-use" aria-selected="false" aria-controls="p-use">How to use</button>
+          <button type="button" role="tab" id="t-info" aria-selected="false" aria-controls="p-info">Details</button>
+        </div>
+        <div class="panel" id="p-desc" role="tabpanel" aria-labelledby="t-desc">
+          <p id="descriptionText">Product description will appear here.</p>
+        </div>
+        <div class="panel" id="p-use" role="tabpanel" aria-labelledby="t-use" hidden>
+          <p id="usageText">Usage instructions will appear here when available.</p>
+        </div>
+        <div class="panel" id="p-info" role="tabpanel" aria-labelledby="t-info" hidden>
+          <table>
+            <tr><th>Trade names</th><td id="detailsTradeNames">—</td></tr>
+            <tr><th>Ingredients</th><td id="detailsIngredients">—</td></tr>
+            <tr><th>Manufacturer</th><td id="detailsManufacturer">—</td></tr>
+            <tr><th>Drug interactions</th><td id="detailsInteractions">—</td></tr>
+            <tr><th>Side effects</th><td id="detailsSideEffects">—</td></tr>
+            <tr><th>Warnings / precautions</th><td id="detailsSafety">—</td></tr>
+            <tr><th>Storage</th><td id="detailsStorage">—</td></tr>
+          </table>
+        </div>
+      </section>
+    </article>
+
+    <!-- <section class="rel" aria-labelledby="relh">
+      <h3 id="relh">You may also like</h3>
+      <div class="rel-grid">
+        <a href="#">
+          <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M60 14h80l-6 28H66Z" fill="#2c3a63"/><path d="M66 42h68l-4 148H70Z" fill="#f2d36b"/><rect x="76" y="86" width="48" height="56" rx="4" fill="#fff" opacity=".92"/><rect x="83" y="98" width="34" height="5" rx="2.500" fill="#2c3a63" opacity=".7"/></svg>
+          <b>Mineral Sunscreen SPF 50</b><span>₹449 – ₹749</span>
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M74 48c0-8 8-10 26-10s26 2 26 10v130c0 6-5 10-11 10H85c-6 0-11-4-11-10Z" fill="#e8c9a0"/><rect x="82" y="16" width="36" height="22" rx="5" fill="#2c3a63"/><rect x="82" y="90" width="36" height="52" rx="4" fill="#fff" opacity=".92"/><rect x="88" y="102" width="24" height="5" rx="2.500" fill="#2c3a63" opacity=".7"/></svg>
+          <b>Oat Milk Body Lotion</b><span>₹349 – ₹579</span>
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M60 14h80l-6 28H66Z" fill="#2c3a63"/><path d="M66 42h68l-4 148H70Z" fill="#9fd6c0"/><rect x="76" y="86" width="48" height="56" rx="4" fill="#fff" opacity=".92"/><rect x="83" y="98" width="34" height="5" rx="2.500" fill="#2c3a63" opacity=".7"/></svg>
+          <b>Aloe Hand Cream</b><span>₹179 – ₹299</span>
+        </a>
+      </div>
+    </section> -->
+  </main>
+</div>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="sf-top">
+      <div class="sf-brand">
+        <a class="brand" href="#">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="#9dbbff"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="#0f1a40"/></svg>
+          <span><b>Newlandss</b><small>Pharmacy</small></span>
+        </a>
+        <p>Simple self-care and home essentials, delivered.</p>
+      </div>
+      <form class="sf-news" id="sf-news">
+        <label for="sf-mail">Get health tips and offers in your inbox</label>
+        <div class="sf-row">
+          <input id="sf-mail" type="email" placeholder="Your email address" autocomplete="email" required>
+          <button type="submit">Subscribe</button>
+        </div>
+        <p class="sf-msg" id="sf-msg" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="sf-mid">
+      <nav aria-label="Shop links">
+        <h6>Shop</h6>
+        <ul><li><a href="#">All products</a></li><li><a href="#">Checkout</a></li><li><a href="#">Cart</a></li><li><a href="#">My account</a></li></ul>
+      </nav>
+      <nav aria-label="Help links">
+        <h6>Help</h6>
+        <ul><li><a href="#">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">Refunds and returns</a></li><li><a href="#">FAQs</a></li></ul>
+      </nav>
+      <nav aria-label="Company links">
+        <h6>Company</h6>
+        <ul><li><a href="#">About us</a></li><li><a href="#">Privacy policy</a></li><li><a href="#">Terms of use</a></li></ul>
+      </nav>
+      <div class="sf-card">
+        <h6>Talk to us</h6>
+        <p class="hrs">Mon to Sat, 9:00 AM to 5:00 PM</p>
+        <ul>
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10 12 3.5 20.5 10v9.5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="m4 10.5 8 6 8-6"/></svg><span>hello@example.com</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.4 4-2 1.3a11 11 0 0 0 5.3 5.3l1.3-2 4 1.4v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2Z"/></svg><span>+91 00000 00000</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-bot">
+      <span>© 2026 Newlandss Pharmacy. All rights reserved.</span>
+      <nav aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></nav>
+      <span class="sf-demo">Demo storefront with dummy products and placeholder contact details. Not a real pharmacy.</span>
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  var f = document.getElementById('sf-news'); if (!f) return;
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('sf-msg').textContent = 'Thanks for subscribing. This is a demo, so no email was saved.';
+    f.querySelector('input').value = '';
+  });
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var product = null;
+  var variants = [];
+  var text = function (value) {
+    return value === null || value === undefined || String(value).trim() === "" ? "—" : String(value);
+  };
+  var esc = function (value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  };
+  var safeImage = function (value) {
+    if (!value) return "";
+    try {
+      var url = new URL(String(value), window.location.href);
+      return url.protocol === "http:" || url.protocol === "https:" ? url.href : "";
+    } catch (_) { return ""; }
+  };
+  var effectivePrice = function (variant) {
+    return variant.offer_price !== null && variant.offer_price !== undefined &&
+      String(variant.offer_price).trim() !== "" ? variant.offer_price : variant.price_per_box;
+  };
+  var numericPrice = function (value) {
+    var n = Number(String(value == null ? "" : value).replace(/[^0-9.-]/g, ""));
+    return Number.isFinite(n) ? n : 0;
+  };
+  var strength = function (v) {
+    return [v.unit_value, v.unit_type].filter(function (part) {
+      return part !== null && part !== undefined && String(part).trim() !== "";
+    }).join(" ").trim() || "—";
+  };
+  var quantity = function (v) {
+    return v.qty !== null && v.qty !== undefined && String(v.qty).trim() !== "" ? String(v.qty) : "1";
+  };
+  function setText(id, value) { var el = $(id); if (el) el.textContent = text(value); }
+  function setParagraph(id, value) {
+    var el = $(id);
+    if (el) el.textContent = value && String(value).trim() ? String(value) : "No information available.";
+  }
+  function renderProduct() {
+    var name = text(product.product_name);
+    document.title = name + " | Syncore Pharmacy";
+    setText("productTitle", name);
+    setText("breadcrumbProduct", name);
+    setText("productCategory", product.category_id);
+    setParagraph("descriptionText", product.product_description);
+    setParagraph("usageText", product.usage_instructions || product.how_to_use);
+    setText("detailsTradeNames", product.trade_names);
+    setText("detailsIngredients", product.ingredients);
+    setText("detailsManufacturer", product.manufacturer || product.manufactured_by);
+    setText("detailsInteractions", product.drug_interaction);
+    setText("detailsSideEffects", product.side_effects);
+    setText("detailsSafety", product.safety || product.warnings_precautions);
+    setText("detailsStorage", product.storage);
+    var packaging = product.packaging || product.packaging_details;
+    $("productPackagingRow").hidden = !packaging;
+    setText("productPackaging", packaging);
+    $("productDescriptionShort").textContent = product.product_description || "";
+    var imageUrl = safeImage(product.image_url || product.primary_img || product.primary_image);
+    if (imageUrl) {
+      $("productImage").src = imageUrl;
+      $("productImage").alt = name;
+      $("productImage").hidden = false;
+      $("imageFallback").hidden = true;
+      $("productImage").onerror = function () {
+        $("productImage").hidden = true;
+        $("imageFallback").hidden = false;
+      };
+    } else {
+      $("productImage").hidden = true;
+      $("imageFallback").hidden = false;
+    }
+  }
+  function renderVariants() {
+    var sorted = variants.slice().sort(function (a, b) {
+      var qa = Number(a.qty) || 0, qb = Number(b.qty) || 0;
+      if (qa !== qb) return qa - qb;
+      var sa = Number(a.unit_value) || 0, sb = Number(b.unit_value) || 0;
+      if (sa !== sb) return sa - sb;
+      return String(a.unit_type || "").localeCompare(String(b.unit_type || ""));
+    });
+    $("variantStatus").textContent = sorted.length
+      ? sorted.length + " available variant" + (sorted.length === 1 ? "" : "s")
+      : "No variants are available for this product.";
+    var tbody = $("variantRows");
+    tbody.innerHTML = "";
+    if (!sorted.length) {
+      tbody.innerHTML = '<tr><td class="empty-variants" colspan="6">No pricing variants found.</td></tr>';
+      return;
+    }
+    sorted.forEach(function (variant, index) {
+      // Use an index as the button key if variation_id is absent from older schemas.
+      var key = variant.variation_id == null ? "row-" + index : String(variant.variation_id);
+      variant.__pageKey = key;
+      var price = effectivePrice(variant);
+      var oldPrice = variant.offer_price !== null && variant.offer_price !== undefined &&
+        String(variant.offer_price).trim() !== "" ? variant.price_per_box : "";
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        '<td class="variant-pills">' + esc(quantity(variant)) + '</td>' +
+        '<td class="variant-strength">' + esc(strength(variant)) + '</td>' +
+        '<td class="variant-price">' + (oldPrice ? '<span class="old-price">' + esc(oldPrice) + '</span>' : '') + esc(text(price)) + '</td>' +
+        '<td>' + esc(text(variant.price_per_pill)) + '</td>' +
+        '<td>' + esc(text(variant.delivery_time)) + '</td>' +
+        '<td><button type="button" class="buy-variant" data-variant-key="' + esc(key) + '">BUY</button></td>';
+      tbody.appendChild(tr);
+    });
+  }
+  async function addToCart(variant, button) {
+    if (!product || !variant) return;
+    var originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = "Adding...";
+    $("hint").textContent = "";
+    try {
+      var selectedPrice = effectivePrice(variant);
+      var response = await fetch("/add-to-cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          productId: product.product_id,
+          categoryId: product.category_id,
+          name: product.product_name,
+          // Match product_overview.html: quantity is this variant's pack count, not a price multiplier.
+          quantity: quantity(variant),
+          mg: variant.unit_value == null ? "" : String(variant.unit_value),
+          // Store the selected variant's box price once; do not multiply by qty.
+          price: numericPrice(selectedPrice),
+          image_url: product.image_url || product.primary_img || product.primary_image || ""
+        })
+      });
+      var result = await response.json().catch(function () { return {}; });
+      if (!response.ok || !result.success) throw new Error(result.message || "Failed to add product.");
+      $("hint").textContent = "Added " + product.product_name + " (" + strength(variant) +
+        ", pack of " + quantity(variant) + ") at " + text(selectedPrice) + ".";
+      alert("Product added to cart successfully!");
+      window.location.href = "/cart";
+    } catch (error) {
+      console.error("Add to cart failed:", error);
+      $("hint").textContent = error.message || "Unable to add this variant to cart. Please try again.";
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+  }
+  async function loadProduct() {
+    var productId = new URLSearchParams(window.location.search).get("product_ID");
+    if (!productId || !/^\d+$/.test(productId)) {
+      $("productTitle").textContent = "Product Not Found";
+      $("variantStatus").textContent = "A valid product_ID is required in the URL.";
+      $("variantRows").innerHTML = '<tr><td class="empty-variants" colspan="6">Open this page using a product link.</td></tr>';
+      return;
+    }
+    try {
+      var response = await fetch("/api/product?product_ID=" + encodeURIComponent(productId), {
+        credentials: "include",
+        headers: { "Accept": "application/json" }
+      });
+      var data = await response.json().catch(function () { return {}; });
+      if (!response.ok || !data.product) throw new Error(response.status === 404 ? "Product not found." : (data.error || "Unable to load product."));
+      product = data.product;
+      variants = Array.isArray(data.variants) ? data.variants : [];
+      renderProduct();
+      renderVariants();
+    } catch (error) {
+      console.error("Product load failed:", error);
+      $("productTitle").textContent = "Unable to Load Product";
+      $("variantStatus").textContent = error.message || "Please refresh and try again.";
+      $("variantRows").innerHTML = '<tr><td class="empty-variants" colspan="6">Product details could not be loaded.</td></tr>';
+    }
+  }
+  $("variantRows").addEventListener("click", function (event) {
+    var button = event.target.closest(".buy-variant");
+    if (!button) return;
+    var variant = variants.find(function (item) {
+      return item.__pageKey === button.dataset.variantKey;
+    });
+    if (variant) addToCart(variant, button);
+  });
+  var tabs = ["desc", "use", "info"];
+  document.querySelector(".tab-list").addEventListener("click", function (event) {
+    var button = event.target.closest("button[role='tab']");
+    if (!button) return;
+    tabs.forEach(function (tab) {
+      var selected = button.id === "t-" + tab;
+      $("t-" + tab).setAttribute("aria-selected", String(selected));
+      $("p-" + tab).hidden = !selected;
+    });
+  });
+  $("notice-x").addEventListener("click", function () { $("notice").hidden = true; });
+  loadProduct();
+})();
+</script>
+
+</body></html>

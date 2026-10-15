@@ -222,14 +222,14 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#" aria-label="Newlandss Pharmacy home">
+    <a class="brand" href="index.html" aria-label="Newlandss Pharmacy home">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="var(--accent)"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="var(--surface)"/></svg>
       <span><b>Newlandss</b><small>Pharmacy</small></span>
     </a>
     <nav class="menu" aria-label="Main">
-      <a href="#">Shop <svg class="i"><use href="#i-caret"/></svg></a>
-      <a href="#">Checkout</a>
-      <a href="#" aria-current="page">Cart</a>
+      <a href="productPage.html">Shop <svg class="i"><use href="#i-caret"/></svg></a>
+      <a href="checkout.html">Checkout</a>
+      <a href="cart.html" aria-current="page">Cart</a>
       <a href="#">My Account</a>
     </nav>
     <div class="top-search"><input id="top-q" type="search" placeholder="Search Product" aria-label="Search product"></div>
@@ -290,7 +290,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
   <div class="wrap">
     <div class="sf-top">
       <div class="sf-brand">
-        <a class="brand" href="#">
+        <a class="brand" href="index.html">
           <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="#9dbbff"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="#0f1a40"/></svg>
           <span><b>Newlandss</b><small>Pharmacy</small></span>
         </a>
@@ -308,11 +308,11 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
     <div class="sf-mid">
       <nav aria-label="Shop links">
         <h6>Shop</h6>
-        <ul><li><a href="#">All products</a></li><li><a href="#">Checkout</a></li><li><a href="#">Cart</a></li><li><a href="#">My account</a></li></ul>
+        <ul><li><a href="productPage.html">All products</a></li><li><a href="checkout.html">Checkout</a></li><li><a href="cart.html">Cart</a></li><li><a href="#">My account</a></li></ul>
       </nav>
       <nav aria-label="Help links">
         <h6>Help</h6>
-        <ul><li><a href="#">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">Refunds and returns</a></li><li><a href="#">FAQs</a></li></ul>
+        <ul><li><a href="index.html#contact">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">Refunds and returns</a></li><li><a href="#">FAQs</a></li></ul>
       </nav>
       <nav aria-label="Company links">
         <h6>Company</h6>
@@ -387,7 +387,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
       ? '<img src="' + esc(item.image) + '" alt="' + esc(item.name) + '" style="width:100%;height:100%;object-fit:contain" onerror="this.style.display=\'none\'">'
       : '<span aria-hidden="true" style="font-size:28px">💊</span>';
     var productHref = item.product_id
-      ? 'product_overview.html?product_ID=' + encodeURIComponent(item.product_id)
+      ? 'medicinePage.html?product_ID=' + encodeURIComponent(item.product_id)
       : '#';
     var option = (item.mg ? esc(item.mg) + ' MG' : '') + (qty ? (item.mg ? ' · ' : '') + 'Pack quantity: ' + esc(qty) : '');
     return '<li class="item" data-id="' + esc(item.id) + '">' +
@@ -405,7 +405,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
         '<td style="padding:12px 6px;border-bottom:1px solid var(--line)"><strong>' + esc(method.name) + '</strong><br><small style="color:var(--muted)">' + esc(method.sub) + '</small></td>' +
         '<td style="padding:12px 6px;border-bottom:1px solid var(--line)">-</td>' +
         '<td style="padding:12px 6px;border-bottom:1px solid var(--line);white-space:nowrap">' + money(total, currency) + '</td>' +
-        '<td style="padding:12px 6px;border-bottom:1px solid var(--line)"><a href="checkout1.html" aria-label="Checkout with ' + esc(method.name) + '">' +
+        '<td style="padding:12px 6px;border-bottom:1px solid var(--line)"><a href="checkout.html" aria-label="Checkout with ' + esc(method.name) + '">' +
         '<img src="' + esc(method.logo) + '" alt="' + esc(method.alt) + '" style="width:82px;max-height:42px;object-fit:contain;vertical-align:middle"></a></td>' +
         '</tr>';
     }).join('');

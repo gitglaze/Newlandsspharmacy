@@ -272,8 +272,8 @@ app.post("/api/checkout", async (req, res) => {
         port: 465,
         secure: true,
         auth: {
-          user: "support@syncorepharmacy.com",
-          pass: "Syn123@office",
+          user: "support@newlandsspharmacy.com",
+          pass: "Newlandemail@123",
         },
       });
 const currency = cartItems.currency;
@@ -301,7 +301,7 @@ const currency = cartItems.currency;
               </head>
               <body>
                   <div class="header">
-                      <h1>Order Confirmation - Syncore Pharmacy</h1>
+                      <h1>Order Confirmation - NewssPharmacy</h1>
                       <p>Thank you for your order, ${firstName} ${lastName}!</p>
                   </div>
                   <div class="content">
@@ -354,21 +354,21 @@ const currency = cartItems.currency;
                       <p><strong>WhatsApp:</strong> +91 887 920 1044</p>
                       <p><strong>Email:</strong> customerinfo2024@gmail.com</p>
                       <p><em>This is an automated confirmation email.</em></p>
-                      <p>© ${new Date().getFullYear()} Syncore Pharmacy. All rights reserved.</p>
+                      <p>© ${new Date().getFullYear()} NewssPharmacy. All rights reserved.</p>
                   </div>
               </body>
               </html>
         `;
       const mailOptions = {
-        from: '"Syncore Pharmacy" <support@syncorepharmacy.com>',
+        from: '"NewssPharmacy" <support@newlandsspharmacy.com>',
         to: email,
-        subject: "Order Confirmation - Syncore Pharmacy",
+        subject: "Order Confirmation - NewssPharmacy",
         html: htmlBody,
       };
 
       await transporter.sendMail(mailOptions);
       // 5️⃣ SAVE EMAIL INTO “Sent” FOLDER using IMAP
-      const rawEmail = `From: "Syncore Pharmacy" <support@syncorepharmacy.com>
+      const rawEmail = `From: "NewssPharmacy" <support@newlandsspharmacy.com>
 To: ${email}
 Subject: Order Confermation
 Content-Type: text/html; charset=UTF-8
@@ -378,8 +378,8 @@ ${htmlBody}
 
       const imapConfig = {
         imap: {
-          user: "support@syncorepharmacy.com",
-          password: "Syn123@office",
+          user: "support@newlandsspharmacy.com",
+          password: "Newlandemail@123",
           host: "imap.hostinger.com",
           port: 993,
           tls: true,
@@ -665,8 +665,8 @@ app.post("/api/manual-order", async (req, res) => {
         port: 465,
         secure: true,
         auth: {
-          user: "support@syncorepharmacy.com",
-          pass: "Syn123@office",
+          user: "support@newlandsspharmacy.com",
+          pass: "Newlandemail@123",
         },
       });
 
@@ -694,7 +694,7 @@ app.post("/api/manual-order", async (req, res) => {
             </head>
             <body>
                 <div class="header">
-                    <h1>Order Confirmation - Syncore Pharmacy</h1>
+                    <h1>Order Confirmation - NewssPharmacy</h1>
                     <p>Thank you for your order, ${firstName} ${lastName}!</p>
                 </div>
                 <div class="content">
@@ -746,22 +746,22 @@ app.post("/api/manual-order", async (req, res) => {
                     <p><strong>WhatsApp:</strong> +91 887 920 1044</p>
                     <p><strong>Email:</strong> customerinfo2024@gmail.com</p>
                     <p><em>This is an automated confirmation email.</em></p>
-                    <p>© ${new Date().getFullYear()} Syncore Pharmacy. All rights reserved.</p>
+                    <p>© ${new Date().getFullYear()} NewssPharmacy. All rights reserved.</p>
                 </div>
             </body>
             </html>
         `;
       const mailOptions = {
-        from: '"Syncore Pharmacy" <support@syncorepharmacy.com>',
+        from: '"NewssPharmacy" <support@newlandsspharmacy.com>',
         to: email,
-        subject: "Order Confirmation - Syncore Pharmacy",
+        subject: "Order Confirmation - NewssPharmacy",
         html: htmlBody,
       };
 
       await transporter.sendMail(mailOptions);
 
       // 5️⃣ SAVE EMAIL INTO “Sent” FOLDER using IMAP
-      const rawEmail = `From: "Syncore Pharmacy" <support@syncorepharmacy.com>
+      const rawEmail = `From: "NewssPharmacy" <support@newlandsspharmacy.com>
 To: ${email}
 Subject: Order Confermation
 Content-Type: text/html; charset=UTF-8
@@ -771,8 +771,8 @@ ${htmlBody}
 
       const imapConfig = {
         imap: {
-          user: "support@syncorepharmacy.com",
-          password: "Syn123@office",
+          user: "support@newlandsspharmacy.com",
+          password: "Newlandemail@123",
           host: "imap.hostinger.com",
           port: 993,
           tls: true,
@@ -1853,15 +1853,15 @@ app.get("/api/orders/by-email/:email", async (req, res) => {
 //         port: 465,
 //         secure: true,
 //         auth: {
-//           user: "support@syncorepharmacy.com",
-//           pass: "Syn123@office",
+//           user: "support@newlandsspharmacy.com",
+//           pass: "Newlandemail@123",
 //       },
 //     });
 
 //     //want to update
 //     // Send email
 //     await transporter.sendMail({
-//       from: '"Mcland Pharma" <support@syncorepharmacy.com>',
+//       from: '"Mcland Pharma" <support@newlandsspharmacy.com>',
 //       to: email,
 //       subject: "Your Order has been Shipped",
 //       text: `Hello ${name},\n\nYour order #${orderId} has been shipped.\nTracking Number: ${trackingNumber}\n\nThank you for shopping with us!`,
@@ -1930,7 +1930,7 @@ app.post("/api/orders/:orderId/send-tracking", async (req, res) => {
                 </p>
 
                 <p style="margin:0 0 15px;">
-                  Thank you for placing an order with <strong>Syncore Pharmacy</strong>.  
+                  Thank you for placing an order with <strong>NewssPharmacy</strong>.  
                   Below are your order details:
                 </p>
 
@@ -1951,7 +1951,7 @@ app.post("/api/orders/:orderId/send-tracking", async (req, res) => {
 
                 <p style="margin:0;">
                   Thank you!  
-                  <br><strong>Syncore Pharmacy</strong>
+                  <br><strong>NewssPharmacy</strong>
                 </p>
               </td>
             </tr>
@@ -1961,7 +1961,7 @@ app.post("/api/orders/:orderId/send-tracking", async (req, res) => {
               <td align="center" 
                   style="background:#fafafa;padding:18px;color:#777;font-size:12px;line-height:18px;">
                 This is an automated email. Please do not reply.<br>
-                © 2025 Syncore Pharmacy. All rights reserved.
+                © 2025 NewssPharmacy. All rights reserved.
               </td>
             </tr>
 
@@ -1980,21 +1980,21 @@ app.post("/api/orders/:orderId/send-tracking", async (req, res) => {
       port: 465,
       secure: true,
       auth: {
-        user: "support@syncorepharmacy.com",
-        pass: "Syn123@office",
+        user: "support@newlandsspharmacy.com",
+        pass: "Newlandemail@123",
       },
     });
 
     // 4️⃣ Send Email
     await transporter.sendMail({
-      from: '"Syncore Pharmacy" <support@syncorepharmacy.com>',
+      from: '"NewssPharmacy" <support@newlandsspharmacy.com>',
       to: email,
       subject: "Your Order Has Been Shipped",
       html: htmlBody,
     });
 
     // 5️⃣ SAVE EMAIL INTO “Sent” FOLDER using IMAP
-    const rawEmail = `From: "Syncore Pharmacy" <support@syncorepharmacy.com>
+    const rawEmail = `From: "NewssPharmacy" <support@newlandsspharmacy.com>
 To: ${email}
 Subject: Your Order Has Been Shipped
 Content-Type: text/html; charset=UTF-8
@@ -2004,8 +2004,8 @@ ${htmlBody}
 
     const imapConfig = {
       imap: {
-        user: "support@syncorepharmacy.com",
-        password: "Syn123@office",
+        user: "support@newlandsspharmacy.com",
+        password: "Newlandemail@123",
         host: "imap.hostinger.com",
         port: 993,
         tls: true,
@@ -2376,7 +2376,7 @@ async function generateSQLDump() {
   ];
 
   let sqlDump = `-- ====================================================\n`;
-  sqlDump += `-- Syncore Pharmacy Database Backup\n`;
+  sqlDump += `-- NewssPharmacy Database Backup\n`;
   sqlDump += `-- Generated: ${new Date().toISOString()}\n`;
   sqlDump += `-- Compatible with: PostgreSQL, MySQL, SQLite, SQL Server\n`;
   sqlDump += `-- Total Tables: ${tables.length}\n`;

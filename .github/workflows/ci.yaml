@@ -22,5 +22,7 @@ jobs:
           username: mclanduser
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd apps/Syncore_Pharmacy
-            echo " hiii "
+            cd apps/Newlandsspharmacy/
+            git pull origin main
+            npm install
+            pm2 restart newlandsspharmacy

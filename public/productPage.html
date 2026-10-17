@@ -86,7 +86,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .badge { align-self: flex-start; background: var(--accent); color: var(--on-accent); font-size: 14px; font-weight: 600; padding: 6px 17px; border-radius: 2px; }
 .thumb { width: calc(100% + 38px); margin: 6px -19px 18px; height: 260px; display: grid; place-items: center; }
 .thumb svg { width: 74%; height: 100%; }
-.thumb img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 12px; }
+.thumb img { width: 100%; height: 200px; object-fit: contain; display: block; padding: 12px; }
 .card .badge, .opt-label, .opts, .price { display: none !important; }
 .card h3 { margin: auto 0 10px; font-size: 20px; font-weight: 500; line-height: 1.35; text-wrap: balance; }
 .product-category { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
@@ -433,6 +433,17 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
     });
   }
 
+  var isStock = function(product,id){
+    const stocks = product.stocks;
+    if(stocks == 1){
+      return '<button class="add" type="button" data-product-id="' + escapeHTML(id) + '">View product</button>';
+    }
+    else{
+      return '<button class="add" type="button">Out of Stock</button>';
+    }
+  };
+
+
   function renderCategories() {
     var counts = Object.create(null);
     products.forEach(function (product) {
@@ -449,13 +460,49 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
     function button(value, label, count) {
       return '<li><button type="button" data-category="' + escapeHTML(value) +
         '" aria-pressed="' + (state.category === value) + '">' +
-        escapeHTML(label) + ' (' + count + ')</button></li>';
+        escapeHTML(label) + '</button></li>';
     }
 
+    // Reorder categoryIds so that 1 is first, 11 is second, and the rest follow
+    const orderedIds = [1, 11, ...categoryIds.filter(id => id != 1 && id != 11)];
+
     $('cats').innerHTML = button('all', 'All products', products.length) +
-      categoryIds.map(function (id) {
+      orderedIds.map(function (id) {
+        if(id == 1){
+          return button(id, 'USA Premium ');
+        }
+        if(id == 11){
+          return button(id, 'UK Premium ');
+        }
+        if(id == 2){
+          return button(id, 'General Health ');
+        }
+        if(id == 3){
+          return button(id, 'Pain Relife ');
+        }
+        if(id == 4){
+          return button(id, 'Cardiac Care ');
+        }
+        if(id == 5){
+          return button(id, 'Mental Health ');
+        }
+        if(id == 6){
+          return button(id, 'Sexual Wellness ');
+        }
+        if(id == 7){
+          return button(id, 'Skin Care ');
+        }
+        if(id == 8){
+          return button(id, 'Steroids ');
+        }
+        if(id == 9){
+          return button(id, 'Women Health ');
+        }
+        if(id == 10){
+          return button(id, `Men's Health `);
+        }
         return button(id, 'Category ' + id, counts[id]);
-      }).join('');
+      }).join(' ');
   }
 
   function render() {
@@ -481,8 +528,8 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
         return '<article class="card" data-id="' + escapeHTML(id) + '">' +
           imageMarkup(product) +
           '<h3>' + escapeHTML(productName(product)) + '</h3>' +
-          '<p class="product-category">Category ' + escapeHTML(productCategory(product)) + '</p>' +
-          '<button class="add" type="button" data-product-id="' + escapeHTML(id) + '">View product</button>' +
+          // '<p class="product-category">Category ' + escapeHTML(productCategory(product)) + '</p>' +
+          isStock(product,id) +
           '</article>';
       }).join('') : '<p class="empty">No products match your search or category.</p>';
     }

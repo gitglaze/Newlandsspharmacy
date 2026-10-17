@@ -367,7 +367,6 @@ section[id] { scroll-margin-top: 84px; }
 
 <div class="strip">
   <div class="wrap">
-    <span><svg class="i"><use href="#i-truck"/></svg>Free shipping on orders above ₹999</span>
     <div class="group">
       <span><svg class="i"><use href="#i-shield"/></svg>Pharmacist-checked orders</span>
       <span><svg class="i"><use href="#i-lock"/></svg>Secure payments</span>
@@ -848,6 +847,7 @@ section[id] { scroll-margin-top: 84px; }
     drawCatalog();
   });
   $("q").addEventListener("input", function (e) {
+     $("catalog").scrollIntoView({ behavior: "smooth" });
     query = e.target.value.trim();
     if (query && !open) setCatalog(true, true);
     else if (open) drawCatalog();

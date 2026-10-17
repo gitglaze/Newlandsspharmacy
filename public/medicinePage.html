@@ -267,7 +267,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
       <a href="cart.html">Cart<span id="cartn" style="margin-left:6px"></span></a>
       <a href="#">My Account</a>
     </nav>
-    <div class="top-search"><input id="top-q" type="search" placeholder="Search Product" aria-label="Search product"></div>
+    <!-- <div class="top-search"><input id="top-q" type="search" placeholder="Search Product" aria-label="Search product"></div> -->
   </div>
 </header>
 
@@ -463,6 +463,16 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
     var el = $(id);
     if (el) el.textContent = value && String(value).trim() ? String(value) : "No information available.";
   }
+  var isStock = function(product){
+    const stocks = product.stocks;
+    if(stocks == 1){
+      return true;
+    }
+    else{
+      return false;
+    }
+  };
+
   function renderProduct() {
     var name = text(product.product_name);
     document.title = name + " | Syncore Pharmacy";
@@ -498,39 +508,46 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
     }
   }
   function renderVariants() {
-    var sorted = variants.slice().sort(function (a, b) {
-      var qa = Number(a.qty) || 0, qb = Number(b.qty) || 0;
-      if (qa !== qb) return qa - qb;
-      var sa = Number(a.unit_value) || 0, sb = Number(b.unit_value) || 0;
-      if (sa !== sb) return sa - sb;
-      return String(a.unit_type || "").localeCompare(String(b.unit_type || ""));
-    });
-    $("variantStatus").textContent = sorted.length
-      ? sorted.length + " available variant" + (sorted.length === 1 ? "" : "s")
-      : "No variants are available for this product.";
-    var tbody = $("variantRows");
-    tbody.innerHTML = "";
-    if (!sorted.length) {
-      tbody.innerHTML = '<tr><td class="empty-variants" colspan="6">No pricing variants found.</td></tr>';
-      return;
+    if (isStock(product) == true){
+      var sorted = variants.slice().sort(function (a, b) {
+        var qa = Number(a.qty) || 0, qb = Number(b.qty) || 0;
+        if (qa !== qb) return qa - qb;
+        var sa = Number(a.unit_value) || 0, sb = Number(b.unit_value) || 0;
+        if (sa !== sb) return sa - sb;
+        return String(a.unit_type || "").localeCompare(String(b.unit_type || ""));
+      });
+      $("variantStatus").textContent = sorted.length
+        ? sorted.length + " available variant" + (sorted.length === 1 ? "" : "s")
+        : "No variants are available for this product.";
+      var tbody = $("variantRows");
+      tbody.innerHTML = "";
+      if (!sorted.length) {
+        tbody.innerHTML = '<tr><td class="empty-variants" colspan="6">No pricing variants found.</td></tr>';
+        return;
+      }
+      sorted.forEach(function (variant, index) {
+        // Use an index as the button key if variation_id is absent from older schemas.
+        var key = variant.variation_id == null ? "row-" + index : String(variant.variation_id);
+        variant.__pageKey = key;
+        var price = effectivePrice(variant);
+        var oldPrice = variant.offer_price !== null && variant.offer_price !== undefined &&
+          String(variant.offer_price).trim() !== "" ? variant.price_per_box : "";
+        var tr = document.createElement("tr");
+        tr.innerHTML =
+          '<td class="variant-pills">' + esc(quantity(variant)) + '</td>' +
+          '<td class="variant-strength">' + esc(strength(variant)) + '</td>' +
+          '<td class="variant-price">' + (oldPrice ? '<span class="old-price">' + esc(oldPrice) + '</span>' : '') + esc(text(price)) + '</td>' +
+          '<td>' + esc(text(variant.price_per_pill)) + '</td>' +
+          '<td>' + esc(text(variant.delivery_time)) + '</td>' +
+          '<td><button type="button" class="buy-variant" data-variant-key="' + esc(key) + '">BUY</button></td>';
+        tbody.appendChild(tr);
+      });
     }
-    sorted.forEach(function (variant, index) {
-      // Use an index as the button key if variation_id is absent from older schemas.
-      var key = variant.variation_id == null ? "row-" + index : String(variant.variation_id);
-      variant.__pageKey = key;
-      var price = effectivePrice(variant);
-      var oldPrice = variant.offer_price !== null && variant.offer_price !== undefined &&
-        String(variant.offer_price).trim() !== "" ? variant.price_per_box : "";
-      var tr = document.createElement("tr");
-      tr.innerHTML =
-        '<td class="variant-pills">' + esc(quantity(variant)) + '</td>' +
-        '<td class="variant-strength">' + esc(strength(variant)) + '</td>' +
-        '<td class="variant-price">' + (oldPrice ? '<span class="old-price">' + esc(oldPrice) + '</span>' : '') + esc(text(price)) + '</td>' +
-        '<td>' + esc(text(variant.price_per_pill)) + '</td>' +
-        '<td>' + esc(text(variant.delivery_time)) + '</td>' +
-        '<td><button type="button" class="buy-variant" data-variant-key="' + esc(key) + '">BUY</button></td>';
-      tbody.appendChild(tr);
-    });
+    else{
+      $("variantStatus").textContent = "This product is currently out of stock.";
+      var tbody = $("variantRows");
+      tbody.innerHTML = '<tr><td class="empty-variants" colspan="6">No variants are available for this product.</td></tr>';
+    }
   }
   async function addToCart(variant, button) {
     if (!product || !variant) return;

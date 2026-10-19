@@ -446,6 +446,9 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 
   function renderCategories() {
     var counts = Object.create(null);
+    products = [...products].sort(
+          (a, b) => Number(b.stocks) - Number(a.stocks),
+        );
     products.forEach(function (product) {
       var category = productCategory(product);
       counts[category] = (counts[category] || 0) + 1;

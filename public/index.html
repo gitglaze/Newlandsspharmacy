@@ -217,12 +217,34 @@ section[id] { scroll-margin-top: 84px; }
 .way b { display: block; font-size: 14.5px; font-weight: 600; }
 .way span { display: block; font-size: 13px; color: var(--muted); line-height: 1.4; overflow-wrap: anywhere; }
 
+/* message us form */
+.msgus { margin-top: 64px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 20px 48px; align-items: center; padding: 40px 40px 40px 34px; box-shadow: 0 1px 0 var(--line); }
+.msgus h2 { margin: 0 0 12px; font-size: 30px; font-weight: 600; letter-spacing: -.5px; }
+.msgus .copy p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.65; max-width: 340px; }
+.msgus form { display: grid; gap: 14px; }
+.msgus .field { display: grid; gap: 6px; }
+.msgus label { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+.msgus input[type="email"], .msgus textarea { width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: 14.5px; transition: border-color .2s, box-shadow .2s; }
+.msgus input[type="email"] { height: 46px; border-radius: 23px; padding: 0 20px; }
+.msgus textarea { min-height: 130px; border-radius: 18px; padding: 14px 20px; resize: vertical; line-height: 1.5; }
+.msgus input::placeholder, .msgus textarea::placeholder { color: var(--muted); }
+.msgus input:focus, .msgus textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.msgus .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.msgus .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.msgus .btn[disabled] { opacity: .7; cursor: not-allowed; transform: none; }
+.msgus .status { margin: 0; min-height: 20px; font-size: 13.5px; color: var(--muted); }
+.msgus .status.ok { color: var(--good); }
+.msgus .status.err { color: #e0475f; }
+@media (max-width: 900px) {
+  .msgus { grid-template-columns: minmax(0, 1fr); padding: 30px 22px; }
+}
+
 /* footer */
 .site-foot { --f-bg: #0f1a40; --f-ink: #eef2ff; --f-mute: #a9b6df; --f-line: rgba(255, 255, 255, .14); --f-acc: #9dbbff; --f-field: rgba(255, 255, 255, .08);
   margin-top: 90px; background: var(--f-bg); color: var(--f-ink); border-radius: 28px 28px 0 0; }
 .site-foot a { color: inherit; }
 .site-foot svg.i { width: 18px; height: 18px; }
-.sf-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 64px; align-items: center; padding-block: 54px 44px; border-bottom: 1px solid var(--f-line); }
+/* .sf-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 64px; align-items: center; padding-block: 54px 44px; border-bottom: 1px solid var(--f-line); } */
 .sf-brand .brand { margin-bottom: 14px; }
 .sf-brand .brand svg { width: 48px; height: 48px; }
 .sf-brand .brand b { color: #fff; font-size: 24px; }
@@ -237,7 +259,7 @@ section[id] { scroll-margin-top: 84px; }
 .sf-row button { height: 42px; padding-inline: 22px; border: 0; border-radius: 22px; background: #fff; color: #14246a; font-size: 14px; font-weight: 600; transition: transform .2s, background .2s; }
 .sf-row button:hover { background: var(--f-acc); transform: scale(1.03); }
 .sf-msg { margin: 10px 0 0; min-height: 20px; font-size: 13px; color: var(--f-acc); }
-.sf-mid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr); gap: 36px 40px; padding-block: 44px 48px; }
+.sf-mid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.5fr); gap: 36px 40px; padding-block: 44px 48px; }
 .sf-mid h6 { margin: 0 0 16px; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--f-acc); }
 .sf-mid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; font-size: 14.5px; color: var(--f-mute); }
 .sf-mid ul a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .3s, color .2s; padding-bottom: 2px; }
@@ -253,7 +275,7 @@ section[id] { scroll-margin-top: 84px; }
 .sf-bot a:hover { color: #fff; }
 .sf-demo { flex: 1 0 100%; font-size: 12px; opacity: .8; }
 @media (max-width: 900px) {
-  .sf-top { grid-template-columns: minmax(0, 1fr); padding-block: 40px 32px; }
+  /* .sf-top { grid-template-columns: minmax(0, 1fr); padding-block: 40px 32px; } */
   .sf-mid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sf-card { grid-column: 1 / -1; }
 }
@@ -289,6 +311,19 @@ section[id] { scroll-margin-top: 84px; }
 .chat-open .i { width: 24px; height: 24px; }
 .chat.closed { display: none; }
 .chat.closed + .chat-open { display: grid; }
+
+.footer-payments {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 12px;
+      }
+      .footer-payments img {
+        width: 24px;
+        height: 24px;
+        background: transparent;
+      }
 
 @media (max-width: 1100px) {
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -368,9 +403,9 @@ section[id] { scroll-margin-top: 84px; }
 <div class="strip">
   <div class="wrap">
     <div class="group">
-      <span><svg class="i"><use href="#i-shield"/></svg>Pharmacist-checked orders</span>
-      <span><svg class="i"><use href="#i-lock"/></svg>Secure payments</span>
-      <span><svg class="i"><use href="#i-undo"/></svg>Easy returns</span>
+      <span><svg class="i"><use href="#i-shield"/></svg>Secure Ordering</span>
+      <span><svg class="i"><use href="#i-lock"/></svg>Easy Payment</span>
+      <span><svg class="i"><use href="#i-undo"/></svg>Express Deliver</span>
     </div>
   </div>
 </div>
@@ -381,6 +416,10 @@ section[id] { scroll-margin-top: 84px; }
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="var(--accent)"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="var(--surface)"/></svg>
       <span><b>Newlandss</b><small>Pharmacy</small></span>
     </a>
+    <div class="top-search">
+      <input id="q" type="search" placeholder="Search medicines, health products" aria-label="Search products" autocomplete="off">
+      <svg class="i"><use href="#i-search"/></svg>
+    </div>
     <nav class="menu" aria-label="Main">
       <a href="#home" aria-current="page">Home</a>
       <a href="productPage.html">Shop</a>
@@ -388,10 +427,6 @@ section[id] { scroll-margin-top: 84px; }
       <a href="cart.html">Cart <span class="badge-n" id="cartn">0</span></a>
       <a href="#">My Account</a>
     </nav>
-    <div class="top-search">
-      <input id="q" type="search" placeholder="Search medicines, health products" aria-label="Search products" autocomplete="off">
-      <svg class="i"><use href="#i-search"/></svg>
-    </div>
   </div>
 </header>
 
@@ -440,11 +475,6 @@ section[id] { scroll-margin-top: 84px; }
       </svg>
       <div class="script">Health<span>Made Easy</span></div>
     </div>
-    <div class="trust in" style="--d:4">
-      <div><svg class="i"><use href="#i-shield"/></svg><span>Pharmacist-<br>verified orders</span></div>
-      <div><svg class="i"><use href="#i-truck"/></svg><span>Tracked<br>delivery</span></div>
-      <div><svg class="i"><use href="#i-headset"/></svg><span>Support<br>by chat or call</span></div>
-    </div>
   </div>
 </section>
 
@@ -452,7 +482,7 @@ section[id] { scroll-margin-top: 84px; }
   <section class="sec" id="featured" aria-labelledby="feat-h">
     <div class="sec-head reveal">
       <div>
-        <h2 id="feat-h">Featured Medicines</h2>
+        <h2 id="feat-h">Best Sellers </h2>
         <p>Popular everyday products, available at your convenience.</p>
       </div>
       <button class="viewall" type="button" data-go-products_category1>View All <svg class="i"><use href="#i-arrow"/></svg></button>
@@ -460,22 +490,11 @@ section[id] { scroll-margin-top: 84px; }
     <div class="grid" id="grid-feat"></div>
   </section>
 
-  <section class="sec" id="best" aria-labelledby="best-h">
-    <div class="sec-head reveal">
-      <div>
-        <h2 id="best-h">Best Sellers <span class="tag">Top picks</span></h2>
-        <p>What other customers add to their cart the most.</p>
-      </div>
-      <button class="viewall" type="button" data-go-products_category11>View All <svg class="i"><use href="#i-arrow"/></svg></button>
-    </div>
-    <div class="grid" id="grid-best"></div>
-  </section>
-
   <section class="cta reveal" aria-labelledby="cta-h">
     <div class="cta-box">
       <p class="k">The full range</p>
       <h2 id="cta-h">Looking for something else?</h2>
-      <p class="s">Browse every product we stock, from pain relief and cold care to vitamins and first aid.</p>
+      <p class="s">Browse every product we stock, from Pain Relief and Anti Anxiety and  Sleep Medication .</p>
       <button class="cta-btn" id="cta-btn" type="button" aria-expanded="false" aria-controls="catalog">
         <span id="cta-label">View All Products</span><svg class="i"><use href="#i-arrow"/></svg>
       </button>
@@ -496,6 +515,29 @@ section[id] { scroll-margin-top: 84px; }
       </section>
     </div>
   </div>
+
+  <section class="msgus reveal" id="message-us" aria-labelledby="msgus-h">
+    <div class="copy">
+      <p class="eyebrow" style="margin-bottom:10px;font-size:13px">Write to us</p>
+      <h2 id="msgus-h">Send us a message</h2>
+      <p>Share your email and your question, and our team will get back to you.</p>
+    </div>
+    <form id="contact-form" novalidate>
+      <div class="field">
+        <label for="cf-email">Your email</label>
+        <input type="email" id="cf-email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required>
+      </div>
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" placeholder="How can we help you?" maxlength="2000" required></textarea>
+      </div>
+      <input class="hp" type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="actions">
+        <button class="btn" id="cf-send" type="submit">Send Message <svg class="i"><use href="#i-send"/></svg></button>
+        <p class="status" id="cf-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </section>
 
   <section class="help reveal" id="contact" aria-labelledby="help-h">
     <div class="copy">
@@ -532,24 +574,14 @@ section[id] { scroll-margin-top: 84px; }
 
 <footer class="site-foot">
   <div class="wrap">
-    <div class="sf-top">
+    
+    <div class="sf-mid">
       <div class="sf-brand">
         <a class="brand" href="#home">
           <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="#9dbbff"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="#0f1a40"/></svg>
           <span><b>Newlandss</b><small>Pharmacy</small></span>
         </a>
-        <p>Your online pharmacy for everyday medicines and healthcare essentials.</p>
       </div>
-      <form class="sf-news" id="sf-news">
-        <label for="sf-mail">Get health tips and offers in your inbox</label>
-        <div class="sf-row">
-          <input id="sf-mail" type="email" placeholder="Your email address" autocomplete="email" required>
-          <button type="submit">Subscribe</button>
-        </div>
-        <p class="sf-msg" id="sf-msg" aria-live="polite"></p>
-      </form>
-    </div>
-    <div class="sf-mid">
       <nav aria-label="Shop links">
         <h6>Shop</h6>
         <ul><li><a href="productPage.html">All products</a></li><li><a href="checkout.html">Checkout</a></li><li><a href="cart.html">Cart</a></li><li><a href="#">My account</a></li></ul>
@@ -571,6 +603,25 @@ section[id] { scroll-margin-top: 84px; }
         </ul>
       </div>
     </div>
+    <div class="sf-top">
+      <div class="footer-payments">
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/cash_app.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/venmo.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/zelle.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/tether.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/bitcoin.png"
+          />
+        </div>
+    </div>
     <div class="sf-bot">
       <span>© 2026 Newlandss Pharmacy. All rights reserved.</span>
       <nav aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></nav>
@@ -589,7 +640,41 @@ section[id] { scroll-margin-top: 84px; }
 })();
 </script>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var btn = document.getElementById('cf-send');
+  var status = document.getElementById('cf-status');
+  function setStatus(msg, type) { status.textContent = msg; status.className = 'status' + (type ? ' ' + type : ''); }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('cf-email').value.trim();
+    var message = document.getElementById('cf-message').value.trim();
+    var website = document.getElementById('cf-website').value;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setStatus('Please enter a valid email address.', 'err'); return; }
+    if (message.length < 5) { setStatus('Please write a short message.', 'err'); return; }
+    btn.disabled = true;
+    setStatus('Sending...', '');
+    fetch('/api/contact-message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, message: message, website: website })
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (res.ok && res.d.success) {
+          setStatus('Thank you! Your message has been sent.', 'ok');
+          form.reset();
+        } else {
+          setStatus(res.d.message || 'Could not send your message. Please try again.', 'err');
+        }
+      })
+      .catch(function () { setStatus('Network error. Please try again.', 'err'); })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
 
 
 <script>
@@ -765,28 +850,21 @@ section[id] { scroll-margin-top: 84px; }
 
   async function loadProducts() {
     $("grid-feat").innerHTML = '<p class="empty">Loading products…</p>';
-    $("grid-best").innerHTML = '<p class="empty">Loading products…</p>';
     try {
       var responses = await Promise.all([
         fetch(API_BASE + "/products?categoryID=1", {
           credentials: "include",
           headers: { "Accept": "application/json" }
-        }),
-        fetch(API_BASE + "/products?categoryID=11", {
-          credentials: "include",
-          headers: { "Accept": "application/json" }
         })
       ]);
       if (!responses[0].ok) throw new Error("Category 1 products request failed (" + responses[0].status + ")");
-      if (!responses[1].ok) throw new Error("Category 11 products request failed (" + responses[1].status + ")");
+      
 
       var category1Data = await responses[0].json();
-      var category11Data = await responses[1].json();
       var category1 = Array.isArray(category1Data) ? category1Data : [];
-      var category11 = Array.isArray(category11Data) ? category11Data : [];
       // Keep category 1 first, followed by category 11, without duplicate product IDs.
       var seen = {};
-      products = category1.concat(category11).filter(function (p) {
+      products = category1.filter(function (p) {
         var id = String(p.product_id);
         if (seen[id]) return false;
         seen[id] = true;
@@ -794,11 +872,9 @@ section[id] { scroll-margin-top: 84px; }
       });
 
       // Both sections include category 1 products first, followed by category 11 products.
-      var featured = category1.slice(0, 4);
-      var bestSellers = category11.slice(0, 4);
+      var featured = category1.slice(0, 8);
       renderGrid("grid-feat", featured);
-      renderGrid("grid-best", bestSellers);
-      document.querySelectorAll("#grid-feat .card, #grid-best .card").forEach(function (c, i) {
+      document.querySelectorAll("#grid-feat .card").forEach(function (c, i) {
         c.classList.add("reveal");
         c.style.animationDelay = ((i % 4) * 70) + "ms";
       });
@@ -807,7 +883,6 @@ section[id] { scroll-margin-top: 84px; }
       console.error("Unable to load Category 1 and 11 products:", error);
       var message = '<p class="empty">Products could not be loaded. Please refresh the page and try again.</p>';
       $("grid-feat").innerHTML = message;
-      $("grid-best").innerHTML = "";
       $("grid-all").innerHTML = message;
       if ($("cat-count")) $("cat-count").textContent = "";
     }

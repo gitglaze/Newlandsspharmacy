@@ -2092,6 +2092,71 @@ app.put("/api/orders/:orderId/status", async (req, res) => {
   }
 });
 
+// ===== CONTACT FORM: send visitor message to the website's own email =====
+const contactRateLimit = new Map(); // ip -> [timestamps]
+
+app.post("/api/contact-message", async (req, res) => {
+  try {
+    const { email, message, website } = req.body || {};
+
+    // Honeypot: bots fill this hidden field. Pretend success, send nothing.
+    if (website) return res.json({ success: true });
+
+    const cleanEmail = String(email || "").trim();
+    const cleanMessage = String(message || "").trim();
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail) || cleanEmail.length > 254) {
+      return res.status(400).json({ success: false, message: "Please enter a valid email address." });
+    }
+    if (cleanMessage.length < 5 || cleanMessage.length > 2000) {
+      return res.status(400).json({ success: false, message: "Message must be between 5 and 2000 characters." });
+    }
+
+    // Simple rate limit: max 3 messages per IP per 10 minutes
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    const now = Date.now();
+    const recent = (contactRateLimit.get(ip) || []).filter((t) => now - t < 10 * 60 * 1000);
+    if (recent.length >= 3) {
+      return res.status(429).json({ success: false, message: "Too many messages. Please try again later." });
+    }
+    recent.push(now);
+    contactRateLimit.set(ip, recent);
+
+    // Escape user input before putting it in the HTML email
+    const esc = (s) =>
+      s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
+    const transporter = nodemailer.createTransport({
+      host: "smtp.hostinger.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "support@newlandsspharmacy.com",
+        pass: "Newlandemail@123",
+      },
+    });
+
+    await transporter.sendMail({
+      from: '"NewssPharmacy Website" <support@newlandsspharmacy.com>',
+      to: "support@newlandsspharmacy.com", // your website email (receives the message)
+      replyTo: cleanEmail, // hitting "Reply" answers the visitor directly
+      subject: "New website message from " + cleanEmail.replace(/[\r\n]/g, ""),
+      text: "From: " + cleanEmail + "\n\n" + cleanMessage,
+      html:
+        '<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6;color:#333">' +
+        "<h2>New website message</h2>" +
+        "<p><strong>From:</strong> " + esc(cleanEmail) + "</p>" +
+        '<p style="white-space:pre-wrap;background:#f6f8fc;padding:14px;border-radius:8px">' + esc(cleanMessage) + "</p>" +
+        "</div>",
+    });
+
+    res.json({ success: true, message: "Message sent." });
+  } catch (err) {
+    console.error("Error sending contact message:", err);
+    res.status(500).json({ success: false, message: "Could not send your message. Please try again later." });
+  }
+});
+
 // ✅ POST: Add a review (with verified purchase check)
 app.post("/api/reviews", async (req, res) => {
   const { product_id, name, email, rating, review_text } = req.body;

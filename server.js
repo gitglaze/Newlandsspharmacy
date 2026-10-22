@@ -222,9 +222,8 @@ app.post("/api/checkout", async (req, res) => {
         customer_apartment,
         customer_city,
         customer_state,
-        customer_zip_code,
-        source   -- ✅ NEW
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14,$15)
+        customer_zip_code
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
       RETURNING order_id`,
       [
         userId,
@@ -240,8 +239,7 @@ app.post("/api/checkout", async (req, res) => {
         apartment || null,
         billingCity,
         billingState,
-        billingZip,
-        SOURCE,   // ✅ THIS IS THE KEY
+        billingZip
       ]
     );
     const orderId = orderRes.rows[0].order_id;

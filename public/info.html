@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Information Center | Newlandss Pharmacy</title>
+<meta name="description" content="Delivery information, FAQs, privacy policy, terms of use, about us and contact details for Newlandss Pharmacy.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lora:wght@600;700&display=swap">
+<style>
+/* ===== Shared tokens (identical to index.html) ===== */
+:root {
+  --bg: #f8f9fc;
+  --surface: #ffffff;
+  --surface-2: #eef3ff;
+  --ink: #16213e;
+  --muted: #5d6783;
+  --line: #e3e7f0;
+  --accent: #3b6ef0;
+  --accent-hover: #2c58cf;
+  --accent-deep: #1b3fa6;
+  --on-accent: #ffffff;
+  --accent-soft: #e4ecff;
+  --strip: #16286b;
+  --on-strip: #dfe8ff;
+  --good: #1f7a4d;
+  --shade: rgba(22, 33, 62, .08);
+  --lift: rgba(40, 70, 160, .18);
+  --font: "Poppins", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --logo: "Lora", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1424; --surface: #151d33; --surface-2: #17213d; --ink: #e6ebf8; --muted: #9aa5c2; --line: #263152;
+    --accent: #6c93ff; --accent-hover: #86a6ff; --accent-deep: #2f4fb0; --on-accent: #0c1530; --accent-soft: #1b2850;
+    --strip: #0a1236; --on-strip: #c9d6fa; --good: #5fcf98; --shade: rgba(0, 0, 0, .35); --lift: rgba(0, 0, 0, .5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1424; --surface: #151d33; --surface-2: #17213d; --ink: #e6ebf8; --muted: #9aa5c2; --line: #263152;
+  --accent: #6c93ff; --accent-hover: #86a6ff; --accent-deep: #2f4fb0; --on-accent: #0c1530; --accent-soft: #1b2850;
+  --strip: #0a1236; --on-strip: #c9d6fa; --good: #5fcf98; --shade: rgba(0, 0, 0, .35); --lift: rgba(0, 0, 0, .5);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 20px; }
+svg.i { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ===== Promo strip (same as index.html) ===== */
+.strip { background: var(--strip); color: var(--on-strip); font-size: 12.5px; }
+.strip .wrap { display: flex; flex-wrap: wrap; gap: 6px 28px; justify-content: space-between; align-items: center; padding-block: 9px; }
+.strip span { display: inline-flex; align-items: center; gap: 8px; }
+.strip .i { width: 16px; height: 16px; }
+.strip .group { display: flex; flex-wrap: wrap; gap: 6px 26px; }
+
+/* ===== Top bar (same as index.html) ===== */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--surface); box-shadow: 0 1px 0 var(--line); transition: box-shadow .3s; }
+.top.scrolled { box-shadow: 0 6px 20px var(--shade); }
+.top .wrap { display: flex; align-items: center; gap: 16px 36px; padding-block: 10px; transition: padding .3s; justify-content: space-between; }
+.top.scrolled .wrap { padding-block: 4px; }
+.brand { display: flex; align-items: center; gap: 10px; flex: none; }
+.brand svg { width: 46px; height: 46px; transition: transform .5s cubic-bezier(.3, 1.5, .5, 1); }
+.brand:hover svg { transform: rotate(90deg); }
+.brand b { display: block; font-family: var(--logo); font-size: 22px; line-height: 1.05; color: var(--accent); }
+.brand small { display: block; font-family: var(--logo); font-size: 12px; font-weight: 700; color: var(--accent); }
+.menu { display: flex; align-items: center; gap: 4px 30px; overflow-x: auto; scrollbar-width: none; }
+.menu::-webkit-scrollbar { display: none; }
+.menu a { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 56px; padding-inline: 4px; font-size: 15px; font-weight: 500; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+.menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.4, 0, .2, 1); }
+.menu a:hover::after, .menu a[aria-current]::after { transform: scaleX(1); }
+.menu .badge-n { min-width: 20px; height: 20px; padding-inline: 5px; border-radius: 10px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 600; display: grid; place-items: center; }
+
+/* ===== Footer (same as index.html) ===== */
+.site-foot { --f-bg: #0f1a40; --f-ink: #eef2ff; --f-mute: #a9b6df; --f-line: rgba(255, 255, 255, .14); --f-acc: #9dbbff; --f-field: rgba(255, 255, 255, .08);
+  margin-top: 80px; background: var(--f-bg); color: var(--f-ink); border-radius: 28px 28px 0 0; position: relative; }
+.site-foot a { color: inherit; }
+.site-foot svg.i { width: 18px; height: 18px; }
+.sf-mid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr); gap: 36px 40px; padding-block: 44px 48px; }
+.sf-mid h6 { margin: 0 0 16px; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--f-acc); }
+.sf-mid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; font-size: 14.5px; color: var(--f-mute); }
+.sf-mid ul a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .3s, color .2s; padding-bottom: 2px; }
+.sf-mid ul a:hover { color: #fff; background-size: 100% 1px; }
+.sf-card { border: 1px solid var(--f-line); border-radius: 18px; padding: 22px 22px 20px; background: linear-gradient(160deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0)); }
+.sf-card h6 { margin-bottom: 8px; }
+.sf-card .hrs { margin: 0 0 14px; font-size: 16px; font-weight: 500; }
+.sf-card ul { gap: 10px; }
+.sf-card li { display: flex; align-items: center; gap: 12px; overflow-wrap: anywhere; }
+.sf-card li svg { color: var(--f-acc); }
+.sf-bot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 20px 26px; border-top: 1px solid var(--f-line); font-size: 12.5px; color: var(--f-mute); }
+.sf-bot nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.sf-bot a:hover { color: #fff; }
+.footer-payments { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 12px; }
+.footer-payments img { width: 50px; background: transparent; }
+
+/* ===== Information Center (uses the same palette as index.html) ===== */
+.info { background: var(--bg); color: var(--muted); padding-block: 56px 20px; }
+.ihero { margin-bottom: 48px; }
+.ihero h1 { margin: 0 0 12px; font-size: clamp(34px, 5vw, 52px); line-height: 1.12; font-weight: 700; letter-spacing: -1px; color: var(--accent); }
+.ihero p { margin: 0 0 26px; max-width: 620px; font-size: 16.5px; line-height: 1.65; color: var(--muted); }
+.ipills { display: flex; flex-wrap: wrap; gap: 10px; }
+.ipills a { display: inline-flex; align-items: center; height: 40px; padding-inline: 20px; border-radius: 20px; border: 1px solid var(--accent); color: var(--accent); font-size: 14px; font-weight: 500; transition: background .2s, color .2s; }
+.ipills a:hover { background: var(--accent); color: var(--on-accent); }
+
+.icards { display: grid; gap: 40px; }
+.icard { position: relative; scroll-margin-top: 96px; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 22px; padding: 40px 48px 42px; box-shadow: 0 18px 40px -28px var(--lift); }
+.icard h2 { margin: 0; font-size: inherit; }
+.ihead { display: flex; align-items: center; gap: 20px; width: 100%; padding: 0; background: none; border: 0; color: var(--ink); text-align: left; border-radius: 12px; }
+.num { flex: none; width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font-size: 17px; font-weight: 600; }
+.ttl { font-size: clamp(26px, 3.4vw, 36px); font-weight: 700; letter-spacing: -.5px; line-height: 1.15; }
+.chev { flex: none; width: 26px; height: 26px; fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .4s cubic-bezier(.3, 1.3, .5, 1); }
+.ihead:hover .chev { transform: translateX(4px); }
+.icard.open .ihead .chev, .icard.open .ihead:hover .chev { transform: rotate(90deg); }
+.ihead:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.isum { margin: 24px 0 0; font-size: clamp(15.5px, 1.5vw, 18px); line-height: 1.8; color: var(--muted); }
+
+.ibody { display: grid; grid-template-rows: 1fr; }
+.js .ibody { grid-template-rows: 0fr; transition: grid-template-rows .55s cubic-bezier(.3, .7, .2, 1); }
+.js .icard.open .ibody { grid-template-rows: 1fr; }
+.js.no-anim .ibody { transition: none !important; }
+.ibody-in { min-height: 0; overflow: hidden; }
+.prose { margin-top: 28px; padding-top: 6px; border-top: 1px solid var(--line); font-size: 15.5px; line-height: 1.8; color: var(--muted); }
+.prose > :first-child { margin-top: 24px; }
+.prose h3 { margin: 30px 0 10px; font-size: 18.5px; font-weight: 600; color: var(--ink); }
+.prose p { margin: 0 0 14px; max-width: 78ch; }
+.prose strong { color: var(--ink); font-weight: 600; }
+.prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.prose ul { margin: 0 0 14px; padding: 0; list-style: none; display: grid; gap: 8px; max-width: 78ch; }
+.prose ul li { position: relative; padding-left: 22px; }
+.prose ul li::before { content: ""; position: absolute; left: 2px; top: .72em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.meta-line { display: inline-block; margin: 0 0 8px; padding: 4px 12px; border-radius: 14px; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 500; }
+
+.vals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 6px 0 14px; }
+.val { padding: 20px 22px; border-radius: 16px; background: var(--surface-2); border: 1px solid var(--line); }
+.val b { display: block; margin-bottom: 6px; color: var(--ink); font-size: 16.5px; font-weight: 600; }
+.val span { display: block; font-size: 15px; line-height: 1.7; }
+
+.faq { display: grid; gap: 12px; margin-top: 6px; }
+.faq details { border: 1px solid var(--line); border-radius: 14px; background: var(--bg); transition: border-color .2s, background .2s; }
+.faq details[open] { border-color: var(--accent); background: var(--surface-2); }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; list-style: none; cursor: pointer; color: var(--ink); font-weight: 500; font-size: 16px; line-height: 1.5; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 20px; line-height: 1; }
+.faq details[open] summary::after { content: "\2212"; }
+.faq summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 14px; }
+.faq .ans { padding: 0 20px 18px; font-size: 15.5px; line-height: 1.75; }
+.faq .ans p { margin: 0; }
+
+.ways2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 6px 0 22px; }
+.way2 { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: 16px; background: var(--surface-2); border: 1px solid var(--line); color: inherit; text-align: left; width: 100%; transition: border-color .2s, transform .25s; }
+a.way2:hover, button.way2:hover { border-color: var(--accent); transform: translateY(-3px); }
+.way2 .ic { flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--surface); color: var(--accent); display: grid; place-items: center; }
+.way2 .ic svg.i { width: 22px; height: 22px; }
+.way2 b { display: block; color: var(--ink); font-weight: 600; font-size: 15.5px; }
+.way2 span { display: block; font-size: 14.5px; color: var(--muted); overflow-wrap: anywhere; }
+
+.cform { display: grid; gap: 14px; max-width: 620px; }
+.cform .field { display: grid; gap: 6px; }
+.cform label { font-size: 14px; font-weight: 500; color: var(--ink); }
+.cform input[type="email"], .cform textarea { width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font-size: 15px; transition: border-color .2s, box-shadow .2s; }
+.cform input[type="email"] { height: 48px; border-radius: 24px; padding: 0 20px; }
+.cform textarea { min-height: 130px; border-radius: 18px; padding: 14px 20px; resize: vertical; line-height: 1.5; }
+.cform ::placeholder { color: var(--muted); }
+.cform input:focus, .cform textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.cform .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.cform .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.cbtn { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding-inline: 28px; border: 0; border-radius: 26px; background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 15.5px; box-shadow: 0 8px 20px -8px var(--accent); transition: transform .25s, background .2s; }
+.cbtn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+.cbtn[disabled] { opacity: .7; cursor: not-allowed; transform: none; }
+.cbtn svg.i { width: 18px; height: 18px; stroke-width: 2.2; }
+.cform .status { margin: 0; min-height: 20px; font-size: 14px; color: var(--muted); }
+.cform .status.ok { color: var(--good); }
+.cform .status.err { color: #e0475f; }
+
+/* entrance: one soft reveal when the page loads */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.ihero { animation: rise .7s cubic-bezier(.2, .7, .2, 1) both; }
+
+@media (max-width: 900px) {
+  .sf-mid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sf-card { grid-column: 1 / -1; }
+  .icard { padding: 32px 28px 34px; }
+}
+@media (max-width: 820px) {
+  .top .wrap { flex-wrap: wrap; }
+  .menu { margin-inline: 0; flex: 1; justify-content: flex-end; }
+  .menu a { height: 48px; font-size: 13.5px; }
+  .footer-payments { gap: 6px; }
+}
+@media (max-width: 640px) {
+  .strip .group:last-child { display: none; }
+  .menu { order: 4; flex: 1 0 100%; justify-content: flex-start; gap: 4px 14px; }
+  .menu a { font-size: 12.5px; }
+  .sf-mid ul { gap: 0; }
+  .sf-mid ul a { display: inline-block; padding-block: 8px; }
+  .sf-bot a { display: inline-block; padding-block: 10px; }
+  .info { padding-block: 40px 8px; }
+  .icards { gap: 28px; }
+  .icard { padding: 26px 20px 28px; border-radius: 18px; }
+  .ihead { gap: 14px; }
+  .num { width: 40px; height: 40px; font-size: 15px; }
+  .chev { width: 22px; height: 22px; }
+  .vals, .ways2 { grid-template-columns: minmax(0, 1fr); }
+  .prose { font-size: 15.5px; }
+}
+@media (max-width: 480px) {
+  .sf-mid { grid-template-columns: minmax(0, 1fr); }
+  .top .menu a { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 5.800v5.400c0 4.600 3 8 7 9.800 4-1.800 7-5.200 7-9.800V5.800L12 3Z"/><path d="m8.800 12 2.400 2.400 4.200-4.600"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.500" width="14" height="9.500" rx="2"/><path d="M8.500 10.500V8a3.500 3.500 0 0 1 7 0v2.500"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 7 4.500 11.500 9 16"/><path d="M4.500 11.500H15a4.500 4.500 0 0 1 0 9h-3"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.500h16v10.500H10.500L6 20v-4H4z"/><path d="M8 10.800h.01M12 10.800h.01M16 10.800h.01" stroke-width="2.600"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 3.500a8.500 8.500 0 0 0-7.300 12.800L3.500 20.500l4.300-1.100A8.500 8.500 0 1 0 12 3.500Z"/><path d="M9 9.500c.3 2.600 2.900 5.200 5.500 5.500l1.200-1.500-2-1-1 .8a4.300 4.300 0 0 1-1.800-1.800l.8-1-1-2Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3.500 10 12 3.500 20.500 10v9.500a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="m4 10.500 8 6 8-6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.500 3.500h3l1.400 4-2 1.300a11 11 0 0 0 5.300 5.300l1.300-2 4 1.400v3a2 2 0 0 1-2.200 2A15.500 15.500 0 0 1 4.500 5.700a2 2 0 0 1 2-2.200Z"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10.500 13.500M21 3l-6.500 18-4-7.500L3 9.500 21 3Z"/></symbol>
+  </defs>
+</svg>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="group">
+      <span><svg class="i"><use href="#i-shield"/></svg>Secure Ordering</span>
+      <span><svg class="i"><use href="#i-lock"/></svg>Easy Payment</span>
+      <span><svg class="i"><use href="#i-undo"/></svg>Express Deliver</span>
+    </div>
+  </div>
+</div>
+
+<header class="top" id="top-bar">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Newlandss Pharmacy home">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="var(--accent)"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="var(--surface)"/></svg>
+      <span><b>Newlandss</b><small>Pharmacy</small></span>
+    </a>
+    <nav class="menu" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="productPage.html">Shop</a>
+      <a href="checkout.html">Checkout</a>
+      <a href="cart.html">Cart <span class="badge-n" id="cartn">0</span></a>
+    </nav>
+  </div>
+</header>
+
+<main class="info" id="info-top">
+  <div class="wrap">
+
+    <div class="ihero">
+      <h1>Information Center</h1>
+      <p>Everything you need to know about ordering from Newlandss Pharmacy: who we are, how delivery works, how we handle your information, and how to reach us.</p>
+      <nav class="ipills" aria-label="Information sections">
+        <a href="#about">About Us</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Use</a>
+        <a href="#faqs">FAQs</a>
+        <a href="#contact">Contact Us</a>
+        <a href="#delivery">Delivery Information</a>
+      </nav>
+    </div>
+
+    <div class="icards">
+
+      <!-- 01 ABOUT -->
+      <article class="icard" id="about">
+        <h2><button class="ihead" type="button" aria-expanded="false" aria-controls="about-body"><span class="num">01</span><span class="ttl">About Us</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></h2>
+        <p class="isum">Newlandss Pharmacy is an online pharmacy built to make everyday healthcare simple, secure and accessible. We supply a wide range of health products with clear product information, careful order handling and a support team that is available around the clock.</p>
+        <div class="ibody" id="about-body"><div class="ibody-in"><div class="prose">
+          <h3>Who we are</h3>
+          <p>Newlandss Pharmacy is an online pharmacy serving customers who want a convenient and dependable way to order health products. Our catalogue covers everyday needs including pain relief, sleep support and anxiety-related products, and every listing shows the product name, strength and available pack sizes so you know exactly what you are choosing.</p>
+          <h3>Our mission</h3>
+          <p>To give people straightforward access to the health products they need, with honest information, fair handling of every order and support they can reach at any hour.</p>
+          <h3>What we stand for</h3>
+          <div class="vals">
+            <div class="val"><b>Careful order review</b><span>Every order is checked by a registered pharmacist before it ships.</span></div>
+            <div class="val"><b>Clear product information</b><span>Strengths, pack sizes and variants are shown on each product page before you add anything to your cart.</span></div>
+            <div class="val"><b>Secure ordering</b><span>Your details are handled over an encrypted connection and used only to fulfil your order.</span></div>
+            <div class="val"><b>Support at any hour</b><span>Our team is available 24/7 by email, phone, WhatsApp and live chat.</span></div>
+          </div>
+          <h3>Our commitment to you</h3>
+          <p>We believe buying health products online should feel safe and be easy to understand. That means plain-language policies, transparent delivery information and a team that answers your questions directly. If something is not right with your order, we will work with you to put it right.</p>
+          <p>Questions about Newlandss Pharmacy? <a href="#contact">Get in touch</a> and we will be glad to help.</p>
+        </div></div></div>
+      </article>
+
+      <!-- 02 PRIVACY -->
+      <article class="icard" id="privacy">
+        <h2><button class="ihead" type="button" aria-expanded="false" aria-controls="privacy-body"><span class="num">02</span><span class="ttl">Privacy Policy</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></h2>
+        <p class="isum">Your privacy matters to us. This policy explains what personal information we collect when you use our website, how we use and protect it, and the choices you have.</p>
+        <div class="ibody" id="privacy-body"><div class="ibody-in"><div class="prose">
+          <span class="meta-line">Last updated: 22 October 2026</span>
+          <p>This Privacy Policy describes how Newlandss Pharmacy (“we”, “us”, “our”) collects, uses and shares information about you when you visit our website, place an order or contact our support team. By using our website you agree to the practices described here.</p>
+
+          <h3>1. Information we collect</h3>
+          <ul>
+            <li><strong>Contact details:</strong> your name, email address and phone number.</li>
+            <li><strong>Delivery details:</strong> the shipping and billing addresses you provide at checkout.</li>
+            <li><strong>Order information:</strong> the products, quantities, order totals and payment references linked to your orders.</li>
+            <li><strong>Health-related information:</strong> any details you choose to share with your order or in messages to our team, such as notes about a product.</li>
+            <li><strong>Messages:</strong> the content of emails, chats and contact-form messages you send us.</li>
+            <li><strong>Technical data:</strong> IP address, browser type, device information and pages visited, collected automatically through cookies and server logs.</li>
+          </ul>
+
+          <h3>2. How we use your information</h3>
+          <ul>
+            <li>To process, review, dispatch and deliver your orders.</li>
+            <li>To confirm payments and prevent fraud or misuse of our website.</li>
+            <li>To send order confirmations, tracking details and service messages.</li>
+            <li>To respond to your questions and provide customer support.</li>
+            <li>To maintain, secure and improve our website and services.</li>
+            <li>To meet our legal and regulatory obligations.</li>
+          </ul>
+
+          <h3>3. Who we share it with</h3>
+          <p>We do not sell your personal information. We share it only where needed to run our service: with delivery and courier partners to ship your order, with payment services to confirm your payment, with technology providers that host our website and support tools, and with authorities where the law requires it. These parties may only use your information to provide their service to us.</p>
+
+          <h3>4. Payment information</h3>
+          <p>Payments are made through the third-party payment services you choose at checkout. We do not store your wallet or account credentials. We keep a record of the order, the amount and the payment reference so that we can match your payment to your order.</p>
+
+          <h3>5. Cookies and similar technologies</h3>
+          <p>We use essential cookies to keep your cart and checkout working, and technical cookies to understand how the website performs. Our live chat is provided by a third-party service, which may set its own cookies to run the chat. You can block or delete cookies in your browser settings, though parts of the website may not work properly without them.</p>
+
+          <h3>6. Data security</h3>
+          <p>We use encrypted connections and access controls to protect your information. No method of transmission over the internet is completely secure, so we cannot guarantee absolute security, but we work to protect your data and review our safeguards regularly.</p>
+
+          <h3>7. How long we keep your information</h3>
+          <p>We keep personal information only for as long as needed to fulfil your order, provide support, resolve disputes and meet legal and record-keeping obligations. After that, it is deleted or anonymised.</p>
+
+          <h3>8. Your rights and choices</h3>
+          <p>Depending on where you live, you may have the right to access the personal information we hold about you, ask us to correct or delete it, object to or restrict certain uses, and opt out of marketing messages. To make a request, contact us using the details below. We may need to verify your identity before acting on it.</p>
+
+          <h3>9. Children’s privacy</h3>
+          <p>Our website is intended for adults aged 18 and over. We do not knowingly collect personal information from children. If you believe a child has given us information, please contact us and we will delete it.</p>
+
+          <h3>10. Changes to this policy</h3>
+          <p>We may update this policy from time to time. When we do, we will change the “last updated” date above. Please review it periodically.</p>
+
+          <h3>11. Contact us</h3>
+          <p>For any privacy question or request, email <a href="mailto:support@newlandsspharmacy.com">support@newlandsspharmacy.com</a> or call <a href="tel:+18326897495">+1 (832) 689-7495</a>.</p>
+        </div></div></div>
+      </article>
+
+      <!-- 03 TERMS -->
+      <article class="icard" id="terms">
+        <h2><button class="ihead" type="button" aria-expanded="false" aria-controls="terms-body"><span class="num">03</span><span class="ttl">Terms of Use</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></h2>
+        <p class="isum">These terms set out the rules for using our website and placing orders with Newlandss Pharmacy. Please read them carefully before you order.</p>
+        <div class="ibody" id="terms-body"><div class="ibody-in"><div class="prose">
+          <span class="meta-line">Last updated: 22 October 2026</span>
+
+          <h3>1. Acceptance of terms</h3>
+          <p>By accessing our website or placing an order, you agree to these Terms of Use and our Privacy Policy. If you do not agree, please do not use the website.</p>
+
+          <h3>2. Eligibility</h3>
+          <p>You must be at least 18 years old and legally able to enter into a contract to place an order. By ordering, you confirm that you meet these requirements and that the information you provide is accurate and complete.</p>
+
+          <h3>3. Product information and medical disclaimer</h3>
+          <p>Information on this website is provided for general guidance only and is not a substitute for advice from a doctor or pharmacist. Always read the product leaflet, follow the directions for use and speak to a healthcare professional before starting, changing or stopping any medicine, especially if you are pregnant, have a medical condition or take other medication. In an emergency, contact your local emergency services immediately.</p>
+
+          <h3>4. Orders and acceptance</h3>
+          <p>Placing an order is an offer to buy. A contract is formed only when we confirm and dispatch your order. We may refuse or cancel an order, for example where a product is unavailable, an error appears in pricing or product information, we cannot verify your details, or we suspect misuse. If we cancel an order you have already paid for, we will refund the amount in full.</p>
+
+          <h3>5. Pricing and payment</h3>
+          <p>Prices and available payment methods are shown at checkout. An order is processed once your payment has been received and confirmed. You are responsible for any fees charged by your payment provider.</p>
+
+          <h3>6. Delivery</h3>
+          <p>Delivery times vary depending on the supplier fulfilling your order and your delivery location, and are not guaranteed. Orders shipped within the USA to a USA address receive free shipping. Full details are in our Delivery Information section.</p>
+
+          <h3>7. No returns</h3>
+          <p>All sales are final. Because of the nature of medicines and health products, we do not accept returns or exchanges. Please check your order carefully before you complete your purchase. If your parcel arrives damaged or you believe an item is incorrect, contact our support team with your order number and photos of the item and packaging so we can look into it.</p>
+
+          <h3>8. Acceptable use</h3>
+          <p>You agree not to misuse the website. This includes providing false information, attempting to gain unauthorised access to our systems, interfering with the website’s operation, using automated tools to collect data, or ordering products for resale or for anyone who is not legally permitted to receive them.</p>
+
+          <h3>9. Intellectual property</h3>
+          <p>All text, logos, graphics and other content on this website belong to Newlandss Pharmacy or its licensors and are protected by intellectual property laws. You may not copy, reproduce or distribute them without our written permission.</p>
+
+          <h3>10. Limitation of liability</h3>
+          <p>To the fullest extent permitted by law, Newlandss Pharmacy is not liable for indirect or consequential losses arising from your use of the website or products, or for harm resulting from use of a product other than as directed. Nothing in these terms limits any liability that cannot be excluded by law.</p>
+
+          <h3>11. Changes to these terms</h3>
+          <p>We may update these terms from time to time. The version published on this page when you place your order is the one that applies to that order.</p>
+
+          <h3>12. Contact</h3>
+          <p>Questions about these terms? Email <a href="mailto:support@newlandsspharmacy.com">support@newlandsspharmacy.com</a>.</p>
+        </div></div></div>
+      </article>
+
+      <!-- 04 FAQS -->
+      <article class="icard" id="faqs">
+        <h2><button class="ihead" type="button" aria-expanded="false" aria-controls="faqs-body"><span class="num">04</span><span class="ttl">FAQs</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></h2>
+        <p class="isum">Find answers to the most commonly asked questions about ordering, payment, delivery and managing your order.</p>
+        <div class="ibody" id="faqs-body"><div class="ibody-in"><div class="prose">
+          <div class="faq">
+            <details><summary>How do I place an order?</summary><div class="ans"><p>Browse the Shop, open the product you want, choose your preferred variant (strength and pack size), then add it to your cart. When you are ready, go to Checkout, enter your delivery details and complete your payment.</p></div></details>
+            <details><summary>Which payment methods do you accept?</summary><div class="ans"><p>We accept Cash App, Venmo, Zelle, Tether (USDT) and Bitcoin. Payment instructions are shown at checkout, and your order is processed once the payment is confirmed.</p></div></details>
+            <details><summary>Is it safe to order from your website?</summary><div class="ans"><p>Yes. Your details are sent over an encrypted connection, every order is reviewed by a registered pharmacist before it ships, and we only use your information to fulfil your order. See our <a href="#privacy">Privacy Policy</a> for details.</p></div></details>
+            <details><summary>Do you offer free shipping?</summary><div class="ans"><p>Yes. Orders shipped within the USA to a USA address receive free shipping. For deliveries outside the USA, any shipping charge is shown at checkout before you pay.</p></div></details>
+            <details><summary>How long will my order take to arrive?</summary><div class="ans"><p>Delivery times vary depending on the supplier fulfilling your order and your delivery location. Our support team can update you on your order at any time. See <a href="#delivery">Delivery Information</a> for details.</p></div></details>
+            <details><summary>How can I track my order?</summary><div class="ans"><p>Once your order has been dispatched, we email you the tracking details so you can follow your parcel. If you have not received them, contact our support team with your order number.</p></div></details>
+            <details><summary>Can I return my order?</summary><div class="ans"><p>No. All sales are final and we do not accept returns or exchanges, so please check your order carefully before you pay. See our <a href="#terms">Terms of Use</a> for details.</p></div></details>
+            <details><summary>My order arrived damaged or incorrect. What should I do?</summary><div class="ans"><p>Contact our support team with your order number and photos of the item and its packaging, and we will look into it.</p></div></details>
+            <details><summary>Can you give me medical advice?</summary><div class="ans"><p>Our team can help with product information and your order, but we cannot replace advice from your doctor or pharmacist. Please speak to a healthcare professional before starting or changing any medicine.</p></div></details>
+            <details><summary>How do I contact customer support?</summary><div class="ans"><p>Our team is available 24/7. Use the live chat, email <a href="mailto:support@newlandsspharmacy.com">support@newlandsspharmacy.com</a>, call <a href="tel:+18326897495">+1 (832) 689-7495</a> or message us on WhatsApp.</p></div></details>
+          </div>
+        </div></div></div>
+      </article>
+
+      <!-- 05 CONTACT -->
+      <article class="icard" id="contact">
+        <h2><button class="ihead" type="button" aria-expanded="false" aria-controls="contact-body"><span class="num">05</span><span class="ttl">Contact Us</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></h2>
+        <p class="isum">Questions about an order, a product or your delivery? Our support team is available 24/7 by email, phone, WhatsApp and live chat.</p>
+        <div class="ibody" id="contact-body"><div class="ibody-in"><div class="prose">
+          <div class="ways2">
+            <a class="way2" href="mailto:support@newlandsspharmacy.com"><span class="ic"><svg class="i"><use href="#i-mail"/></svg></span><div><b>Email us</b><span>support@newlandsspharmacy.com</span></div></a>
+            <a class="way2" href="tel:+18326897495"><span class="ic"><svg class="i"><use href="#i-phone"/></svg></span><div><b>Call us</b><span>+1 (832) 689-7495</span></div></a>
+            <a class="way2" href="https://wa.me/18324896759" target="_blank" rel="noopener"><span class="ic"><svg class="i"><use href="#i-wa"/></svg></span><div><b>WhatsApp</b><span>+1 832 489 6759</span></div></a>
+            <button class="way2" type="button" id="open-chat"><span class="ic"><svg class="i"><use href="#i-chat"/></svg></span><div><b>Live chat</b><span>Quick support, anytime</span></div></button>
+          </div>
+          <p>Support is available 24 hours a day. When you write to us about an existing order, please include your order number so we can help you faster.</p>
+          <h3>Send us a message</h3>
+          <form class="cform" id="contact-form" novalidate>
+            <div class="field">
+              <label for="cf-email">Your email</label>
+              <input type="email" id="cf-email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required>
+            </div>
+            <div class="field">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" placeholder="How can we help you?" maxlength="2000" required></textarea>
+            </div>
+            <input class="hp" type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="actions">
+              <button class="cbtn" id="cf-send" type="submit">Send Message <svg class="i"><use href="#i-send"/></svg></button>
+              <p class="status" id="cf-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div></div></div>
+      </article>
+
+      <!-- 06 DELIVERY -->
+      <article class="icard" id="delivery">
+        <h2><button class="ihead" type="button" aria-expanded="false" aria-controls="delivery-body"><span class="num">06</span><span class="ttl">Delivery Information</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></h2>
+        <p class="isum">We ship your orders securely and keep you updated at every step, from the moment your order is confirmed to the moment it arrives.</p>
+        <div class="ibody" id="delivery-body"><div class="ibody-in"><div class="prose">
+          <h3>Free shipping within the USA</h3>
+          <p>Orders shipped within the USA to a USA address receive free shipping. There is nothing extra to add at checkout. For deliveries outside the USA, any shipping charge is shown at checkout before you pay.</p>
+
+          <h3>Delivery times</h3>
+          <p>Delivery times vary depending on the supplier fulfilling your order and your delivery location, so we cannot promise a fixed delivery date. Our support team is available 24/7 and can update you on the progress of your order at any time.</p>
+
+          <h3>Order processing</h3>
+          <p>Every order is reviewed by a registered pharmacist before it is dispatched. Processing time depends on the supplier fulfilling your order.</p>
+
+          <h3>Tracking your order</h3>
+          <p>When your order is dispatched, we email you the tracking details so you can follow your parcel. If you have not received them, contact our support team with your order number.</p>
+
+          <h3>Packaging</h3>
+          <p>All products are securely packed to protect them in transit and to keep their contents safe and intact until they reach you.</p>
+
+          <h3>Delivery address</h3>
+          <p>Please double-check your delivery address and phone number at checkout. We cannot be responsible for delays or failed deliveries caused by an incorrect or incomplete address. If you need to correct an address after ordering, contact us before your order is dispatched.</p>
+
+          <h3>Customs and import duties</h3>
+          <p>If your parcel is shipped across borders, it may be held for customs inspection, which can extend delivery times. Any import duties, taxes or customs fees charged by your country are the recipient’s responsibility.</p>
+
+          <h3>Late, damaged or missing parcels</h3>
+          <ul>
+            <li><strong>Delayed:</strong> if your parcel is taking longer than expected, contact us with your order number and we will check on it for you.</li>
+            <li><strong>Damaged or incorrect:</strong> contact us with your order number and photos of the item and packaging so we can look into it.</li>
+            <li><strong>Marked delivered but not received:</strong> contact us promptly so we can look into it.</li>
+          </ul>
+          <p>Please note that all sales are final and we do not accept returns. Need help with a delivery? <a href="#contact">Contact our support team</a> any time.</p>
+        </div></div></div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+
+    <div class="sf-mid">
+      <nav aria-label="Shop links">
+        <h6>Shop</h6>
+        <ul><li><a href="productPage.html">All products</a></li><li><a href="checkout.html">Checkout</a></li><li><a href="cart.html">Cart</a></li></ul>
+      </nav>
+      <nav aria-label="Help links">
+        <h6>Help</h6>
+        <ul><li><a href="info.html#contact">Contact us</a></li><li><a href="info.html#delivery">Delivery information</a></li><li><a href="info.html#faqs">FAQs</a></li></ul>
+      </nav>
+      <nav aria-label="Company links">
+        <h6>Company</h6>
+        <ul><li><a href="info.html#about">About us</a></li><li><a href="info.html#privacy">Privacy policy</a></li><li><a href="info.html#terms">Terms of use</a></li></ul>
+      </nav>
+      <div class="sf-card">
+        <h6>Talk to us</h6>
+        <p class="hrs">24/7 All time support</p>
+        <ul>
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10 12 3.5 20.5 10v9.5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="m4 10.5 8 6 8-6"/></svg><span>support@newlandsspharmacy.com</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.4 4-2 1.3a11 11 0 0 0 5.3 5.3l1.3-2 4 1.4v3a2 2 0 0 1-2.200 2A15.5 15.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.200Z"/></svg><span>+1 (832) 689-7495</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path
+              d="M 6.014 8.006 C 6.128 7.102 7.303 5.874 8.235 6.01 C 9.141 6.181 9.859 7.743 10.264 8.445 C 10.55 8.954 10.364 9.47 10.097 9.688 C 9.736 9.979 9.171 10.38 9.289 10.783 C 9.5 11.5 12 14 13.23 14.711 C 13.695 14.98 14.033 14.27 14.321 13.907 C 14.53 13.627 15.047 13.46 15.555 13.736 C 16.314 14.178 17.029 14.692 17.69 15.27 C 18.02 15.546 18.098 15.954 17.869 16.385 C 17.466 17.144 16.3 18.146 15.454 17.942 C 13.976 17.587 8 15.27 6.08 8.558 C 5.972 8.24 6 8.12 6.014 8.006 Z"
+              transform="translate(1.8 1.8) scale(0.85)"
+            /><path d="M12 22.2C10.85 22.2 10.15 22.05 9.2 21.75L6 23L6.3 19.1C3.1 17.3 1.5 14.9 1.5 12C1.5 6.2 6.2 1.5 12 1.5S22.5 6.2 22.5 12 17.8 22.2 12 22.2Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(0.5 0) scale(0.96)"/>
+            </svg><span>+1 8324896759</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf-top">
+      <div class="footer-payments">
+        <img src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/cash_app.png" alt="Cash App" />
+        <img src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/venmo.png" alt="Venmo" />
+        <img src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/zelle.png" alt="Zelle" />
+        <img src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/tethersaure.png" alt="Tether" />
+        <img src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/bitcoinsqure.png" alt="Bitcoin" />
+      </div>
+    </div>
+    <div class="sf-bot">
+      <span>© 2026 Newlandss Pharmacy. All rights reserved. Licensed Pharmaceutical Provider.</span>
+      <nav aria-label="Legal"><a href="info.html#privacy">Privacy</a><a href="info.html#terms">Terms</a></nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- header: shadow on scroll ---------- */
+  var bar = document.getElementById("top-bar");
+  function onScroll() { if (bar) bar.classList.toggle("scrolled", window.scrollY > 8); }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- header: cart count (same endpoint as index.html) ---------- */
+  (function loadCartCount() {
+    var badge = document.getElementById("cartn");
+    if (!badge || !window.fetch) return;
+    fetch("/api/cart/count", { method: "GET", credentials: "include", headers: { "Accept": "application/json" } })
+      .then(function (r) { if (!r.ok) throw new Error("status " + r.status); return r.json(); })
+      .then(function (d) { if (d && d.success) badge.textContent = String(Number(d.count) || 0); })
+      .catch(function (err) { console.error("Unable to load cart count:", err); });
+  })();
+
+  /* ---------- information cards (expand / collapse) ---------- */
+  var root = document.documentElement;
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".icard"));
+
+  function setOpen(card, open) {
+    var btn = card.querySelector(".ihead");
+    var body = card.querySelector(".ibody");
+    card.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) body.removeAttribute("inert"); else body.setAttribute("inert", "");
+  }
+
+  cards.forEach(function (card) {
+    setOpen(card, false);
+    card.querySelector(".ihead").addEventListener("click", function () {
+      setOpen(card, !card.classList.contains("open"));
+    });
+  });
+
+  // Open one card, close the rest instantly (so the scroll position stays accurate), then scroll to it.
+  function goTo(id, smooth) {
+    var card = document.getElementById(id);
+    if (!card || !card.classList.contains("icard")) return false;
+    root.classList.add("no-anim");
+    cards.forEach(function (c) { if (c !== card) setOpen(c, false); });
+    void document.body.offsetHeight; // flush layout while transitions are off
+    root.classList.remove("no-anim");
+    setOpen(card, true);
+    card.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+    return true;
+  }
+
+  // Any link that points at a card on this page (e.g. footer links, pills) opens that card.
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    var u;
+    try { u = new URL(a.href, window.location.href); } catch (err) { return; }
+    if (u.origin !== window.location.origin || u.pathname !== window.location.pathname || !u.hash) return;
+    var id = decodeURIComponent(u.hash.slice(1));
+    var card = document.getElementById(id);
+    if (!card || !card.classList.contains("icard")) return;
+    e.preventDefault();
+    goTo(id, true);
+    if (window.history && history.replaceState) history.replaceState(null, "", u.hash);
+  });
+
+  window.addEventListener("hashchange", function () {
+    goTo(decodeURIComponent(window.location.hash.slice(1)), true);
+  });
+
+  function openFromHash() {
+    if (window.location.hash) goTo(decodeURIComponent(window.location.hash.slice(1)), false);
+  }
+  openFromHash();
+  window.addEventListener("load", openFromHash); // re-align after fonts/images settle
+
+  /* ---------- live chat button ---------- */
+  var chatBtn = document.getElementById("open-chat");
+  if (chatBtn) {
+    chatBtn.addEventListener("click", function () {
+      try { window.$crisp.push(["do", "chat:show"]); window.$crisp.push(["do", "chat:open"]); } catch (err) { console.error(err); }
+    });
+  }
+
+  /* ---------- contact form (same endpoint as index.html) ---------- */
+  var form = document.getElementById("contact-form");
+  if (form) {
+    var btn = document.getElementById("cf-send");
+    var status = document.getElementById("cf-status");
+    var setStatus = function (msg, type) { status.textContent = msg; status.className = "status" + (type ? " " + type : ""); };
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var email = document.getElementById("cf-email").value.trim();
+      var message = document.getElementById("cf-message").value.trim();
+      var website = document.getElementById("cf-website").value;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setStatus("Please enter a valid email address.", "err"); return; }
+      if (message.length < 5) { setStatus("Please write a short message.", "err"); return; }
+      btn.disabled = true;
+      setStatus("Sending...", "");
+      fetch("/api/contact-message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, message: message, website: website })
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (res.ok && res.d.success) { setStatus("Thank you! Your message has been sent.", "ok"); form.reset(); }
+          else { setStatus(res.d.message || "Could not send your message. Please try again.", "err"); }
+        })
+        .catch(function () { setStatus("Network error. Please try again.", "err"); })
+        .then(function () { btn.disabled = false; });
+    });
+  }
+})();
+</script>
+
+<script>
+  /* Live chat (same widget as index.html) */
+  window.$crisp = [];
+  window.CRISP_WEBSITE_ID = "68987257-808e-403d-a06c-35b3ec18c3ef";
+  (function () {
+    var d = document;
+    var s = d.createElement("script");
+    s.src = "https://client.crisp.chat/l.js";
+    s.async = 1;
+    d.getElementsByTagName("head")[0].appendChild(s);
+  })();
+</script>
+
+</body>
+</html>

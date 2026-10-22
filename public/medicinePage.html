@@ -324,11 +324,11 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 </header>
 
 <div class="wrap">
-  <div class="notice" id="notice" role="note">
+  <!-- <div class="notice" id="notice" role="note">
     <h2>Order Assistance</h2>
     <p>Need help placing an order? Email support@newlandsspharmacy.com and we will assist you shortly.</p>
     <button type="button" id="notice-x" aria-label="Dismiss notice"><svg class="i"><use href="#i-x"/></svg></button>
-  </div>
+  </div> -->
 
   <main>
     <article class="pdp">
@@ -446,11 +446,11 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
       </nav>
       <nav aria-label="Help links">
         <h6>Help</h6>
-        <ul><li><a href="index.html#contact">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">FAQs</a></li></ul>
+        <ul><li><a href="info.html#contact">Contact us</a></li><li><a href="info.html#delivery">Delivery information</a></li><li><a href="info.html#faqs">FAQs</a></li></ul>
       </nav>
       <nav aria-label="Company links">
         <h6>Company</h6>
-        <ul><li><a href="#">About us</a></li><li><a href="#">Privacy policy</a></li><li><a href="#">Terms of use</a></li></ul>
+        <ul><li><a href="info.html#about">About us</a></li><li><a href="info.html#privacy">Privacy policy</a></li><li><a href="info.html#terms">Terms of use</a></li></ul>
       </nav>
       <div class="sf-card">
         <h6>Talk to us</h6>
@@ -749,7 +749,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
       $("p-" + tab).hidden = !selected;
     });
   });
-  $("notice-x").addEventListener("click", function () { $("notice").hidden = true; });
+  // $("notice-x").addEventListener("click", function () { $("notice").hidden = true; });
   loadProduct();
 })();
 </script>

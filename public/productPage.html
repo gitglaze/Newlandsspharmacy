@@ -295,27 +295,16 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 </header>
 
 <div class="wrap">
-  <div class="notice" id="notice" role="note">
+  <!-- <div class="notice" id="notice" role="note">
     <h2>Order Assistance</h2>
     <p>Need help placing an order? Email support@newlandsspharmacy.com and we will assist you shortly.</p>
     <button type="button" id="notice-x" aria-label="Dismiss notice"><svg class="i"><use href="#i-x"/></svg></button>
-  </div>
+  </div> -->
 
   <div class="shop">
     <main>
       <div class="bar">
         <p class="count" id="count" aria-live="polite"></p>
-        <!-- Sorting section hidden as requested.
-        <div class="sort">
-          <select id="sort" aria-label="Sort products">
-            <option value="default">Default sorting</option>
-            <option value="low">Price: low to high</option>
-            <option value="high">Price: high to low</option>
-            <option value="off">Biggest discount</option>
-          </select>
-          <svg class="i"><use href="#i-down"/></svg>
-        </div>
-        -->
       </div>
       <div class="grid" id="grid"></div>
       <div class="pager">
@@ -367,11 +356,11 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
       </nav>
       <nav aria-label="Help links">
         <h6>Help</h6>
-        <ul><li><a href="index.html#contact">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">FAQs</a></li></ul>
+        <ul><li><a href="info.html#contact">Contact us</a></li><li><a href="info.html#delivery">Delivery information</a></li><li><a href="info.html#faqs">FAQs</a></li></ul>
       </nav>
       <nav aria-label="Company links">
         <h6>Company</h6>
-        <ul><li><a href="#">About us</a></li><li><a href="#">Privacy policy</a></li><li><a href="#">Terms of use</a></li></ul>
+        <ul><li><a href="info.html#about">About us</a></li><li><a href="info.html#privacy">Privacy policy</a></li><li><a href="info.html#terms">Terms of use</a></li></ul>
       </nav>
       <div class="sf-card">
         <h6>Talk to us</h6>
@@ -706,7 +695,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
     event.preventDefault();
     setSearch($('side-q').value);
   });
-  $('notice-x').addEventListener('click', function () { $('notice').hidden = true; });
+  //$('notice-x').addEventListener('click', function () { $('notice').hidden = true; });
 
   // Keep the category selection in sync when users navigate with browser Back/Forward.
   window.addEventListener('popstate', applyCategoryFromURL);

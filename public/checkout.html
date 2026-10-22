@@ -556,7 +556,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 
       $('d-name').textContent = orderData.firstName;
       $('d-mail').textContent = orderData.email;
-      $('d-id').textContent = result.orderId || result.order_id || result.orderNumber || 'Submitted';
+      $('d-id').textContent = "#INV" + result.orderId || result.order_id || result.orderNumber || 'Submitted';
       $('d-addr').textContent = [orderData.billingStreetAddress, orderData.billingCity, orderData.billingState, orderData.billingZip, orderData.country].filter(Boolean).join(', ');
       $('d-ship').textContent = 'Free Shipping';
       $('d-total').textContent = currencySymbol + subtotal.toFixed(2);

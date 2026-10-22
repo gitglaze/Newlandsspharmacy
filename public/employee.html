@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Dashboard - Syncore Pharmacy</title>
+
+    <link rel="icon" type="image/x-icon" href="./assets/image2/logo.png"> 
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/image2/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/image2/logo.png">
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/employee.css" />
+    <link rel="stylesheet" href="./assets/css/lightDark.css">
+    <script src="./assets/js/lightDark.js"></script>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <i class="fas fa-pills"></i>
+        </div>
+        <div class="sidebar-title">Newlandss Pharmancy</div>
+      </div>
+
+      <div class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="#dashboard" class="nav-item active">
+          <i class="fas fa-chart-line"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#existing-products" class="nav-item">
+          <i class="fas fa-search"></i>
+          <span>Search Products</span>
+        </a>
+        <a href="#customer-tracking" class="nav-item">
+          <i class="fas fa-user"></i>
+          <span>Customer Tracking</span>
+        </a>
+
+        <div class="nav-section-title">Actions</div>
+        <a href="#manual-order" class="nav-item">
+          <i class="fas fa-plus-circle"></i>
+          <span>Manual Order</span>
+        </a>
+        <a href="#process-requests" class="nav-item">
+          <i class="fas fa-tasks"></i>
+          <span>Process Requests</span>
+        </a>
+
+        <div class="nav-section-title">Management</div>
+        <a href="#manage-prices" class="nav-item">
+          <i class="fas fa-dollar-sign"></i>
+          <span>Product Pricing</span>
+        </a>
+        <a href="#product-form-section" class="nav-item">
+          <i class="fas fa-box"></i>
+          <span>Add Product</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Header -->
+      <header>
+        <div class="header-left">
+          <div>
+            <div class="header-title">Employee Dashboard</div>
+            <div class="header-subtitle">
+              Welcome back, manage your operations
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <!-- <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search..." />
+        </div> -->
+        <div class="theme-toggle">
+          <input type="checkbox" id="theme-switch" />
+          <label for="theme-switch" class="toggle-label">
+            <span class="toggle-icon sun">☀️</span>
+            <span class="toggle-icon moon">🌙</span>
+          </label>
+        </div>
+          <button id="logoutBtn" class="header-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <div class="content-main">
+        <div class="container">
+          <!-- Dashboard Section -->
+          <section id="dashboard" class="card">
+            <h2><i class="fas fa-chart-line"></i> Dashboard Overview</h2>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <h3>Clients</h3>
+                <div class="stat-box">
+                  <div class="stat-number" id="clientsHandled">0</div>
+                  <i class="fas fa-users"></i>
+                </div>
+              </div>
+              <div class="stat-card">
+                <h3>Payment Pending</h3>
+                <div class="stat-box">
+                  <div class="stat-number" id="paymentPending">0</div>
+                  <i class="fas fa-clock"></i>
+                </div>
+              </div>
+              <div class="stat-card">
+                <h3>Payment Done</h3>
+                <div class="stat-box">
+                  <div class="stat-number" id="paymentDone">0</div>
+                  <i class="fas fa-check-circle"></i>
+                </div>
+              </div>
+              <div class="stat-card">
+                <h3>Pending Requests</h3>
+                <div class="stat-box">
+                  <div class="stat-number" id="pendingRequests">0</div>
+                  <i class="fas fa-tasks"></i>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Search Products Section -->
+          <section id="existing-products" class="card">
+            <h2><i class="fas fa-search"></i> Search Product by ID or Name</h2>
+            <form id="search-form">
+              <div class="lookup">
+                <div>
+                  <label for="product_id">Product ID:</label>
+                  <input
+                    type="number"
+                    id="product_id"
+                    name="product_id"
+                    placeholder="Enter Product ID"
+                  />
+                </div>
+                <div>
+                  <label for="product_name_2">Product Name:</label>
+                  <input
+                    type="text"
+                    id="product_name_2"
+                    name="product_name_2"
+                    placeholder="Enter Product Name"
+                  />
+                </div>
+                <div style="display: flex; align-items: flex-end">
+                  <button type="submit">
+                    <i class="fas fa-search"></i> Search
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <div id="result" style="display: none; margin-top: 2rem">
+              <h3>Product Details:</h3>
+              <table class="product-table">
+                <tbody>
+                  <tr>
+                    <td><strong>Product ID</strong></td>
+                    <td id="product-id"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Category ID</strong></td>
+                    <td id="category-id"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Product Name</strong></td>
+                    <td id="product-name"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Description</strong></td>
+                    <td id="product-description"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Trade Names</strong></td>
+                    <td id="trade-names"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ingredients</strong></td>
+                    <td id="ingreds"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Manufacturer</strong></td>
+                    <td id="manufacturer"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Packaging</strong></td>
+                    <td id="packaging"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Usage Instructions</strong></td>
+                    <td id="usage-instructions"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Drug Interaction</strong></td>
+                    <td id="drug-interaction"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Side Effects</strong></td>
+                    <td id="side-effects"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Safety</strong></td>
+                    <td id="safety"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Withdrawal Symptoms</strong></td>
+                    <td id="withdrawal-symptoms"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Drug Abuse</strong></td>
+                    <td id="drug-abuse"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Storage</strong></td>
+                    <td id="storage"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Primary Image</strong></td>
+                    <td id="image_url"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Stock</strong></td>
+                    <td id="stocks"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="display: flex; gap: 1rem; margin-top: 1.5rem">
+                <button id="edit-button">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button id="delete-button" class="danger">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </div>
+            </div>
+
+            <div id="edit-section" style="display: none; margin-top: 2rem">
+              <h3>Edit Product</h3>
+              <form id="edit-form">
+                <div id="editable-fields"></div>
+                <button type="submit" style="margin-top: 1rem">
+                  <i class="fas fa-save"></i> Submit Changes
+                </button>
+              </form>
+            </div>
+          </section>
+
+          <!-- Customer Tracking Section -->
+          <section id="customer-tracking" class="card">
+            <h2><i class="fas fa-user-check"></i> Customer Order Tracking</h2>
+
+            <div class="tracking-search">
+              <div style="flex: 1">
+                <label>Search by Name:</label>
+                <div style="display: flex; gap: 0.5rem">
+                  <input
+                    type="text"
+                    id="tracking-first-name"
+                    placeholder="First Name"
+                  />
+                  <input
+                    type="text"
+                    id="tracking-last-name"
+                    placeholder="Last Name (optional)"
+                  />
+                  <button id="search-tracking-name">
+                    <i class="fas fa-search"></i> Search
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="tracking-name-results"></div>
+
+            <div class="tracking-search" style="margin-top: 1rem">
+              <div>
+                <label for="tracking-user-id">Customer ID:</label>
+                <input
+                  type="number"
+                  id="tracking-user-id"
+                  placeholder="Enter User ID"
+                  min="1"
+                />
+              </div>
+              <div style="display: flex; align-items: flex-end">
+                <button id="btn-track-customer">
+                  <i class="fas fa-search"></i> Track Customer
+                </button>
+              </div>
+            </div>
+
+            <div id="tracking-results" style="display: none; margin-top: 2rem">
+              <div class="card" style="background: var(--main-bg)">
+                <h3>Customer Information</h3>
+                <table class="info-table">
+                  <tr>
+                    <td><strong>Customer ID:</strong></td>
+                    <td id="track-customer-id"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Name:</strong></td>
+                    <td id="track-customer-name"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Email:</strong></td>
+                    <td id="track-customer-email"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Phone:</strong></td>
+                    <td id="track-customer-phone"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Company:</strong></td>
+                    <td id="track-customer-company"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Address:</strong></td>
+                    <td id="track-customer-address"></td>
+                  </tr>
+                </table>
+
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1rem;
+                    margin-top: 1rem;
+                  "
+                >
+                  <div
+                    style="
+                      background: var(--card-bg);
+                      padding: 1rem;
+                      border-radius: 8px;
+                      text-align: center;
+                    "
+                  >
+                    <h4
+                      style="
+                        font-size: 0.875rem;
+                        color: var(--text-muted);
+                        margin-bottom: 0.5rem;
+                      "
+                    >
+                      Total Orders
+                    </h4>
+                    <p
+                      id="track-total-orders"
+                      style="
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        color: var(--text-dark);
+                      "
+                    >
+                      0
+                    </p>
+                  </div>
+                  <div
+                    style="
+                      background: var(--card-bg);
+                      padding: 1rem;
+                      border-radius: 8px;
+                      text-align: center;
+                    "
+                  >
+                    <h4
+                      style="
+                        font-size: 0.875rem;
+                        color: var(--text-muted);
+                        margin-bottom: 0.5rem;
+                      "
+                    >
+                      Lifetime Value
+                    </h4>
+                    <p
+                      id="track-lifetime-value"
+                      style="
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        color: var(--text-dark);
+                      "
+                    >
+                      $0.00
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <h3 style="margin-top: 1.5rem">Order History</h3>
+              <div
+                id="orders-list"
+                style="max-height: 500px; overflow-y: auto"
+              ></div>
+            </div>
+          </section>
+
+          <!-- this code is for customer search by email and related order info  -->
+          <!-- Search by Email -->
+          <!-- <div class="tracking-search" style="margin-top: 1rem">
+            <label for="tracking-email">Search by Email:</label>
+            <div style="display: flex; gap: 0.5rem">
+              <input
+                type="email"
+                id="tracking-email"
+                placeholder="Enter customer email"
+                style="flex: 1"
+              />
+              <button id="btn-track-email">
+                <i class="fas fa-search"></i> Search by Email
+              </button>
+            </div>
+          </div> -->
+
+          <div id="email-search-results" style="margin-top: 1.5rem"></div>
+
+          <script>
+            
+          </script>
+
+          <!-- Manual Order Section -->
+          <section id="manual-order" class="card">
+            <h2><i class="fas fa-plus-circle"></i> Manual Order</h2>
+
+            <div class="name-search">
+              <input
+                type="text"
+                id="manual-first-name"
+                placeholder="First Name"
+              />
+              <input
+                type="text"
+                id="manual-last-name"
+                placeholder="Last Name (optional)"
+              />
+              <button id="search-customer-name">
+                <i class="fas fa-search"></i> Search by Name
+              </button>
+            </div>
+
+            <div id="name-search-results"></div>
+
+            <div style="margin-top: 1rem">
+              <label for="manual-user-id">Or Enter Customer ID:</label>
+              <div style="display: flex; gap: 0.5rem">
+                <input
+                  type="number"
+                  id="manual-user-id"
+                  placeholder="Customer User ID"
+                  style="flex: 1"
+                />
+                <button id="fetch-customer">
+                  <i class="fas fa-search"></i> Fetch Customer
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Manual Order Popup -->
+          <div id="manual-order-popup" class="modal-overlay">
+            <div class="modal-container">
+              <div class="modal-header">
+                <h2><i class="fas fa-file-invoice"></i> Manual Order Form</h2>
+                <button class="modal-close" id="close-popup">&times;</button>
+              </div>
+              <div class="modal-body">
+                <form id="manual-order-form">
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: repeat(2, 1fr);
+                      gap: 1rem;
+                    "
+                  >
+                    <div>
+                      <label for="firstName">First Name:</label>
+                      <input type="text" id="firstName" required />
+                    </div>
+                    <div>
+                      <label for="lastName">Last Name:</label>
+                      <input type="text" id="lastName" required />
+                    </div>
+                    <div>
+                      <label for="email">Email:</label>
+                      <input type="email" id="email" required />
+                    </div>
+                    <div>
+                      <label for="phone">Phone:</label>
+                      <input type="tel" id="phone" required />
+                    </div>
+                    <div style="grid-column: 1 / -1">
+                      <label for="billingStreetAddress">Address:</label>
+                      <input type="text" id="billingStreetAddress" required />
+                    </div>
+                    <div>
+                      <label for="billingCity">City:</label>
+                      <input type="text" id="billingCity" required />
+                    </div>
+                    <div>
+                      <label for="billingState">State:</label>
+                      <input type="text" id="billingState" required />
+                    </div>
+                    <div>
+                      <label for="billingZip">Zip:</label>
+                      <input type="text" id="billingZip" required />
+                    </div>
+                    <div>
+                      <label for="country">Country:</label>
+                      <input type="text" id="country" required />
+                    </div>
+                  </div>
+
+                  <h3 style="margin-top: 2rem">Medicines</h3>
+                  <table id="medicine-table" class="product-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>MG</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                  <button
+                    type="button"
+                    id="add-medicine"
+                    class="outline"
+                    style="margin-top: 1rem"
+                  >
+                    <i class="fas fa-plus"></i> Add Medicine
+                  </button>
+
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: repeat(2, 1fr);
+                      gap: 1rem;
+                      margin-top: 2rem;
+                    "
+                  >
+                    <div>
+                      <label for="shippingCost">Shipping Cost:</label>
+                      <input
+                        type="number"
+                        id="shippingCost"
+                        step="0.01"
+                        value="0"
+                      />
+                    </div>
+                    <div>
+                      <label for="totalCost">Total Cost:</label>
+                      <input
+                        type="number"
+                        id="totalCost"
+                        step="0.01"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div style="display: flex; gap: 1rem; margin-top: 2rem">
+                    <button type="submit" class="success">
+                      <i class="fas fa-save"></i> Submit Manual Order
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Process Requests Section -->
+          <section id="process-requests" class="card">
+            <h2><i class="fas fa-tasks"></i> Process Requests</h2>
+            <div id="existing-products-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Serial No.</th>
+                    <th>Order No.</th>
+                    <th>User ID</th>
+                    <th>Cost</th>
+                    <th>Payment Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Order Details Section -->
+          <section id="order-details" class="card hidden">
+            <h2><i class="fas fa-box"></i> Order Details</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Quantity</th>
+                  <th>MG</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody id="order-details-body"></tbody>
+            </table>
+            <button id="close-details" style="margin-top: 1rem">
+              <i class="fas fa-times"></i> Close
+            </button>
+          </section>
+
+          <!-- Customer Details Section -->
+          <section id="customer-details" class="card hidden">
+            <h2><i class="fas fa-user"></i> Customer Details</h2>
+            <div id="customer-details-body"></div>
+            <button id="close-customer-details" style="margin-top: 1rem">
+              <i class="fas fa-times"></i> Close
+            </button>
+          </section>
+
+          <!-- Manage Prices Section -->
+          <section id="manage-prices" class="card">
+            <h2><i class="fas fa-dollar-sign"></i> Manage Product Pricing</h2>
+            <div class="lookup">
+              <div style="flex: 1">
+                <label for="lookup-product-id">Product ID:</label>
+                <input
+                  type="number"
+                  id="lookup-product-id"
+                  min="1"
+                  placeholder="Enter Product ID"
+                />
+              </div>
+              <div style="display: flex; align-items: flex-end">
+                <button id="btn-load-variants">
+                  <i class="fas fa-download"></i> Load Variants
+                </button>
+              </div>
+            </div>
+
+            <div class="varient-design">
+              <table
+                id="variants-table"
+                border="1"
+                style="display: none; margin-top: 1rem"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Unit Type</th>
+                    <th>Unit Value</th>
+                    <th>QTY</th>
+                    <th>Price / Pill</th>
+                    <th>Price / Box</th>
+                    <th>Offer Price</th>   
+                    <th>Delivery Time</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="variants-body"></tbody>
+              </table>
+            </div>
+
+            <button
+              id="btn-add-new"
+              class="outline"
+              style="display: none; margin-top: 1rem"
+            >
+              <i class="fas fa-plus"></i> Add New Variant
+            </button>
+          </section>
+
+          <!-- Add Product Section -->
+          <section id="product-form-section" class="card">
+            <h2><i class="fas fa-plus-circle"></i> Add New Product</h2>
+            <form id="product-form">
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  gap: 1rem;
+                "
+              >
+                <div>
+                  <label for="category_id">Category ID:</label>
+                  <input
+                    type="number"
+                    id="category_id"
+                    name="category_id"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="product_name">Product Name:</label>
+                  <input
+                    type="text"
+                    id="product_name"
+                    name="product_name"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="product_description">Product Description:</label>
+                <textarea
+                  id="product_description"
+                  name="product_description"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  gap: 1rem;
+                  margin-top: 1rem;
+                "
+              >
+                <div>
+                  <label for="trade_names">Trade Names:</label>
+                  <input
+                    type="text"
+                    id="trade_names"
+                    name="trade_names"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="manufactured_by">Manufactured By:</label>
+                  <input
+                    type="text"
+                    id="manufactured_by"
+                    name="manufactured_by"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="ingredients">Ingredients:</label>
+                <textarea
+                  id="ingredients"
+                  name="ingredients"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="packaging_details">Packaging Details:</label>
+                <textarea
+                  id="packaging_details"
+                  name="packaging_details"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="how_to_use">How To Use:</label>
+                <textarea
+                  id="how_to_use"
+                  name="how_to_use"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="drug_interaction">Drug Interaction:</label>
+                <textarea
+                  id="drug_interaction"
+                  name="drug_interaction"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="side_effects">Side Effects:</label>
+                <textarea
+                  id="side_effects"
+                  name="side_effects"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="warnings_precautions">Warnings/Precautions:</label>
+                <textarea
+                  id="warnings_precautions"
+                  name="warnings_precautions"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="withdrawal_symptoms">Withdrawal Symptoms:</label>
+                <textarea
+                  id="withdrawal_symptoms"
+                  name="withdrawal_symptoms"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="drug_abuse">Drug Abuse:</label>
+                <textarea
+                  id="drug_abuse"
+                  name="drug_abuse"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="storages">Storage:</label>
+                <textarea
+                  id="storages"
+                  name="storage"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div style="margin-top: 1rem">
+                <label for="primary_img">Primary Image URL:</label>
+                <input
+                  type="text"
+                  id="primary_img"
+                  name="primary_img"
+                  required
+                />
+              </div>
+
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(3, 1fr);
+                  gap: 1rem;
+                  margin-top: 1rem;
+                "
+              >
+                <div>
+                  <label for="addtional-img1">Additional Image 1:</label>
+                  <input
+                    type="text"
+                    id="addtional-img1"
+                    name="additional_img1"
+                  />
+                </div>
+                <div>
+                  <label for="addtional-img2">Additional Image 2:</label>
+                  <input
+                    type="text"
+                    id="addtional-img2"
+                    name="additional_img2"
+                  />
+                </div>
+                <div>
+                  <label for="addtional-img3">Additional Image 3:</label>
+                  <input
+                    type="text"
+                    id="addtional-img3"
+                    name="additional_img3"
+                  />
+                </div>
+                <div>
+                  <label for="addtional-img4">Additional Image 4:</label>
+                  <input
+                    type="text"
+                    id="addtional-img4"
+                    name="additional_img4"
+                  />
+                </div>
+                <div>
+                  <label for="addtional-img5">Additional Image 5:</label>
+                  <input
+                    type="text"
+                    id="addtional-img5"
+                    name="additional_img5"
+                  />
+                </div>
+                <div>
+                  <label for="addtional-img6">Additional Image 6:</label>
+                  <input
+                    type="text"
+                    id="addtional-img6"
+                    name="additional_img6"
+                  />
+                </div>
+              </div>
+
+              <button type="submit" style="margin-top: 2rem">
+                <i class="fas fa-save"></i> Submit Product
+              </button>
+            </form>
+          </section>
+
+          <!-- Details Modal -->
+          <div id="detailsModal" class="modal-overlay">
+            <div class="modal-container">
+              <div class="modal-header">
+                <h2>
+                  <i class="fas fa-info-circle"></i> Order & Customer Details
+                </h2>
+                <button class="modal-close" onclick="closeDetailsModal()">
+                  &times;
+                </button>
+              </div>
+              <div class="modal-body" id="modalBodyContent">
+                <div class="loading-spinner">
+                  <div class="spinner"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/js/empolyee.js"></script>
+  </body>
+</html>

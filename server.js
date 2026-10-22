@@ -301,7 +301,7 @@ const currency = cartItems.currency;
               </head>
               <body>
                   <div class="header">
-                      <h1>Order Confirmation - NewssPharmacy</h1>
+                      <h1>Order Confirmation - NewlandPharmacy</h1>
                       <p>Thank you for your order, ${firstName} ${lastName}!</p>
                   </div>
                   <div class="content">
@@ -350,25 +350,24 @@ const currency = cartItems.currency;
                   </div>
                   <div class="footer">
                       <h3>Contact Information</h3>
-                      <p><strong>Phone:</strong> +1 209 593 7171</p>
-                      <p><strong>WhatsApp:</strong> +91 887 920 1044</p>
-                      <p><strong>Email:</strong> customerinfo2024@gmail.com</p>
+                      <p><strong>Phone:</strong> +1 (832) 689-7495</p>
+                      <p><strong>Email:</strong> support@newlandsspharmacy.com</p>
                       <p><em>This is an automated confirmation email.</em></p>
-                      <p>© ${new Date().getFullYear()} NewssPharmacy. All rights reserved.</p>
+                      <p>© ${new Date().getFullYear()} NewlandPharmacy. All rights reserved.</p>
                   </div>
               </body>
               </html>
         `;
       const mailOptions = {
-        from: '"NewssPharmacy" <support@newlandsspharmacy.com>',
+        from: '"NewlandPharmacy" <support@newlandsspharmacy.com>',
         to: email,
-        subject: "Order Confirmation - NewssPharmacy",
+        subject: "Order Confirmation - NewlandPharmacy",
         html: htmlBody,
       };
 
       await transporter.sendMail(mailOptions);
       // 5️⃣ SAVE EMAIL INTO “Sent” FOLDER using IMAP
-      const rawEmail = `From: "NewssPharmacy" <support@newlandsspharmacy.com>
+      const rawEmail = `From: "NewlandPharmacy" <support@newlandsspharmacy.com>
 To: ${email}
 Subject: Order Confermation
 Content-Type: text/html; charset=UTF-8
@@ -694,7 +693,7 @@ app.post("/api/manual-order", async (req, res) => {
             </head>
             <body>
                 <div class="header">
-                    <h1>Order Confirmation - NewssPharmacy</h1>
+                    <h1>Order Confirmation - NewlandPharmacy</h1>
                     <p>Thank you for your order, ${firstName} ${lastName}!</p>
                 </div>
                 <div class="content">
@@ -742,26 +741,25 @@ app.post("/api/manual-order", async (req, res) => {
                 </div>
                 <div class="footer">
                     <h3>Contact Information</h3>
-                    <p><strong>Phone:</strong> +1 209 593 7171</p>
-                    <p><strong>WhatsApp:</strong> +91 887 920 1044</p>
-                    <p><strong>Email:</strong> customerinfo2024@gmail.com</p>
+                    <p><strong>Phone:</strong> +1 (832) 689-7495</p>
+                    <p><strong>Email:</strong> support@newlandsspharmacy.com</p>
                     <p><em>This is an automated confirmation email.</em></p>
-                    <p>© ${new Date().getFullYear()} NewssPharmacy. All rights reserved.</p>
+                    <p>© ${new Date().getFullYear()} NewlandPharmacy. All rights reserved.</p>
                 </div>
             </body>
             </html>
         `;
       const mailOptions = {
-        from: '"NewssPharmacy" <support@newlandsspharmacy.com>',
+        from: '"NewlandPharmacy" <support@newlandsspharmacy.com>',
         to: email,
-        subject: "Order Confirmation - NewssPharmacy",
+        subject: "Order Confirmation - NewlandPharmacy",
         html: htmlBody,
       };
 
       await transporter.sendMail(mailOptions);
 
       // 5️⃣ SAVE EMAIL INTO “Sent” FOLDER using IMAP
-      const rawEmail = `From: "NewssPharmacy" <support@newlandsspharmacy.com>
+      const rawEmail = `From: "NewlandPharmacy" <support@newlandsspharmacy.com>
 To: ${email}
 Subject: Order Confermation
 Content-Type: text/html; charset=UTF-8
@@ -1930,7 +1928,7 @@ app.post("/api/orders/:orderId/send-tracking", async (req, res) => {
                 </p>
 
                 <p style="margin:0 0 15px;">
-                  Thank you for placing an order with <strong>NewssPharmacy</strong>.  
+                  Thank you for placing an order with <strong>NewlandPharmacy</strong>.  
                   Below are your order details:
                 </p>
 
@@ -1951,7 +1949,7 @@ app.post("/api/orders/:orderId/send-tracking", async (req, res) => {
 
                 <p style="margin:0;">
                   Thank you!  
-                  <br><strong>NewssPharmacy</strong>
+                  <br><strong>NewlandPharmacy</strong>
                 </p>
               </td>
             </tr>
@@ -1961,7 +1959,7 @@ app.post("/api/orders/:orderId/send-tracking", async (req, res) => {
               <td align="center" 
                   style="background:#fafafa;padding:18px;color:#777;font-size:12px;line-height:18px;">
                 This is an automated email. Please do not reply.<br>
-                © 2025 NewssPharmacy. All rights reserved.
+                © 2025 NewlandPharmacy. All rights reserved.
               </td>
             </tr>
 
@@ -1987,14 +1985,14 @@ app.post("/api/orders/:orderId/send-tracking", async (req, res) => {
 
     // 4️⃣ Send Email
     await transporter.sendMail({
-      from: '"NewssPharmacy" <support@newlandsspharmacy.com>',
+      from: '"NewlandPharmacy" <support@newlandsspharmacy.com>',
       to: email,
       subject: "Your Order Has Been Shipped",
       html: htmlBody,
     });
 
     // 5️⃣ SAVE EMAIL INTO “Sent” FOLDER using IMAP
-    const rawEmail = `From: "NewssPharmacy" <support@newlandsspharmacy.com>
+    const rawEmail = `From: "NewlandPharmacy" <support@newlandsspharmacy.com>
 To: ${email}
 Subject: Your Order Has Been Shipped
 Content-Type: text/html; charset=UTF-8
@@ -2137,7 +2135,7 @@ app.post("/api/contact-message", async (req, res) => {
     });
 
     await transporter.sendMail({
-      from: '"NewssPharmacy Website" <support@newlandsspharmacy.com>',
+      from: '"NewlandssPharmacy Website" <support@newlandsspharmacy.com>',
       to: "support@newlandsspharmacy.com", // your website email (receives the message)
       replyTo: cleanEmail, // hitting "Reply" answers the visitor directly
       subject: "New website message from " + cleanEmail.replace(/[\r\n]/g, ""),
@@ -2441,7 +2439,7 @@ async function generateSQLDump() {
   ];
 
   let sqlDump = `-- ====================================================\n`;
-  sqlDump += `-- NewssPharmacy Database Backup\n`;
+  sqlDump += `-- NewlandPharmacy Database Backup\n`;
   sqlDump += `-- Generated: ${new Date().toISOString()}\n`;
   sqlDump += `-- Compatible with: PostgreSQL, MySQL, SQLite, SQL Server\n`;
   sqlDump += `-- Total Tables: ${tables.length}\n`;

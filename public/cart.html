@@ -745,6 +745,47 @@
         font-size: 12px;
         opacity: 0.8;
       }
+        .checkout-action {
+        margin-top: 24px;
+        text-align: center;
+      }
+
+      .checkout-action[hidden] {
+        display: none;
+      }
+
+      .checkout-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 50px;
+        padding: 14px 24px;
+        background: var(--primary-color, #2563eb);
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition:
+          background-color 0.2s ease,
+          transform 0.2s ease;
+        box-sizing: border-box;
+      }
+
+      .checkout-btn:hover {
+        background: var(--primary-hover, #1d4ed8);
+        color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .checkout-btn:focus-visible {
+        outline: 3px solid var(--primary-color, #2563eb);
+        outline-offset: 3px;
+      }
       @media (max-width: 900px) {
         .sf-top {
           grid-template-columns: minmax(0, 1fr);
@@ -873,6 +914,10 @@
         .step button {
           width: 52px;
         }
+        .checkout-btn {
+          min-height: 48px;
+          font-size: 15px;
+        }
       }
     </style>
 
@@ -940,8 +985,8 @@
       <div class="notice" id="notice" role="note">
         <h2>Order Assistance</h2>
         <p>
-          Need help placing an order? Email support@newlandsspharmacy.com and we will assist
-          you shortly.
+          Need help placing an order? Email support@newlandsspharmacy.com and we
+          will assist you shortly.
         </p>
         <button type="button" id="notice-x" aria-label="Dismiss notice">
           <svg class="i"><use href="#i-x" /></svg>
@@ -1004,64 +1049,13 @@
             aria-label="Payment options"
             style="margin-top: 28px"
           >
-            <h3
-              style="
-                font-size: 14.5px;
-                font-weight: 600;
-                text-transform: uppercase;
-                border-bottom: 1px solid var(--line);
-                padding-bottom: 14px;
-                margin: 0 0 12px;
-              "
-            >
-              Choose a payment method
-            </h3>
+            
             <div style="overflow-x: auto">
-              <table
-                style="width: 100%; border-collapse: collapse; font-size: 13px"
-              >
-                <thead>
-                  <tr>
-                    <th
-                      style="
-                        text-align: left;
-                        padding: 10px 6px;
-                        border-bottom: 1px solid var(--line);
-                      "
-                    >
-                      Payment
-                    </th>
-                    <th
-                      style="
-                        text-align: left;
-                        padding: 10px 6px;
-                        border-bottom: 1px solid var(--line);
-                      "
-                    >
-                      Fee
-                    </th>
-                    <th
-                      style="
-                        text-align: left;
-                        padding: 10px 6px;
-                        border-bottom: 1px solid var(--line);
-                      "
-                    >
-                      Amount
-                    </th>
-                    <th
-                      style="
-                        text-align: left;
-                        padding: 10px 6px;
-                        border-bottom: 1px solid var(--line);
-                      "
-                    >
-                      Checkout
-                    </th>
-                  </tr>
-                </thead>
-                <tbody id="paymentOptions"></tbody>
-              </table>
+              <div id="paymentSection" class="checkout-action">
+                <a href="checkout.html" class="checkout-btn">
+                  Proceed to Checkout
+                </a>
+              </div>
             </div>
           </section>
         </aside>
@@ -1158,7 +1152,7 @@
       </div>
     </footer>
     <script>
-        window.$crisp = [];
+      window.$crisp = [];
       window.CRISP_WEBSITE_ID = "68987257-808e-403d-a06c-35b3ec18c3ef";
       (function () {
         var d = document;
@@ -1295,31 +1289,6 @@
           );
         }
         function renderPayments(total, currency) {
-          $("paymentOptions").innerHTML = paymentMethods
-            .map(function (method) {
-              return (
-                "<tr>" +
-                '<td style="padding:12px 6px;border-bottom:1px solid var(--line)"><strong>' +
-                esc(method.name) +
-                '</strong><br><small style="color:var(--muted)">' +
-                esc(method.sub) +
-                "</small></td>" +
-                '<td style="padding:12px 6px;border-bottom:1px solid var(--line)">-</td>' +
-                '<td style="padding:12px 6px;border-bottom:1px solid var(--line);white-space:nowrap">' +
-                money(total, currency) +
-                "</td>" +
-                '<td style="padding:12px 6px;border-bottom:1px solid var(--line)"><a href="checkout.html" aria-label="Checkout with ' +
-                esc(method.name) +
-                '">' +
-                '<img src="' +
-                esc(method.logo) +
-                '" alt="' +
-                esc(method.alt) +
-                '" style="width:82px;max-height:42px;object-fit:contain;vertical-align:middle"></a></td>' +
-                "</tr>"
-              );
-            })
-            .join("");
           $("paymentSection").hidden = cart.length === 0;
         }
         function renderTotals() {

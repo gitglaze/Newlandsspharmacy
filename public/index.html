@@ -69,14 +69,14 @@ section[id] { scroll-margin-top: 84px; }
 /* top bar */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--surface); box-shadow: 0 1px 0 var(--line); transition: box-shadow .3s; }
 .top.scrolled { box-shadow: 0 6px 20px var(--shade); }
-.top .wrap { display: flex; align-items: center; gap: 16px 36px; padding-block: 10px; transition: padding .3s; }
+.top .wrap { display: flex; align-items: center; gap: 16px 36px; padding-block: 10px; transition: padding .3s; justify-content: space-between;}
 .top.scrolled .wrap { padding-block: 4px; }
 .brand { display: flex; align-items: center; gap: 10px; flex: none; }
 .brand svg { width: 46px; height: 46px; transition: transform .5s cubic-bezier(.3, 1.5, .5, 1); }
 .brand:hover svg { transform: rotate(90deg); }
 .brand b { display: block; font-family: var(--logo); font-size: 22px; line-height: 1.05; color: var(--accent); }
-.brand small { display: block; font-family: var(--logo); font-size: 12px; font-weight: 700; color: var(--ink); }
-.menu { display: flex; align-items: center; gap: 4px 30px; margin-inline: auto; overflow-x: auto; scrollbar-width: none; }
+.brand small { display: block; font-family: var(--logo); font-size: 12px; font-weight: 700; color: var(--accent); }
+.menu { display: flex; align-items: center; gap: 4px 30px;overflow-x: auto; scrollbar-width: none; }
 .menu::-webkit-scrollbar { display: none; }
 .menu a { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 56px; padding-inline: 4px; font-size: 15px; font-weight: 500; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
 .menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.4, 0, .2, 1); }
@@ -85,7 +85,7 @@ section[id] { scroll-margin-top: 84px; }
 .menu .badge-n.bump { animation: bump .45s cubic-bezier(.3, 1.6, .5, 1); }
 @keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.6); } 100% { transform: scale(1); } }
 .top-search { position: relative; width: 268px; flex: none; }
-.top-search input { width: 100%; height: 46px; border: 1px solid var(--line); border-radius: 23px; background: var(--surface); padding: 0 46px 0 20px; font-size: 14.5px; transition: border-color .2s, box-shadow .2s; }
+.top-search input { width: 100%; height: 46px; border: 1px solid var(--accent); border-radius: 23px; background: var(--surface); padding: 0 46px 0 20px; font-size: 14.5px; transition: border-color .2s, box-shadow .2s; }
 .top-search input::placeholder { color: var(--muted); }
 .top-search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
 .top-search .i { position: absolute; right: 16px; top: 13px; width: 20px; height: 20px; color: var(--muted); pointer-events: none; }
@@ -259,7 +259,7 @@ section[id] { scroll-margin-top: 84px; }
 .sf-row button { height: 42px; padding-inline: 22px; border: 0; border-radius: 22px; background: #fff; color: #14246a; font-size: 14px; font-weight: 600; transition: transform .2s, background .2s; }
 .sf-row button:hover { background: var(--f-acc); transform: scale(1.03); }
 .sf-msg { margin: 10px 0 0; min-height: 20px; font-size: 13px; color: var(--f-acc); }
-.sf-mid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.5fr); gap: 36px 40px; padding-block: 44px 48px; }
+.sf-mid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr); gap: 36px 40px; padding-block: 44px 48px; }
 .sf-mid h6 { margin: 0 0 16px; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--f-acc); }
 .sf-mid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; font-size: 14.5px; color: var(--f-mute); }
 .sf-mid ul a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .3s, color .2s; padding-bottom: 2px; }
@@ -338,6 +338,13 @@ section[id] { scroll-margin-top: 84px; }
   .hero-in { grid-template-columns: minmax(0, 1fr); padding-top: 36px; }
   .hero-art { min-height: 250px; order: 3; margin-inline: -20px; }
   .trust { order: 2; }
+  .footer-payments {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin-bottom: 12px;
+    }
 }
 @media (max-width: 640px) {
   .help { grid-template-columns: minmax(0, 1fr); padding: 0 22px 8px; }
@@ -425,7 +432,7 @@ section[id] { scroll-margin-top: 84px; }
       <a href="productPage.html">Shop</a>
       <a href="checkout.html">Checkout</a>
       <a href="cart.html">Cart <span class="badge-n" id="cartn">0</span></a>
-      <a href="#">My Account</a>
+      <!-- <a href="#">My Account</a> -->
     </nav>
   </div>
 </header>
@@ -566,7 +573,7 @@ section[id] { scroll-margin-top: 84px; }
     </div>
     <div class="ways">
       <div class="way"><span class="ic"><svg class="i"><use href="#i-chat"/></svg></span><div><b>Live Chat</b><span>Quick support, anytime</span></div></div>
-      <div class="way"><span class="ic"><svg class="i"><use href="#i-wa"/></svg></span><div><b>Call Us</b><span>+1 (832) 689-7495<br>(9 AM – 9 PM)</span></div></div>
+      <div class="way"><span class="ic"><svg class="i"><use href="#i-wa"/></svg></span><div><b>Call Us</b><span>+1 (832) 689-7495<br></span></div></div>
       <div class="way"><span class="ic"><svg class="i"><use href="#i-mail"/></svg></span><div><b>Email Us</b><span>support@newlandsspharmacy.com</span></div></div>
     </div>
   </section>
@@ -576,19 +583,13 @@ section[id] { scroll-margin-top: 84px; }
   <div class="wrap">
     
     <div class="sf-mid">
-      <div class="sf-brand">
-        <a class="brand" href="#home">
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="#9dbbff"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="#0f1a40"/></svg>
-          <span><b>Newlandss</b><small>Pharmacy</small></span>
-        </a>
-      </div>
       <nav aria-label="Shop links">
         <h6>Shop</h6>
-        <ul><li><a href="productPage.html">All products</a></li><li><a href="checkout.html">Checkout</a></li><li><a href="cart.html">Cart</a></li><li><a href="#">My account</a></li></ul>
+        <ul><li><a href="productPage.html">All products</a></li><li><a href="checkout.html">Checkout</a></li><li><a href="cart.html">Cart</a></li></ul>
       </nav>
       <nav aria-label="Help links">
         <h6>Help</h6>
-        <ul><li><a href="#contact">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">Refunds and returns</a></li><li><a href="#">FAQs</a></li></ul>
+        <ul><li><a href="#contact">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">FAQs</a></li></ul>
       </nav>
       <nav aria-label="Company links">
         <h6>Company</h6>
@@ -596,10 +597,16 @@ section[id] { scroll-margin-top: 84px; }
       </nav>
       <div class="sf-card">
         <h6>Talk to us</h6>
-        <p class="hrs">Mon to Sat, 9:00 AM to 5:00 PM</p>
+        <p class="hrs">24/7 All time support</p>
         <ul>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10 12 3.5 20.5 10v9.5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="m4 10.5 8 6 8-6"/></svg><span>support@newlandsspharmacy.com</span></li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.4 4-2 1.3a11 11 0 0 0 5.3 5.3l1.3-2 4 1.4v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2Z"/></svg><span>+1 (832) 689-7495</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path
+              d="M 6.014 8.006 C 6.128 7.102 7.303 5.874 8.235 6.01 C 9.141 6.181 9.859 7.743 10.264 8.445 C 10.55 8.954 10.364 9.47 10.097 9.688 C 9.736 9.979 9.171 10.38 9.289 10.783 C 9.5 11.5 12 14 13.23 14.711 C 13.695 14.98 14.033 14.27 14.321 13.907 C 14.53 13.627 15.047 13.46 15.555 13.736 C 16.314 14.178 17.029 14.692 17.69 15.27 C 18.02 15.546 18.098 15.954 17.869 16.385 C 17.466 17.144 16.3 18.146 15.454 17.942 C 13.976 17.587 8 15.27 6.08 8.558 C 5.972 8.24 6 8.12 6.014 8.006 Z"
+              transform="translate(1.8 1.8) scale(0.85)"
+            /><path d="M12 22.2C10.85 22.2 10.15 22.05 9.2 21.75L6 23L6.3 19.1C3.1 17.3 1.5 14.9 1.5 12C1.5 6.2 6.2 1.5 12 1.5S22.5 6.2 22.5 12 17.8 22.2 12 22.2Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(0.5 0) scale(0.96)"/>
+            </svg><span>+1 8324896759</span></li>
         </ul>
       </div>
     </div>
@@ -615,30 +622,19 @@ section[id] { scroll-margin-top: 84px; }
             src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/zelle.png"
           />
           <img
-            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/tether.png"
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/tethersaure.png"
           />
           <img
-            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/bitcoin.png"
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/bitcoinsqure.png"
           />
         </div>
     </div>
     <div class="sf-bot">
       <span>© 2026 MCland Pharma. All rights reserved. Licensed Pharmaceutical Provider.</span>
-      <nav aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></nav>
-      <span class="sf-demo">Demo storefront with dummy products and placeholder contact details</span>
+      <nav aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a></nav>
     </div>
   </div>
 </footer>
-<script>
-(function () {
-  var f = document.getElementById('sf-news'); if (!f) return;
-  f.addEventListener('submit', function (e) {
-    e.preventDefault();
-    document.getElementById('sf-msg').textContent = 'Thanks for subscribing. This is a demo, so no email was saved.';
-    f.querySelector('input').value = '';
-  });
-})();
-</script>
 
 <script>
 (function () {
@@ -772,7 +768,7 @@ section[id] { scroll-margin-top: 84px; }
     var image = productImage(p);
     var title = p.product_name || "Unnamed product";
     var visual = image
-      ? '<img class="product-image" src="' + esc(image) + '" alt="' + esc(title) + '" loading="lazy">'
+      ? '<a href="medicinePage.html?product_ID='+esc(p.product_id)+'"><img class="product-image" src="' + esc(image) + '" alt="' + esc(title) + '" loading="lazy"></a>'
       : fallbackArt(title);
 
     return '<article class="card" style="--i:' + i + '" data-id="' + esc(p.product_id) + '">' +

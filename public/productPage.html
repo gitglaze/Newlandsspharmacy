@@ -54,7 +54,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .brand { display: flex; align-items: center; gap: 10px; flex: none; }
 .brand svg { width: 46px; height: 46px; }
 .brand b { display: block; font-family: var(--logo); font-size: 21px; line-height: 1.05; color: var(--accent); }
-.brand small { display: block; font-family: var(--logo); font-size: 12px; font-weight: 700; color: var(--ink); }
+.brand small { display: block; font-family: var(--logo); font-size: 12px; font-weight: 700; color: var(--accent); }
 .menu { display: flex; align-items: center; gap: 4px 30px; margin-inline: auto; overflow-x: auto; scrollbar-width: none; }
 .menu::-webkit-scrollbar { display: none; }
 .menu a { display: inline-flex; align-items: center; gap: 10px; height: 62px; padding-inline: 4px; border-bottom: 3px solid transparent; font-size: 16px; font-weight: 500; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
@@ -131,12 +131,43 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .cats button:hover, .cats button[aria-pressed="true"] { color: var(--accent); }
 .cats button[aria-pressed="true"] { font-weight: 600; }
 
+/* buttons */
+.btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 10px; height: 50px; padding-inline: 28px; border: 0; border-radius: 26px; background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 15.5px; box-shadow: 0 8px 20px -8px var(--accent); transition: transform .25s, box-shadow .25s, background .2s; }
+.btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 14px 26px -10px var(--accent); }
+.btn:active { transform: translateY(0); }
+.btn .i { width: 18px; height: 18px; stroke-width: 2.2; transition: transform .25s; }
+.btn:hover .i { transform: translateX(4px); }
+.btn::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent); transform: skewX(-20deg); }
+.btn:hover::after { left: 130%; transition: left .7s; }
+
+/* message us form */
+.msgus { margin-top: 64px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 20px 48px; align-items: center; padding: 40px 40px 40px 34px; box-shadow: 0 1px 0 var(--line); }
+.msgus h2 { margin: 0 0 12px; font-size: 30px; font-weight: 600; letter-spacing: -.5px; }
+.msgus .copy p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.65; max-width: 340px; }
+.msgus form { display: grid; gap: 14px; }
+.msgus .field { display: grid; gap: 6px; }
+.msgus label { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+.msgus input[type="email"], .msgus textarea { width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: 14.5px; transition: border-color .2s, box-shadow .2s; }
+.msgus input[type="email"] { height: 46px; border-radius: 23px; padding: 0 20px; }
+.msgus textarea { min-height: 130px; border-radius: 18px; padding: 14px 20px; resize: vertical; line-height: 1.5; }
+.msgus input::placeholder, .msgus textarea::placeholder { color: var(--muted); }
+.msgus input:focus, .msgus textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.msgus .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.msgus .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.msgus .btn[disabled] { opacity: .7; cursor: not-allowed; transform: none; }
+.msgus .status { margin: 0; min-height: 20px; font-size: 13.5px; color: var(--muted); }
+.msgus .status.ok { color: var(--good); }
+.msgus .status.err { color: #e0475f; }
+@media (max-width: 900px) {
+  .msgus { grid-template-columns: minmax(0, 1fr); padding: 30px 22px; }
+}
+
 /* footer */
 .site-foot { --f-bg: #0f1a40; --f-ink: #eef2ff; --f-mute: #a9b6df; --f-line: rgba(255, 255, 255, .14); --f-acc: #9dbbff; --f-field: rgba(255, 255, 255, .08);
   margin-top: 90px; background: var(--f-bg); color: var(--f-ink); border-radius: 28px 28px 0 0; }
 .site-foot a { color: inherit; }
 .site-foot svg.i { width: 18px; height: 18px; }
-.sf-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 64px; align-items: center; padding-block: 54px 44px; border-bottom: 1px solid var(--f-line); }
+.sf-top { display: grid;  gap: 30px 64px; align-items: center; padding-block: 54px 44px; border-bottom: 1px solid var(--f-line); }
 .sf-brand .brand { margin-bottom: 14px; }
 .sf-brand .brand svg { width: 48px; height: 48px; }
 .sf-brand .brand b { color: #fff; font-size: 24px; }
@@ -166,10 +197,32 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .sf-bot nav { display: flex; gap: 18px; flex-wrap: wrap; }
 .sf-bot a:hover { color: #fff; }
 .sf-demo { flex: 1 0 100%; font-size: 12px; opacity: .8; }
+
+
+.footer-payments {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 12px;
+      }
+      .footer-payments img {
+        width: 50px;
+        /* height: 24px; */
+        background: transparent;
+      }
+
 @media (max-width: 900px) {
   .sf-top { grid-template-columns: minmax(0, 1fr); padding-block: 40px 32px; }
   .sf-mid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sf-card { grid-column: 1 / -1; }
+  .footer-payments {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin-bottom: 12px;
+    }
 }
 @media (max-width: 480px) {
   .sf-mid { grid-template-columns: minmax(0, 1fr); }
@@ -236,7 +289,6 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
       <a href="productPage.html" aria-current="page">Shop <svg class="i"><use href="#i-caret"/></svg></a>
       <a href="checkout.html">Checkout</a>
       <a href="cart.html">Cart</a>
-      <a href="#">My Account</a>
     </nav>
     <div class="top-search"><input id="top-q" type="search" placeholder="Search Product" aria-label="Search product"></div>
   </div>
@@ -278,42 +330,44 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
         <label for="side-q">Search</label>
         <div class="row"><input id="side-q" type="search" placeholder="Search products..."><button type="submit" id="side-go">Search</button></div>
       </form>
-      <!-- Recently viewed products hidden as requested.
-      <h4>Recently Viewed Products</h4>
-      <div class="recent" id="recent"></div>
-      -->
       <ul class="cats" id="cats"></ul>
     </aside>
   </div>
 </div>
 
+<section class="msgus reveal" id="message-us" aria-labelledby="msgus-h">
+    <div class="copy">
+      <p class="eyebrow" style="margin-bottom:10px;font-size:13px">Write to us</p>
+      <h2 id="msgus-h">Send us a message</h2>
+      <p>Share your email and your question, and our team will get back to you.</p>
+    </div>
+    <form id="contact-form" novalidate>
+      <div class="field">
+        <label for="cf-email">Your email</label>
+        <input type="email" id="cf-email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required>
+      </div>
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" placeholder="How can we help you?" maxlength="2000" required></textarea>
+      </div>
+      <input class="hp" type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="actions">
+        <button class="btn" id="cf-send" type="submit">Send Message </button>
+        <p class="status" id="cf-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </section>
+
 <footer class="site-foot">
   <div class="wrap">
-    <div class="sf-top">
-      <div class="sf-brand">
-        <a class="brand" href="index.html">
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="#9dbbff"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="#0f1a40"/></svg>
-          <span><b>Newlandss</b><small>Pharmacy</small></span>
-        </a>
-        <p>Simple self-care and home essentials, delivered.</p>
-      </div>
-      <form class="sf-news" id="sf-news">
-        <label for="sf-mail">Get health tips and offers in your inbox</label>
-        <div class="sf-row">
-          <input id="sf-mail" type="email" placeholder="Your email address" autocomplete="email" required>
-          <button type="submit">Subscribe</button>
-        </div>
-        <p class="sf-msg" id="sf-msg" aria-live="polite"></p>
-      </form>
-    </div>
     <div class="sf-mid">
       <nav aria-label="Shop links">
         <h6>Shop</h6>
-        <ul><li><a href="productPage.html">All products</a></li><li><a href="checkout.html">Checkout</a></li><li><a href="cart.html">Cart</a></li><li><a href="#">My account</a></li></ul>
+        <ul><li><a href="productPage.html">All products</a></li><li><a href="checkout.html">Checkout</a></li><li><a href="cart.html">Cart</a></li></ul>
       </nav>
       <nav aria-label="Help links">
         <h6>Help</h6>
-        <ul><li><a href="index.html#contact">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">Refunds and returns</a></li><li><a href="#">FAQs</a></li></ul>
+        <ul><li><a href="index.html#contact">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">FAQs</a></li></ul>
       </nav>
       <nav aria-label="Company links">
         <h6>Company</h6>
@@ -321,17 +375,41 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
       </nav>
       <div class="sf-card">
         <h6>Talk to us</h6>
-        <p class="hrs">Mon to Sat, 9:00 AM to 5:00 PM</p>
+        <p class="hrs">24/7 All time support</p>
         <ul>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10 12 3.5 20.5 10v9.5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="m4 10.5 8 6 8-6"/></svg><span>support@newlandsspharmacy.com</span></li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.4 4-2 1.3a11 11 0 0 0 5.3 5.3l1.3-2 4 1.4v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2Z"/></svg><span>+1 (832) 689-7495</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path
+              d="M 6.014 8.006 C 6.128 7.102 7.303 5.874 8.235 6.01 C 9.141 6.181 9.859 7.743 10.264 8.445 C 10.55 8.954 10.364 9.47 10.097 9.688 C 9.736 9.979 9.171 10.38 9.289 10.783 C 9.5 11.5 12 14 13.23 14.711 C 13.695 14.98 14.033 14.27 14.321 13.907 C 14.53 13.627 15.047 13.46 15.555 13.736 C 16.314 14.178 17.029 14.692 17.69 15.27 C 18.02 15.546 18.098 15.954 17.869 16.385 C 17.466 17.144 16.3 18.146 15.454 17.942 C 13.976 17.587 8 15.27 6.08 8.558 C 5.972 8.24 6 8.12 6.014 8.006 Z"
+              transform="translate(1.8 1.8) scale(0.85)"
+            /><path d="M12 22.2C10.85 22.2 10.15 22.05 9.2 21.75L6 23L6.3 19.1C3.1 17.3 1.5 14.9 1.5 12C1.5 6.2 6.2 1.5 12 1.5S22.5 6.2 22.5 12 17.8 22.2 12 22.2Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(0.5 0) scale(0.96)"/>
+            </svg><span>+1 8324896759</span></li>
         </ul>
       </div>
     </div>
+    <div class="sf-top">
+      <div class="footer-payments">
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/cash_app.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/venmo.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/zelle.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/tethersaure.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/bitcoinsqure.png"
+          />
+        </div>
+    </div>
     <div class="sf-bot">
-      <span>© 2026 Newlandss Pharmacy. All rights reserved.</span>
-      <nav aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></nav>
-      <span class="sf-demo">Demo storefront with dummy products and placeholder contact details. Not a real pharmacy.</span>
+      <span>© 2026 MCland Pharma. All rights reserved. Licensed Pharmaceutical Provider.</span>
+      <nav aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a></nav>
     </div>
   </div>
 </footer>
@@ -345,12 +423,40 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
         s.async = 1;
         d.getElementsByTagName("head")[0].appendChild(s);
       })();
+</script>
+
+<script>
 (function () {
-  var f = document.getElementById('sf-news'); if (!f) return;
-  f.addEventListener('submit', function (e) {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var btn = document.getElementById('cf-send');
+  var status = document.getElementById('cf-status');
+  function setStatus(msg, type) { status.textContent = msg; status.className = 'status' + (type ? ' ' + type : ''); }
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
-    document.getElementById('sf-msg').textContent = 'Thanks for subscribing. This is a demo, so no email was saved.';
-    f.querySelector('input').value = '';
+    var email = document.getElementById('cf-email').value.trim();
+    var message = document.getElementById('cf-message').value.trim();
+    var website = document.getElementById('cf-website').value;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setStatus('Please enter a valid email address.', 'err'); return; }
+    if (message.length < 5) { setStatus('Please write a short message.', 'err'); return; }
+    btn.disabled = true;
+    setStatus('Sending...', '');
+    fetch('/api/contact-message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, message: message, website: website })
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (res.ok && res.d.success) {
+          setStatus('Thank you! Your message has been sent.', 'ok');
+          form.reset();
+        } else {
+          setStatus(res.d.message || 'Could not send your message. Please try again.', 'err');
+        }
+      })
+      .catch(function () { setStatus('Network error. Please try again.', 'err'); })
+      .then(function () { btn.disabled = false; });
   });
 })();
 </script>
@@ -427,9 +533,9 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
     if (!src) {
       return '<div class="thumb" aria-label="No product image available"><span>No image available</span></div>';
     }
-    return '<div class="thumb"><img loading="lazy" decoding="async" src="' + escapeHTML(src) +
+    return ' <a href="medicinePage.html?product_ID='+product.product_id+'"> <div class="thumb"><img loading="lazy" decoding="async" src="' + escapeHTML(src) +
       '" alt="' + escapeHTML(productName(product)) +
-      '" onerror="this.onerror=null;this.style.display=\'none\';this.parentElement.insertAdjacentHTML(\'beforeend\',\'<span>Image unavailable</span>\')"></div>';
+      '" onerror="this.onerror=null;this.style.display=\'none\';this.parentElement.insertAdjacentHTML(\'beforeend\',\'<span>Image unavailable</span>\')"></div></a>';
   }
 
   function filteredProducts() {

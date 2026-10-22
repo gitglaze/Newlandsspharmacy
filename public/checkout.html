@@ -58,7 +58,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .brand { display: flex; align-items: center; gap: 10px; flex: none; }
 .brand svg { width: 46px; height: 46px; }
 .brand b { display: block; font-family: var(--logo); font-size: 21px; line-height: 1.05; color: var(--accent); }
-.brand small { display: block; font-family: var(--logo); font-size: 12px; font-weight: 700; color: var(--ink); }
+.brand small { display: block; font-family: var(--logo); font-size: 12px; font-weight: 700; color: var(--accent); }
 .menu { display: flex; align-items: center; gap: 4px 30px; margin-inline: auto; overflow-x: auto; scrollbar-width: none; }
 .menu::-webkit-scrollbar { display: none; }
 .menu a { display: inline-flex; align-items: center; gap: 10px; height: 62px; padding-inline: 4px; border-bottom: 3px solid transparent; font-size: 16px; font-weight: 500; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
@@ -178,7 +178,7 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .site-foot { --f-bg: #0f1a40; --f-ink: #eef2ff; --f-mute: #a9b6df; --f-line: rgba(255, 255, 255, .14); --f-acc: #9dbbff; --f-field: rgba(255, 255, 255, .08);
   margin-top: 70px; background: var(--f-bg); color: var(--f-ink); border-radius: 28px 28px 0 0; }
 .site-foot a { color: inherit; }
-.sf-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 64px; align-items: center; padding-block: 54px 44px; border-bottom: 1px solid var(--f-line); }
+.sf-top { display: grid;  gap: 30px 64px; align-items: center; padding-block: 54px 44px; border-bottom: 1px solid var(--f-line); }
 .sf-brand .brand { margin-bottom: 14px; }
 .sf-brand .brand svg { width: 48px; height: 48px; }
 .sf-brand .brand b { color: #fff; font-size: 24px; }
@@ -209,6 +209,20 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 .sf-bot a:hover { color: #fff; }
 .sf-demo { flex: 1 0 100%; font-size: 12px; opacity: .8; }
 
+
+.footer-payments {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 12px;
+      }
+      .footer-payments img {
+        width: 50px;
+        /* height: 24px; */
+        background: transparent;
+      }
+
 @media (max-width: 960px) {
   .co { grid-template-columns: minmax(0, 1fr); }
   .sum { position: static; }
@@ -219,6 +233,13 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
   .top-search { width: 100%; height: 46px; order: 3; margin-bottom: 6px; }
   .menu { margin-inline: 0; flex: 1; justify-content: flex-end; }
   .menu a { height: 52px; font-size: 14px; }
+  .footer-payments {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin-bottom: 12px;
+    }
 }
 @media (max-width: 560px) {
   .menu { order: 4; flex: 1 0 100%; justify-content: flex-start; }
@@ -262,7 +283,6 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
       <a href="productPage.html">Shop <svg class="i" viewBox="0 0 12 12"><path d="M1 3h10L6 9Z"/></svg></a>
       <a href="checkout.html" aria-current="page">Checkout</a>
       <a href="cart.html">Cart</a>
-      <a href="#">My Account</a>
     </nav>
   </div>
 </header>
@@ -300,13 +320,11 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
           <div class="field"><label for="city">City</label><input id="city" type="text" autocomplete="address-level2"><p class="msg"></p></div>
           <div class="field">
             <label for="state">State</label>
-            <select id="state" autocomplete="address-level1">
-              <option value="">Select state</option><option>Andhra Pradesh</option><option>Assam</option><option>Bihar</option><option>Chhattisgarh</option><option>Delhi</option><option>Goa</option><option>Gujarat</option><option>Haryana</option><option>Karnataka</option><option>Kerala</option><option>Madhya Pradesh</option><option selected>Maharashtra</option><option>Odisha</option><option>Punjab</option><option>Rajasthan</option><option>Tamil Nadu</option><option>Telangana</option><option>Uttar Pradesh</option><option>West Bengal</option>
-            </select>
+            <input id="state" type="text">
             <p class="msg"></p>
           </div>
           <div class="field"><label for="pin">PIN code</label><input id="pin" type="text" inputmode="numeric" maxlength="6" autocomplete="postal-code" placeholder="6 digits"><p class="msg"></p></div>
-          <div class="field"><label for="country">Country</label><input id="country" type="text" value="India" readonly></div>
+          <div class="field"><label for="country">Country</label><input id="country" type="text"><p class="msg"></p></div>
         </div>
         </section>
     </div>
@@ -342,40 +360,47 @@ svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor;
 
 <footer class="site-foot">
   <div class="wrap">
-    <div class="sf-top">
-      <div class="sf-brand">
-        <a class="brand" href="index.html">
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="#9dbbff"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="#0f1a40"/></svg>
-          <span><b>Newlandss</b><small>Pharmacy</small></span>
-        </a>
-        <p>Simple self-care and home essentials, delivered.</p>
-      </div>
-      <form class="sf-news" id="sf-news">
-        <label for="sf-mail">Get health tips and offers in your inbox</label>
-        <div class="sf-row">
-          <input id="sf-mail" type="email" placeholder="Your email address" autocomplete="email" required>
-          <button type="submit">Subscribe</button>
-        </div>
-        <p class="sf-msg" id="sf-msg" aria-live="polite"></p>
-      </form>
-    </div>
     <div class="sf-mid">
       <nav aria-label="Shop links"><h6>Shop</h6><ul><li><a href="productPage.html">All products</a></li><li><a href="checkout.html">Checkout</a></li><li><a href="cart.html">Cart</a></li><li><a href="#">My account</a></li></ul></nav>
-      <nav aria-label="Help links"><h6>Help</h6><ul><li><a href="index.html#contact">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">Refunds and returns</a></li><li><a href="#">FAQs</a></li></ul></nav>
+      <nav aria-label="Help links"><h6>Help</h6><ul><li><a href="index.html#contact">Contact us</a></li><li><a href="#">Delivery information</a></li><li><a href="#">FAQs</a></li></ul></nav>
       <nav aria-label="Company links"><h6>Company</h6><ul><li><a href="#">About us</a></li><li><a href="#">Privacy policy</a></li><li><a href="#">Terms of use</a></li></ul></nav>
       <div class="sf-card">
         <h6>Talk to us</h6>
-        <p class="hrs">Mon to Sat, 9:00 AM to 5:00 PM</p>
+        <p class="hrs">24/7 All time support</p>
         <ul>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10 12 3.5 20.5 10v9.5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="m4 10.5 8 6 8-6"/></svg><span>support@newlandsspharmacy.com</span></li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.4 4-2 1.3a11 11 0 0 0 5.3 5.3l1.3-2 4 1.4v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2Z"/></svg><span>+1 (832) 689-7495</span></li>
+          <li><svg class="i" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path
+              d="M 6.014 8.006 C 6.128 7.102 7.303 5.874 8.235 6.01 C 9.141 6.181 9.859 7.743 10.264 8.445 C 10.55 8.954 10.364 9.47 10.097 9.688 C 9.736 9.979 9.171 10.38 9.289 10.783 C 9.5 11.5 12 14 13.23 14.711 C 13.695 14.98 14.033 14.27 14.321 13.907 C 14.53 13.627 15.047 13.46 15.555 13.736 C 16.314 14.178 17.029 14.692 17.69 15.27 C 18.02 15.546 18.098 15.954 17.869 16.385 C 17.466 17.144 16.3 18.146 15.454 17.942 C 13.976 17.587 8 15.27 6.08 8.558 C 5.972 8.24 6 8.12 6.014 8.006 Z"
+              transform="translate(1.8 1.8) scale(0.85)"
+            /><path d="M12 22.2C10.85 22.2 10.15 22.05 9.2 21.75L6 23L6.3 19.1C3.1 17.3 1.5 14.9 1.5 12C1.5 6.2 6.2 1.5 12 1.5S22.5 6.2 22.5 12 17.8 22.2 12 22.2Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(0.5 0) scale(0.96)"/>
+            </svg><span>+1 8324896759</span></li>
         </ul>
       </div>
     </div>
+    <div class="sf-top">
+      <div class="footer-payments">
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/cash_app.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/venmo.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/zelle.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/tethersaure.png"
+          />
+          <img
+            src="https://ik.imagekit.io/mfvwf4ean/Syncore/Footer%20Payment/bitcoinsqure.png"
+          />
+        </div>
+    </div>
     <div class="sf-bot">
-      <span>© 2026 Newlandss Pharmacy. All rights reserved.</span>
-      <nav aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></nav>
-      
+      <span>© 2026 MCland Pharma. All rights reserved. Licensed Pharmaceutical Provider.</span>
+      <nav aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a></nav>
     </div>
   </div>
 </footer>

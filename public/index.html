@@ -473,6 +473,22 @@ section[id] { scroll-margin-top: 84px; }
   .top-search input::placeholder { color: var(--muted); }
   .top-search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
   .top-search .i { position: absolute; right: 16px; top: 13px; width: 20px; height: 20px; color: var(--muted); pointer-events: none; }
+
+  /* search suggestions dropdown */
+  .ss-panel { position: absolute; top: calc(100% + 8px); left: 0; width: 340px; max-width: calc(100vw - 40px); max-height: min(70vh, 420px); overflow-y: auto; overscroll-behavior: contain; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 18px 40px -12px var(--lift); padding: 6px; z-index: 40; animation: ssIn .16s ease-out; }
+  .ss-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px 4px; font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .ss-clear { border: 0; background: none; padding: 2px 8px; border-radius: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--accent); }
+  .ss-clear:hover { background: var(--accent-soft); }
+  .ss-item { display: flex; align-items: center; gap: 12px; width: 100%; padding: 8px 12px; border: 0; border-radius: 12px; background: transparent; text-align: left; font-size: 14px; color: var(--ink); }
+  .ss-item:hover, .ss-item.active { background: var(--accent-soft); }
+  .ss-ico { width: 18px; height: 18px; flex: none; fill: none; stroke: var(--muted); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ss-thumb { width: 38px; height: 38px; flex: none; border-radius: 10px; background: var(--accent-soft); overflow: hidden; display: grid; place-items: center; }
+  .ss-thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .ss-thumb .ss-ico { stroke: var(--accent); }
+  .ss-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  @keyframes ssIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .ss-panel { animation: none; } }
+  @media (max-width: 820px) { .ss-panel { width: 100%; max-width: none; } }
    
   /* buttons */
   .btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 10px; height: 50px; padding-inline: 28px; border: 0; border-radius: 26px; background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 15.5px; box-shadow: 0 8px 20px -8px var(--accent); transition: transform .25s, box-shadow .25s, background .2s; }
@@ -807,9 +823,11 @@ section[id] { scroll-margin-top: 84px; }
       <img class="logo" src="./assets/image/logobgremove.png" alt="">
       <span><b>Newlandss</b><small>Pharmacy</small></span>
     </a>
-    <div class="top-search">
-      <input id="q" type="search" placeholder="Search medicines, health products" aria-label="Search products" autocomplete="off">
+    <div class="top-search" id="top-search">
+      <input id="q" type="search" placeholder="Search medicines, health products" aria-label="Search products" autocomplete="off"
+             role="combobox" aria-expanded="false" aria-controls="ss-panel" aria-autocomplete="list" aria-haspopup="listbox">
       <svg class="i"><use href="#i-search"/></svg>
+      <div class="ss-panel" id="ss-panel" role="listbox" aria-label="Search suggestions" hidden></div>
     </div>
     <nav class="menu" aria-label="Main">
       <a href="#home" aria-current="page">Home</a>
@@ -1260,6 +1278,7 @@ section[id] { scroll-margin-top: 84px; }
         c.style.animationDelay = ((i % 4) * 70) + "ms";
       });
       if (open) drawCatalog();
+      refreshSuggestions();
     } catch (error) {
       console.error("Unable to load Category 1 and 11 products:", error);
       var message = '<p class="empty">Products could not be loaded. Please refresh the page and try again.</p>';
@@ -1296,11 +1315,164 @@ section[id] { scroll-margin-top: 84px; }
     cat = button.dataset.c || "All";
     drawCatalog();
   });
-  $("q").addEventListener("input", function (e) {
-     $("catalog").scrollIntoView({ behavior: "smooth" });
-    query = e.target.value.trim();
+  /* ---------- Search: suggestions on click, normal catalog search while typing ---------- */
+  var searchBox = $("q");
+  var searchWrap = $("top-search");
+  var sugPanel = $("ss-panel");
+  var RECENT_KEY = "np_recent_searches";
+  var MAX_RECENT = 5;
+  var MAX_SUGGEST = 6;
+  var sugIndex = -1;
+
+  function readRecent() {
+    try {
+      var list = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
+      return Array.isArray(list)
+        ? list.filter(function (t) { return typeof t === "string" && t; }).slice(0, MAX_RECENT)
+        : [];
+    } catch (err) { return []; }
+  }
+  function saveRecent(term) {
+    term = String(term || "").trim();
+    if (term.length < 2) return;
+    var list = readRecent().filter(function (t) { return t.toLowerCase() !== term.toLowerCase(); });
+    list.unshift(term);
+    try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, MAX_RECENT))); } catch (err) {}
+  }
+  function clearRecent() {
+    try { localStorage.removeItem(RECENT_KEY); } catch (err) {}
+  }
+
+  var CLOCK_ICON = '<svg class="ss-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>';
+  var PLUS_ICON = '<svg class="ss-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+
+  function renderSuggestions() {
+    var recent = readRecent();
+    var picks = products.slice(0, MAX_SUGGEST);
+    var n = 0;
+    var html = "";
+    if (recent.length) {
+      html += '<div class="ss-head"><span>Recent searches</span><button type="button" class="ss-clear" data-ss-clear>Clear</button></div>';
+      html += recent.map(function (t) {
+        return '<button type="button" class="ss-item" role="option" id="ss-opt-' + (n++) + '" data-term="' + esc(t) + '">' +
+          '<span class="ss-thumb">' + CLOCK_ICON + '</span><span class="ss-text">' + esc(t) + '</span></button>';
+      }).join("");
+    }
+    if (picks.length) {
+      html += '<div class="ss-head"><span>Suggested products</span></div>';
+      html += picks.map(function (p) {
+        var name = p.product_name || "Unnamed product";
+        var img = productImage(p);
+        var thumb = img ? '<img src="' + esc(img) + '" alt="" loading="lazy">' : PLUS_ICON;
+        return '<a href="medicinePage.html?product_ID='+p.product_id+'"><button type="button" class="ss-item" role="option" id="ss-opt-' + (n++) + '" data-term="' + esc(name) + '">' +
+          '<span class="ss-thumb">' + thumb + '</span><span class="ss-text">' + esc(name) + '</span></button></a>';
+      }).join("");
+    }
+    sugPanel.innerHTML = html;
+    sugIndex = -1;
+    searchBox.removeAttribute("aria-activedescendant");
+    return html !== "";
+  }
+
+  function hideSuggestions() {
+    sugPanel.hidden = true;
+    sugIndex = -1;
+    searchBox.setAttribute("aria-expanded", "false");
+    searchBox.removeAttribute("aria-activedescendant");
+  }
+
+  function showSuggestions() {
+    // Suggestions are only for an empty box; once there is text, normal search takes over.
+    if (searchBox.value.trim()) { hideSuggestions(); return; }
+    if (!renderSuggestions()) { hideSuggestions(); return; }
+    sugPanel.hidden = false;
+    searchBox.setAttribute("aria-expanded", "true");
+  }
+
+  function refreshSuggestions() {
+    if (!sugPanel.hidden) showSuggestions();
+  }
+
+  function setActive(i) {
+    var items = sugPanel.querySelectorAll(".ss-item");
+    if (!items.length) return;
+    if (i < 0) i = items.length - 1;
+    if (i >= items.length) i = 0;
+    items.forEach(function (el, k) { el.classList.toggle("active", k === i); });
+    sugIndex = i;
+    searchBox.setAttribute("aria-activedescendant", items[i].id);
+    items[i].scrollIntoView({ block: "nearest" });
+  }
+
+  // Original behaviour: filter the catalog and open it if needed.
+  function onQueryChange() {
+    query = searchBox.value.trim();
+    if (query) $("catalog").scrollIntoView({ behavior: "smooth" });
     if (query && !open) setCatalog(true, true);
     else if (open) drawCatalog();
+  }
+
+  function pickTerm(term) {
+    searchBox.value = term;
+    saveRecent(term);
+    hideSuggestions();
+    onQueryChange();
+    searchBox.blur(); // closes the mobile keyboard so the results are visible
+  }
+
+  searchBox.addEventListener("focus", showSuggestions);
+  searchBox.addEventListener("click", showSuggestions);
+
+  searchBox.addEventListener("input", function () {
+    onQueryChange();
+    if (searchBox.value.trim()) hideSuggestions(); else showSuggestions();
+  });
+
+  searchBox.addEventListener("keydown", function (e) {
+    var isOpen = !sugPanel.hidden;
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      if (!isOpen) { showSuggestions(); if (sugPanel.hidden) return; }
+      e.preventDefault();
+      setActive(sugIndex + (e.key === "ArrowDown" ? 1 : -1));
+    } else if (e.key === "Escape" && isOpen) {
+      e.preventDefault();
+      hideSuggestions();
+    } else if (e.key === "Enter") {
+      var active = isOpen ? sugPanel.querySelector(".ss-item.active") : null;
+      if (active) {
+        e.preventDefault();
+        pickTerm(active.dataset.term);
+      } else if (searchBox.value.trim()) {
+        saveRecent(searchBox.value);
+        hideSuggestions();
+        searchBox.blur();
+      }
+    }
+  });
+
+  // Keep focus in the input while clicking inside the dropdown (prevents it closing before the click lands).
+  sugPanel.addEventListener("mousedown", function (e) { e.preventDefault(); });
+  sugPanel.addEventListener("click", function (e) {
+    if (e.target.closest("[data-ss-clear]")) {
+      clearRecent();
+      showSuggestions();
+      return;
+    }
+    var item = e.target.closest(".ss-item");
+    if (item) pickTerm(item.dataset.term);
+  });
+  sugPanel.addEventListener("error", function (e) {
+    if (e.target && e.target.tagName === "IMG") e.target.style.visibility = "hidden";
+  }, true);
+
+  searchWrap.addEventListener("focusout", function (e) {
+    if (!searchWrap.contains(e.relatedTarget)) hideSuggestions();
+  });
+  document.addEventListener("click", function (e) {
+    // composedPath() is captured at dispatch time, so it still works after the clicked node was re-rendered.
+    var path = e.composedPath ? e.composedPath() : [];
+    var inside = path.length ? path.indexOf(searchWrap) > -1 : searchWrap.contains(e.target);
+    if (!inside) hideSuggestions();
   });
 
   document.addEventListener("click", function (e) {

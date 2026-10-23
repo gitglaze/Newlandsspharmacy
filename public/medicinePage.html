@@ -372,7 +372,7 @@
 
   .variant-table {
     width: max-content;
-    min-width: 600px;
+    /* min-width: 600px; */
     table-layout: auto;
     font-size: 11px;
   }
@@ -462,10 +462,10 @@
 
         <div class="buy">
           <h1 id="productTitle">Loading product...</h1>
-          <div id="variantStatus" class="variant-status" aria-live="polite">Loading variants...</div>
+          <!-- <div id="variantStatus" class="variant-status" aria-live="polite">Loading variants...</div> -->
           <div class="variant-table-wrap">
               <table class="variant-table">
-                <thead><tr><th>Pack quantity</th><th>Strength</th><th>Price per box</th><th>Price per pill</th><th>Delivery</th><th></th></tr></thead>
+                <thead><tr><th>Quantity</th><th>Strength</th><th>Price</th><th>Price per pill</th><th></th></tr></thead>
                 <tbody id="variantRows"></tbody>
               </table>
             </div>
@@ -735,9 +735,9 @@
         if (sa !== sb) return sa - sb;
         return String(a.unit_type || "").localeCompare(String(b.unit_type || ""));
       });
-      $("variantStatus").textContent = sorted.length
-        ? sorted.length + " available variant" + (sorted.length === 1 ? "" : "s")
-        : "No variants are available for this product.";
+      // $("variantStatus").textContent = sorted.length
+      //   ? sorted.length + " available variant" + (sorted.length === 1 ? "" : "s")
+      //   : "No variants are available for this product.";
       var tbody = $("variantRows");
       tbody.innerHTML = "";
       if (!sorted.length) {
@@ -757,15 +757,14 @@
           '<td class="variant-strength">' + esc(strength(variant)) + '</td>' +
           '<td class="variant-price">' + (oldPrice ? '<span class="old-price">' + esc(oldPrice) + '</span>' : '') + esc(text(price)) + '</td>' +
           '<td>' + esc(text(variant.price_per_pill)) + '</td>' +
-          '<td>' + esc(text(variant.delivery_time)) + '</td>' +
           '<td><button type="button" class="buy-variant" data-variant-key="' + esc(key) + '">BUY</button></td>';
         tbody.appendChild(tr);
       });
     }
     else{
-      $("variantStatus").textContent = "This product is currently out of stock.";
+      // $("variantStatus").textContent = "This product is currently out of stock.";
       var tbody = $("variantRows");
-      tbody.innerHTML = '<tr><td class="empty-variants" colspan="6">No variants are available for this product.</td></tr>';
+      tbody.innerHTML = '<tr><td class="empty-variants" colspan="6">No Produsts are available for this .</td></tr>';
     }
   }
   async function addToCart(variant, button) {
@@ -809,7 +808,7 @@
     var productId = new URLSearchParams(window.location.search).get("product_ID");
     if (!productId || !/^\d+$/.test(productId)) {
       $("productTitle").textContent = "Product Not Found";
-      $("variantStatus").textContent = "A valid product_ID is required in the URL.";
+      // $("variantStatus").textContent = "A valid product_ID is required in the URL.";
       $("variantRows").innerHTML = '<tr><td class="empty-variants" colspan="6">Open this page using a product link.</td></tr>';
       return;
     }
@@ -827,7 +826,7 @@
     } catch (error) {
       console.error("Product load failed:", error);
       $("productTitle").textContent = "Unable to Load Product";
-      $("variantStatus").textContent = error.message || "Please refresh and try again.";
+      // $("variantStatus").textContent = error.message || "Please refresh and try again.";
       $("variantRows").innerHTML = '<tr><td class="empty-variants" colspan="6">Product details could not be loaded.</td></tr>';
     }
   }

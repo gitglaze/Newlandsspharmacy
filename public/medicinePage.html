@@ -311,7 +311,7 @@
 .variant-table-wrap {
   width: 100%;
   max-width: 100%;
-  min-width: fit-content;
+  min-width:auto;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
@@ -462,6 +462,13 @@
 
         <div class="buy">
           <h1 id="productTitle">Loading product...</h1>
+          <div id="variantStatus" class="variant-status" aria-live="polite">Loading variants...</div>
+          <div class="variant-table-wrap">
+              <table class="variant-table">
+                <thead><tr><th>Pack quantity</th><th>Strength</th><th>Price per box</th><th>Price per pill</th><th>Delivery</th><th></th></tr></thead>
+                <tbody id="variantRows"></tbody>
+              </table>
+            </div>
           <p id="productDescriptionShort" class="product-short-description"></p>
           
           <p class="hint" id="hint" aria-live="polite"></p>
@@ -471,16 +478,10 @@
           </div>
         </div>
 
-        <section class="variant-section" aria-labelledby="variantHeading">
+          <section class="variant-section" aria-labelledby="variantHeading">
             <!-- <h2 id="variantHeading">Available strengths and pack sizes</h2> -->
             <!-- <p class="variant-intro">Choose the exact strength and pack size you need. Prices are shown for each listed variant and are not multiplied by the pack quantity.</p> -->
-            <div id="variantStatus" class="variant-status" aria-live="polite">Loading variants...</div>
-            <div class="variant-table-wrap">
-              <table class="variant-table">
-                <thead><tr><th>Pack quantity</th><th>Strength</th><th>Price per box</th><th>Price per pill</th><th>Delivery</th><th></th></tr></thead>
-                <tbody id="variantRows"></tbody>
-              </table>
-            </div>
+            
           </section>
       </div>
 
@@ -510,23 +511,6 @@
       </section>
     </article>
 
-    <!-- <section class="rel" aria-labelledby="relh">
-      <h3 id="relh">You may also like</h3>
-      <div class="rel-grid">
-        <a href="#">
-          <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M60 14h80l-6 28H66Z" fill="#2c3a63"/><path d="M66 42h68l-4 148H70Z" fill="#f2d36b"/><rect x="76" y="86" width="48" height="56" rx="4" fill="#fff" opacity=".92"/><rect x="83" y="98" width="34" height="5" rx="2.500" fill="#2c3a63" opacity=".7"/></svg>
-          <b>Mineral Sunscreen SPF 50</b><span>₹449 – ₹749</span>
-        </a>
-        <a href="#">
-          <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M74 48c0-8 8-10 26-10s26 2 26 10v130c0 6-5 10-11 10H85c-6 0-11-4-11-10Z" fill="#e8c9a0"/><rect x="82" y="16" width="36" height="22" rx="5" fill="#2c3a63"/><rect x="82" y="90" width="36" height="52" rx="4" fill="#fff" opacity=".92"/><rect x="88" y="102" width="24" height="5" rx="2.500" fill="#2c3a63" opacity=".7"/></svg>
-          <b>Oat Milk Body Lotion</b><span>₹349 – ₹579</span>
-        </a>
-        <a href="#">
-          <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M60 14h80l-6 28H66Z" fill="#2c3a63"/><path d="M66 42h68l-4 148H70Z" fill="#9fd6c0"/><rect x="76" y="86" width="48" height="56" rx="4" fill="#fff" opacity=".92"/><rect x="83" y="98" width="34" height="5" rx="2.500" fill="#2c3a63" opacity=".7"/></svg>
-          <b>Aloe Hand Cream</b><span>₹179 – ₹299</span>
-        </a>
-      </div>
-    </section> -->
   </main>
 </div>
 

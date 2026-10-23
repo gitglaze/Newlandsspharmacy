@@ -435,16 +435,10 @@
       <a href="checkout.html">Checkout</a>
       <a href="cart.html">Cart<span id="cartn" style="margin-left:6px"></span></a>
     </nav>
-    <!-- <div class="top-search"><input id="top-q" type="search" placeholder="Search Product" aria-label="Search product"></div> -->
   </div>
 </header>
 
 <div class="wrap">
-  <!-- <div class="notice" id="notice" role="note">
-    <h2>Order Assistance</h2>
-    <p>Need help placing an order? Email support@newlandsspharmacy.com and we will assist you shortly.</p>
-    <button type="button" id="notice-x" aria-label="Dismiss notice"><svg class="i"><use href="#i-x"/></svg></button>
-  </div> -->
 
   <main>
     <article class="pdp">
@@ -462,7 +456,6 @@
 
         <div class="buy">
           <h1 id="productTitle">Loading product...</h1>
-          <!-- <div id="variantStatus" class="variant-status" aria-live="polite">Loading variants...</div> -->
           <div class="variant-table-wrap">
               <table class="variant-table">
                 <thead><tr><th>Quantity</th><th>Strength</th><th>Price</th><th>Price per pill</th><th></th></tr></thead>
@@ -478,10 +471,7 @@
           </div>
         </div>
 
-          <section class="variant-section" aria-labelledby="variantHeading">
-            <!-- <h2 id="variantHeading">Available strengths and pack sizes</h2> -->
-            <!-- <p class="variant-intro">Choose the exact strength and pack size you need. Prices are shown for each listed variant and are not multiplied by the pack quantity.</p> -->
-            
+          <section class="variant-section" aria-labelledby="variantHeading"> 
           </section>
       </div>
 
@@ -735,9 +725,6 @@
         if (sa !== sb) return sa - sb;
         return String(a.unit_type || "").localeCompare(String(b.unit_type || ""));
       });
-      // $("variantStatus").textContent = sorted.length
-      //   ? sorted.length + " available variant" + (sorted.length === 1 ? "" : "s")
-      //   : "No variants are available for this product.";
       var tbody = $("variantRows");
       tbody.innerHTML = "";
       if (!sorted.length) {
@@ -762,7 +749,6 @@
       });
     }
     else{
-      // $("variantStatus").textContent = "This product is currently out of stock.";
       var tbody = $("variantRows");
       tbody.innerHTML = '<tr><td class="empty-variants" colspan="6">No Produsts are available for this .</td></tr>';
     }
@@ -808,7 +794,6 @@
     var productId = new URLSearchParams(window.location.search).get("product_ID");
     if (!productId || !/^\d+$/.test(productId)) {
       $("productTitle").textContent = "Product Not Found";
-      // $("variantStatus").textContent = "A valid product_ID is required in the URL.";
       $("variantRows").innerHTML = '<tr><td class="empty-variants" colspan="6">Open this page using a product link.</td></tr>';
       return;
     }
@@ -826,7 +811,6 @@
     } catch (error) {
       console.error("Product load failed:", error);
       $("productTitle").textContent = "Unable to Load Product";
-      // $("variantStatus").textContent = error.message || "Please refresh and try again.";
       $("variantRows").innerHTML = '<tr><td class="empty-variants" colspan="6">Product details could not be loaded.</td></tr>';
     }
   }
@@ -848,7 +832,6 @@
       $("p-" + tab).hidden = !selected;
     });
   });
-  // $("notice-x").addEventListener("click", function () { $("notice").hidden = true; });
   loadProduct();
 })();
 </script>

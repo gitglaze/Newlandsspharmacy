@@ -81,13 +81,14 @@
   .menu { display: flex; align-items: center; gap: 4px 30px;overflow-x: auto; scrollbar-width: none; }
   .menu::-webkit-scrollbar { display: none; }
   .menu a { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 56px; padding-inline: 4px; font-size: 15px; font-weight: 500; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+  .menu a svg{ width: 30px; height: 30px; }
   .menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.4, 0, .2, 1); }
   .menu a:hover::after, .menu a[aria-current]::after { transform: scaleX(1); }
   .menu .badge-n { min-width: 20px; height: 20px; padding-inline: 5px; border-radius: 10px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 600; display: grid; place-items: center; }
   .menu .badge-n.bump { animation: bump .45s cubic-bezier(.3, 1.6, .5, 1); }
   @keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.6); } 100% { transform: scale(1); } }
   .top-search { position: relative; width: 268px; flex: none; }
-  .top-search input { width: 100%; height: 46px; border: 1px solid var(--accent); border-radius: 23px; background: var(--surface); padding: 0 46px 0 20px; font-size: 14.5px; transition: border-color .2s, box-shadow .2s; }
+  .top-search input { width: 100%; height: 46px; border: 3px solid var(--ink); border-radius: 23px; background: var(--surface); padding: 0 46px 0 20px; font-size: 14.5px; transition: border-color .2s, box-shadow .2s; }
   .top-search input::placeholder { color: var(--muted); }
   .top-search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
   .top-search .i { position: absolute; right: 16px; top: 13px; width: 20px; height: 20px; color: var(--muted); pointer-events: none; }
@@ -155,7 +156,7 @@
   .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; padding-block: 26px 4px; }
    
   /* product card */
-  .card { position: relative; background: var(--surface); border-radius: 14px; padding: 16px 16px 18px; display: flex; flex-direction: column; min-width: 0; box-shadow: 0 1px 0 var(--line); transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s; }
+  .card { position: relative; background: var(--surface); border-radius: 14px; border: 3px solid var(--ink); padding: 16px 16px 18px; display: flex; flex-direction: column; min-width: 0; box-shadow: 0 1px 0 var(--line); transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s; }
   .card:hover { transform: translateY(-8px); box-shadow: 0 22px 36px -18px var(--lift); }
   .off { position: absolute; top: 16px; left: 16px; z-index: 1; background: var(--accent); color: var(--on-accent); font-size: 12.5px; font-weight: 600; padding: 4px 11px; border-radius: 3px; }
   .wish { position: absolute; top: 10px; right: 10px; z-index: 1; width: 32px; height: 32px; display: grid; place-items: center; background: none; border: 0; border-radius: 50%; color: var(--muted); transition: background .2s, color .2s; }
@@ -446,7 +447,6 @@
 <header class="top" id="top-bar">
   <div class="wrap">
     <a class="brand" href="#home" aria-label="Newlandss Pharmacy home">
-      <!-- <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3.5 42 14v20L24 44.5 6 34V14Z" fill="var(--accent)"/><path d="M21 14h6v7h7v6h-7v7h-6v-7h-7v-6h7Z" fill="var(--surface)"/></svg> -->
       <img class="logo" src="./assets/image/logobgremove.png" alt="">
       <span><b>Newlandss</b><small>Pharmacy</small></span>
     </a>
@@ -460,7 +460,7 @@
       <a href="#home" aria-current="page">Home</a>
       <a href="productPage.html">Shop</a>
       <a href="checkout.html">Checkout</a>
-      <a href="cart.html">Cart <span class="badge-n" id="cartn">0</span></a>
+      <a href="cart.html"><svg class="i"><use href="#i-cart"/></svg><span class="badge-n" id="cartn">0</span></a>
       <!-- <a href="#">My Account</a> -->
     </nav>
   </div>
@@ -797,15 +797,17 @@
   function card(p, i) {
     var image = productImage(p);
     var title = p.product_name || "Unnamed product";
+    var stock = p.stocks == 1 ? "Choose Variant" : "Out of Stock";
+    var linkIdforStock = p.stocks == 1 ? "medicinePage.html?product_ID="+p.product_id : "";
     var visual = image
-      ? '<a href="medicinePage.html?product_ID='+esc(p.product_id)+'"><img class="product-image" src="' + esc(image) + '" alt="' + esc(title) + '" loading="lazy"></a>'
+      ? '<a href="'+esc(linkIdforStock)+'"><img class="product-image" src="' + esc(image) + '" alt="' + esc(title) + '" loading="lazy"></a>'
       : fallbackArt(title);
 
     return '<article class="card" style="--i:' + i + '" data-id="' + esc(p.product_id) + '">' +
       '<div class="thumb">' + visual + '</div>' +
       '<h3>' + esc(title) + '</h3>' +
       '<button class="add" type="button" data-product-id="' + esc(p.product_id) + '">' +
-      '<svg class="i"><use href="#i-cart"/></svg><span>Choose Variant</span></button></article>';
+      '<svg class="i"><use href="#i-cart"/></svg><span>'+esc(stock)+'</span></button></article>';
   }
 
   function renderGrid(elementId, list) {
@@ -896,7 +898,7 @@
         seen[id] = true;
         return true;
       });
-
+      category1.sort((a, b) => ([11].indexOf(Number(a.product_id)) === -1 ? 999999 : [11].indexOf(Number(a.product_id))) - ([11].indexOf(Number(b.product_id)) === -1 ? 999999 : [11].indexOf(Number(b.product_id))));
       // Both sections include category 1 products first, followed by category 11 products.
       var featured = category1.slice(0, 8);
       renderGrid("grid-feat", featured);

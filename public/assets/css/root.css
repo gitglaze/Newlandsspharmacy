@@ -1,0 +1,83 @@
+:root {
+  --bg: #f5f9fe;
+  --surface: #ffffff;
+  --surface-2: #eaf5fc;
+  --ink: #1b2557;
+  --muted: #5a6788;
+  --line: #24305f;
+  --accent: #2b78e4;
+  --accent-hover: #1f63c8;
+  --accent-deep: #1e2b5e;
+  --on-accent: #ffffff;
+  --accent-soft: #e1f1fb;
+  --strip: #1e2b5e;
+  --brand-sky: #3db8ec;
+  --on-strip: #dbeafc;
+  --hero-a: #d6eefa;
+  --hero-b: #f4f9ff;
+  --footer-bar: #4a86f7;
+  --box: #c8e6f6;
+  --pill: #3bb9e8;
+   --gradient-brand: linear-gradient(90deg, #3db8ec 0%, #4a86f7 100%);
+       --grad: linear-gradient(100deg, #3cb4ea 0%, #4a85f6 55%, #356de3 100%);
+           --grad-hover: linear-gradient(100deg, #2fa3d9 0%, #356de3 60%, #1d2b5e 100%);
+  --good: #1f7a4d;
+  --logo-navy: #1e2b5e;
+  --shade: rgba(30, 43, 94, 0.08);
+  --lift: rgba(43, 120, 228, 0.2);
+  --font: "Poppins", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --logo: "Lora", Georgia, "Times New Roman", serif;
+  --script: "Caveat", "Segoe Script", cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1230;
+    --surface: #121a3d;
+    --surface-2: #16204a;
+    --ink: #e8eefc;
+    --muted: #9fb0d6;
+    --line: #24305f;
+    --accent: #4a8ff5;
+    --accent-hover: #6aa6f8;
+    --accent-deep: #1e2b5e;
+    --on-accent: #07122e;
+    --accent-soft: #172656;
+    --strip: #0a1033;
+    --on-strip: #cfe0ff;
+    --hero-a: #12254f;
+    --hero-b: #0b1630;
+    --footer-bar: #1e3a8a;
+    --box: #234a78;
+    --pill: #3bb9e8;
+    --good: #5fcf98;
+    --logo-navy: #cfd9ff;
+    --shade: rgba(0, 0, 0, 0.35);
+    --lift: rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1230;
+  --surface: #121a3d;
+  --surface-2: #16204a;
+  --ink: #e8eefc;
+  --muted: #9fb0d6;
+  --line: #24305f;
+  --accent: #4a8ff5;
+  --accent-hover: #6aa6f8;
+  --accent-deep: #1e2b5e;
+  --on-accent: #07122e;
+  --accent-soft: #172656;
+  --strip: #0a1033;
+  --on-strip: #cfe0ff;
+  --hero-a: #12254f;
+  --hero-b: #0b1630;
+  --footer-bar: #1e3a8a;
+  --box: #234a78;
+  --pill: #3bb9e8;
+  --good: #5fcf98;
+  --logo-navy: #cfd9ff;
+  --shade: rgba(0, 0, 0, 0.35);
+  --lift: rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}

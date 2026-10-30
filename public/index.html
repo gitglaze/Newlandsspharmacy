@@ -6,6 +6,7 @@
 <style></style>
 <link rel="stylesheet" href="./assets/css/index.css">
 <link rel="stylesheet" href="./assets/css/root.css">
+<link rel="stylesheet" href="./assets/css/account-nav.css">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.500"/><path d="m20 20-4.200-4.200"/></symbol>
@@ -60,11 +61,35 @@
       <div class="ss-panel" id="ss-panel" role="listbox" aria-label="Search suggestions" hidden></div>
     </div>
     <nav class="menu" aria-label="Main">
-      <a href="#home" aria-current="page">Home</a>
-      <a href="productPage.html">Shop</a>
-      <a href="checkout.html">Checkout</a>
-      <a href="cart.html"><svg class="i"><use href="#i-cart"/></svg><span class="badge-n" id="cartn">0</span></a>
+      <a class="menu_a" href="#home" aria-current="page">Home</a>
+      <a class="menu_a" href="productPage.html">Shop</a>
+      <a class="menu_a" href="checkout.html">Checkout</a>
+      <a class="menu_a" href="cart.html"><svg class="i"><use href="#i-cart"/></svg><span class="badge-n" id="cartn">0</span></a>
       <!-- <a href="#">My Account</a> -->
+      <!-- Paste inside <div class="nav-actions nav-center__actions">, before the cart link -->
+        <!-- ACCOUNT: My Account button + sign-out menu (needs the account-nav CSS and JS) -->
+        <div class="acct" id="accountMenu">
+          <a href="/login" class="acct__btn" id="acctGuest" title="Sign in or create an account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span class="acct__label">My Account</span>
+          </a>
+          <button type="button" class="acct__btn" id="acctUser" aria-haspopup="true" aria-expanded="false" aria-controls="acctMenu" hidden>
+            <span class="acct__avatar" id="acctAvatar" aria-hidden="true"></span>
+            <span class="acct__label">Account</span>
+            <svg class="acct__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="acct__menu" id="acctMenu" hidden>
+            <a href="/orders.html" class="acct__item" id="acctOrders">
+              <span>My Orders</span>
+            </a>
+            <div class="acct__who"><span>Signed in as</span><strong id="acctEmail"></strong></div>
+            <button type="button" class="acct__item acct__item--danger" id="acctSignOut">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+              Sign out
+            </button>
+            <div class="acct__error" id="acctError" role="alert" hidden></div>
+          </div>
+        </div>
     </nav>
   </div>
 </header>
@@ -733,5 +758,6 @@
   loadCartCount();
 })();
 </script>
+<script src="./assets/js/account-nav.js"></script>
 
 </body></html>

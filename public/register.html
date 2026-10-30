@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create account - Newlandss Pharmacy</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/image2/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/image2/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/auth.css">
+</head>
+<body data-page="register">
+
+  <nav class="auth-nav">
+    <div class="auth-nav__inner">
+      <a href="/" class="auth-nav__logo" aria-label="Newlandss Pharmacy home"><img src="./assets/image/logobgremove.png" alt="Newlandss Pharmacy"></a>
+      <div class="auth-nav__links">
+        <a href="/">Back to store</a>
+        <a href="/login" class="auth-nav__cta" data-keep-next>Sign in</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="auth-page">
+    <div class="auth-wrap">
+
+      <aside class="auth-aside">
+        <span class="auth-aside__tag">NEW ACCOUNT</span>
+        <h2>Your health essentials, one account.</h2>
+        <p>Create a free account and keep everything about your orders at your fingertips.</p>
+        <ul class="auth-points">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>Track every order in one place</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>Faster checkout next time</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>Email-verified for your security</li>
+        </ul>
+      </aside>
+
+      <section class="auth-card">
+        <div id="step-form">
+          <h1>Create your <span class="gradient-text">account</span></h1>
+          <p class="auth-sub">It takes less than a minute. We'll email you a code to verify.</p>
+          <div class="alert" id="form-alert" role="alert" hidden></div>
+
+          <form id="register-form" novalidate>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input class="input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input class="input" type="tel" id="phone" name="phone" placeholder="+1 209 593 7171" autocomplete="tel" inputmode="tel" required>
+              <div class="field-hint">Include your country code if you're outside the USA.</div>
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <div class="input-wrap">
+                <input class="input" type="password" id="password" name="password" placeholder="At least 8 characters" autocomplete="new-password" required>
+                <button type="button" class="pw-toggle" data-toggle-pw aria-label="Show password" aria-pressed="false"></button>
+              </div>
+              <div class="strength" id="strength" data-level="0" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+              <div class="strength-label" id="strength-label" aria-live="polite"></div>
+            </div>
+            <div class="field">
+              <label for="confirm">Confirm password</label>
+              <div class="input-wrap">
+                <input class="input" type="password" id="confirm" name="confirm" placeholder="Re-enter your password" autocomplete="new-password" required>
+                <button type="button" class="pw-toggle" data-toggle-pw aria-label="Show password" aria-pressed="false"></button>
+              </div>
+            </div>
+            <button class="btn" type="submit" id="register-btn">Create account</button>
+          </form>
+
+          <p class="auth-legal">By creating an account you agree to our <a href="/info.html">Terms of Use</a> and <a href="/info.html">Privacy Policy</a>.</p>
+          <p class="auth-switch">Already have an account? <a href="/login" data-keep-next>Sign in</a></p>
+        </div>
+        <div id="step-otp" hidden></div>
+        <noscript><div class="alert alert--error" style="margin-top:1rem">Please enable JavaScript to use this page.</div></noscript>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="auth-footer">&copy; 2026 Newlandss Pharmacy. All rights reserved.</footer>
+
+  <script src="/assets/js/auth.js"></script>
+</body>
+</html>

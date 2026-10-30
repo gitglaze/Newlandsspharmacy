@@ -33,6 +33,10 @@ const pool = new Pool({
 
 const JWT_SECRET2 = process.env.JWT_SECRET;
 
+const MAIL_HOST = process.env.MAIL_HOST ;
+const MAIL_USER = process.env.MAIL_USER ;
+const MAIL_PASS = process.env.MAIL_PASS ;
+
 // Middleware to assign session cookie
 app.use((req, res, next) => {
   if (!req.cookies.sessionId) {
@@ -45,6 +49,12 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// ========================================
+// CUSTOMER ACCOUNTS (register / OTP / login / logout / my orders)
+// Own tables + own file: ./account.js
+// ========================================
+app.use("/api/account", require("./account")(pool));
 
 // VPN + India geo-blocking (must be mounted BEFORE any routes so it
 // actually protects them -- see vpn-blocker.js for how it works).
@@ -266,12 +276,12 @@ app.post("/api/checkout", async (req, res) => {
     // Send email
     try {
       const transporter = nodemailer.createTransport({
-        host: "smtp.hostinger.com",
+        host: MAIL_HOST,
         port: 465,
         secure: true,
         auth: {
-          user: "support@newlandsspharmacy.com",
-          pass: "Newlandemail@123",
+          user: MAIL_USER,
+          pass: MAIL_PASS,
         },
       });
 const currency = cartItems.currency;
@@ -376,8 +386,8 @@ ${htmlBody}
 
       const imapConfig = {
         imap: {
-          user: "support@newlandsspharmacy.com",
-          password: "Newlandemail@123",
+          user: MAIL_USER,
+          password: MAIL_PASS,
           host: "imap.hostinger.com",
           port: 993,
           tls: true,
@@ -659,12 +669,12 @@ app.post("/api/manual-order", async (req, res) => {
     // ✅ STEP 4: Send confirmation email
     try {
       const transporter = nodemailer.createTransport({
-        host: "smtp.hostinger.com",
+        host: MAIL_HOST,
         port: 465,
         secure: true,
         auth: {
-          user: "support@newlandsspharmacy.com",
-          pass: "Newlandemail@123",
+          user: MAIL_USER,
+          pass: MAIL_PASS,
         },
       });
 
@@ -769,8 +779,8 @@ ${htmlBody}
 
       const imapConfig = {
         imap: {
-          user: "support@newlandsspharmacy.com",
-          password: "Newlandemail@123",
+          user: MAIL_USER,
+          password: MAIL_PASS,
           host: "imap.hostinger.com",
           port: 993,
           tls: true,
@@ -1847,12 +1857,12 @@ app.get("/api/orders/by-email/:email", async (req, res) => {
 
 //     // Email Setup for Zoho Mail
 //     const transporter = nodemailer.createTransport({
-//         host: "smtp.hostinger.com",
+//         host: MAIL_HOST,
 //         port: 465,
 //         secure: true,
 //         auth: {
-//           user: "support@newlandsspharmacy.com",
-//           pass: "Newlandemail@123",
+//           user: MAIL_USER,
+//           pass: MAIL_PASS,
 //       },
 //     });
 
@@ -1974,12 +1984,12 @@ app.post("/api/orders/:orderId/send-tracking", async (req, res) => {
 
     // 3️⃣ Nodemailer SMTP (Hostinger)
     const transporter = nodemailer.createTransport({
-      host: "smtp.hostinger.com",
+      host: MAIL_HOST,
       port: 465,
       secure: true,
       auth: {
-        user: "support@newlandsspharmacy.com",
-        pass: "Newlandemail@123",
+        user: MAIL_USER,
+        pass: MAIL_PASS,
       },
     });
 
@@ -2002,8 +2012,8 @@ ${htmlBody}
 
     const imapConfig = {
       imap: {
-        user: "support@newlandsspharmacy.com",
-        password: "Newlandemail@123",
+        user: MAIL_USER,
+        password: MAIL_PASS,
         host: "imap.hostinger.com",
         port: 993,
         tls: true,
@@ -2125,18 +2135,18 @@ app.post("/api/contact-message", async (req, res) => {
       s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.hostinger.com",
+      host: MAIL_HOST,
       port: 465,
       secure: true,
       auth: {
-        user: "support@newlandsspharmacy.com",
-        pass: "Newlandemail@123",
+        user: MAIL_USER,
+        pass: MAIL_PASS,
       },
     });
 
     await transporter.sendMail({
       from: '"NewlandssPharmacy Website" <support@newlandsspharmacy.com>',
-      to: "support@newlandsspharmacy.com", // your website email (receives the message)
+      to: MAIL_USER, // your website email (receives the message)
       replyTo: cleanEmail, // hitting "Reply" answers the visitor directly
       subject: "New website message from " + cleanEmail.replace(/[\r\n]/g, ""),
       text: "From: " + cleanEmail + "\n\n" + cleanMessage,
@@ -2984,6 +2994,14 @@ app.get("/cart", (req, res) => {
 
 app.get("/employee", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "employee.html"));
+});
+
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login.html"));
+});
+
+app.get("/register", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "register.html"));
 });
 
 // Start server

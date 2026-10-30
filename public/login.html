@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in - Newlandss Pharmacy</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/image2/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/image2/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/auth.css">
+</head>
+<body data-page="login">
+
+  <nav class="auth-nav">
+    <div class="auth-nav__inner">
+      <a href="/" class="auth-nav__logo" aria-label="Newlandss Pharmacy home"><img src="./assets/image/logobgremove.png" alt="Newlandss Pharmacy"></a>
+      <div class="auth-nav__links">
+        <a href="/">Back to store</a>
+        <a href="/register" class="auth-nav__cta" data-keep-next>Create account</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="auth-page">
+    <div class="auth-wrap">
+
+      <aside class="auth-aside">
+        <span class="auth-aside__tag">WELCOME BACK</span>
+        <h2>Good to see you again.</h2>
+        <p>Sign in to pick up right where you left off.</p>
+        <ul class="auth-points">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>Track every order in one place</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>Faster checkout next time</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>Email-verified for your security</li>
+        </ul>
+      </aside>
+
+      <section class="auth-card">
+        <div id="step-form">
+          <h1>Welcome <span class="gradient-text">back</span></h1>
+          <p class="auth-sub">Sign in to view your orders and check out faster.</p>
+          <div class="alert" id="form-alert" role="alert" hidden></div>
+
+          <form id="login-form" novalidate>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input class="input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="username" inputmode="email" autocapitalize="none" spellcheck="false" required>
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <div class="input-wrap">
+                <input class="input" type="password" id="password" name="password" placeholder="Your password" autocomplete="current-password" required>
+                <button type="button" class="pw-toggle" data-toggle-pw aria-label="Show password" aria-pressed="false"></button>
+              </div>
+            </div>
+            <button class="btn" type="submit" id="login-btn">Sign in</button>
+          </form>
+
+          <p class="auth-switch">New to Newlandss Pharmacy? <a href="/register" data-keep-next>Create an account</a></p>
+        </div>
+        <div id="step-otp" hidden></div>
+        <noscript><div class="alert alert--error" style="margin-top:1rem">Please enable JavaScript to use this page.</div></noscript>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="auth-footer">&copy; 2026 Newlandss Pharmacy. All rights reserved.</footer>
+
+  <script src="/assets/js/auth.js"></script>
+</body>
+</html>

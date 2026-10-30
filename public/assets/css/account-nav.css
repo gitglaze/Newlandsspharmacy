@@ -1,0 +1,74 @@
+/* account-nav.css - "My Account" button + sign-out menu for the store navigation.
+   Uses the same tokens as index.css (falls back to the same values if missing). */
+.acct { position: relative; }
+.acct [hidden] { display: none !important; }
+
+.acct__btn {
+  height: 45px; padding: 0 0.95rem; display: inline-flex; align-items: center; gap: 0.55rem;
+  border-radius: 12px; border: 2px solid var(--light, #E8F4FD); background: var(--white, #fff);
+  color: var(--dark, #1A1A1A); font: inherit; font-weight: 600; font-size: 0.92rem;
+  cursor: pointer; text-decoration: none; transition: all 0.3s ease; white-space: nowrap;
+}
+.acct__btn:hover { border-color: var(--primary, #0066CC); background: var(--light, #E8F4FD); transform: translateY(-2px); text-decoration: none; color: var(--dark, #1A1A1A); }
+.acct__btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+.acct__chev { width: 16px !important; height: 16px !important; transition: transform 0.2s ease; }
+.acct__btn[aria-expanded="true"] .acct__chev { transform: rotate(180deg); }
+
+.acct__avatar {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, #0066CC, #00A8E8); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
+}
+
+.acct__menu {
+  position: absolute; right: 0; top: calc(100% + 10px); min-width: 240px; z-index: 1200;
+  background: #fff; border: 1px solid rgba(0, 102, 204, 0.12); border-radius: 16px; padding: 0.5rem;
+  box-shadow: 0 20px 60px rgba(0, 102, 204, 0.18);
+  animation: acctIn 0.18s ease both;
+}
+@keyframes acctIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.acct__who { padding: 0.7rem 0.8rem; border-bottom: 1px solid var(--light, #E8F4FD); margin-bottom: 0.4rem; }
+.acct__who span { display: block; font-size: 0.75rem; color: var(--gray, #666); }
+.acct__who strong { display: block; font-size: 0.9rem; color: var(--dark, #1A1A1A); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
+.acct__item {
+  width: 100%; display: flex; align-items: center; gap: 0.6rem; border: none; background: transparent; cursor: pointer;
+  font: inherit; font-weight: 600; font-size: 0.92rem; color: var(--dark, #1A1A1A);
+  padding: 0.7rem 0.8rem; border-radius: 10px; text-align: left; transition: background 0.2s ease, color 0.2s ease;
+}
+.acct__item svg { width: 18px; height: 18px; }
+.acct__item:hover:not(:disabled) { background: var(--light, #E8F4FD); }
+.acct__item--danger:hover:not(:disabled) { background: #FDECEE; color: #A61E2D; }
+.acct__item:disabled { opacity: 0.6; cursor: default; }
+.acct__error { padding: 0.4rem 0.8rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: #A61E2D; }
+
+@media (max-width: 640px) {
+  .acct__btn { width: 45px; padding: 0; justify-content: center; }
+  .acct__label, .acct__chev { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .acct__menu { animation: none; } .acct__btn { transition: none; } }
+
+
+.acct__menu {
+  position: fixed;
+  top: var(--acct-menu-top, 100px);
+  left: var(--acct-menu-left, auto);
+  right: auto;
+
+  width: 280px;
+  min-width: 240px;
+  max-width: calc(100vw - 24px);
+
+  z-index: 10000;
+  background: #fff;
+  color: #1A1A1A;
+  border: 1px solid rgba(0, 102, 204, 0.12);
+  border-radius: 16px;
+  padding: 0.5rem;
+  box-shadow: 0 20px 60px rgba(0, 102, 204, 0.18);
+  animation: acctIn 0.18s ease both;
+}
+
+.acct__menu[hidden] {
+  display: none !important;
+}

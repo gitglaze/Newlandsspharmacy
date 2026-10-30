@@ -147,7 +147,7 @@ section[id] {
 .menu::-webkit-scrollbar {
   display: none;
 }
-.menu a {
+.menu_a {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -164,7 +164,7 @@ section[id] {
   width: 30px;
   height: 30px;
 }
-.menu a::after {
+.menu_a::after {
   content: "";
   position: absolute;
   left: 0;

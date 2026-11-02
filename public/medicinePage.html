@@ -6,6 +6,8 @@
 <style></style>
 <link rel="stylesheet" href="./assets/css/medicinePage.css">
 <link rel="stylesheet" href="./assets/css/root.css">
+<link rel="stylesheet" href="./assets/css/loadCartCount.css">
+<link rel="stylesheet" href="./assets/css/account-nav.css">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
@@ -27,9 +29,31 @@
       <span><b>Newlandss</b><small>Pharmacy</small></span>
     </a>
     <nav class="menu" aria-label="Main">
-      <a href="productPage.html">Shop <svg class="i"><use href="#i-caret"/></svg></a>
-      <a href="checkout.html">Checkout</a>
-      <a href="cart.html">Cart<span id="cartn" style="margin-left:6px"></span></a>
+      <a class="menu_a" href="productPage.html">Shop <svg class="i"><use href="#i-caret"/></svg></a>
+      <a class="menu_a" href="checkout.html">Checkout</a>
+      <a class="menu_a" href="cart.html">Cart<span id="cartn" class="badge-n">0</span></a>
+      <div class="acct" id="accountMenu">
+          <a href="/login" class="acct__btn" id="acctGuest" title="Sign in or create an account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span class="acct__label">My Account</span>
+          </a>
+          <button type="button" class="acct__btn" id="acctUser" aria-haspopup="true" aria-expanded="false" aria-controls="acctMenu" hidden>
+            <span class="acct__avatar" id="acctAvatar" aria-hidden="true"></span>
+            <span class="acct__label">Account</span>
+            <svg class="acct__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="acct__menu" id="acctMenu" hidden>
+            <a href="/orders.html" class="acct__item" id="acctOrders">
+              <span>My Orders</span>
+            </a>
+            <div class="acct__who"><span>Signed in as</span><strong id="acctEmail"></strong></div>
+            <button type="button" class="acct__item acct__item--danger" id="acctSignOut">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+              Sign out
+            </button>
+            <div class="acct__error" id="acctError" role="alert" hidden></div>
+          </div>
+        </div>
     </nav>
   </div>
 </header>
@@ -54,7 +78,7 @@
           <h1 id="productTitle">Loading product...</h1>
           <div class="variant-table-wrap">
               <table class="variant-table">
-                <thead><tr><th>Quantity</th><th>Strength</th><th>Price</th><th>Price per pill</th><th></th></tr></thead>
+                <thead><tr><th>Qty</th><th>Strength</th><th>Price</th><th>Price per pill</th><th></th></tr></thead>
                 <tbody id="variantRows"></tbody>
               </table>
             </div>
@@ -432,4 +456,6 @@
 })();
 </script>
 
+<script src="./assets/js/loadCartCount.js"></script>
+<script src="./assets/js/account-nav.js"></script>
 </body></html>

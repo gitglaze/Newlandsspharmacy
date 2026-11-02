@@ -104,29 +104,34 @@ svg.i {
 .menu::-webkit-scrollbar {
   display: none;
 }
-.menu a {
+.menu_a {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  height: 62px;
+  gap: 8px;
+  height: 56px;
   padding-inline: 4px;
-  border-bottom: 3px solid transparent;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   text-transform: uppercase;
   color: var(--accent);
   white-space: nowrap;
-  transition:
-    color 0.2s,
-    border-color 0.2s;
 }
-.menu a:hover {
-  color: var(--accent);
-  border-color: var(--brand-sky);
+.menu_a svg {
+  width: 30px;
+  height: 30px;
 }
-.menu a[aria-current] {
-  color: var(--accent);
-  border-color: var(--brand-sky);
+.menu_a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .menu .i {
   width: 12px;
@@ -135,11 +140,11 @@ svg.i {
   stroke: none;
 }
 
-.menu a svg {
+.menu_a svg {
     width: 30px;
     height: 30px;
-     fill: currentColor;
-  stroke: none;
+     /* fill: currentColor; */
+  stroke: currentColor;
 }
 
 .top-search {
@@ -920,7 +925,7 @@ svg.i {
     justify-content: flex-end;
   }
   .menu a {
-    height: 52px;
+    /* height: 52px; */
     font-size: 14px;
   }
   .notice h2 {

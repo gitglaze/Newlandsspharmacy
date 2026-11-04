@@ -13,7 +13,7 @@ const Imap = require("imap-simple");
 const { simpleParser } = require("mailparser");
 // const fetch = require("node-fetch");
 const axios = require("axios");
-const { vpnCountryBlocker, retryHandler, employeeWhitelistPage, employeeWhitelistSubmit } = require("./vpn-blocker");
+// const { vpnCountryBlocker, retryHandler, employeeWhitelistPage, employeeWhitelistSubmit } = require("./vpn-blocker");
 
 const app = express();
 const port = process.env.PORT;
@@ -58,7 +58,7 @@ app.use("/api/account", require("./account")(pool));
 
 // VPN + India geo-blocking (must be mounted BEFORE any routes so it
 // actually protects them -- see vpn-blocker.js for how it works).
-app.use(vpnCountryBlocker);
+// app.use(vpnCountryBlocker);
 
 // DELETE endpoint to remove an item from the cart
 app.delete("/remove-from-cart", async (req, res) => {
@@ -2976,10 +2976,10 @@ app.get("/api/backup/info", async (req, res) => {
 // VPN + India geo-blocking retry route (lets a user re-check after
 // turning their VPN off, etc.). Actual blocking logic lives in vpn-blocker.js
 // and is mounted near the top of this file via app.use(vpnCountryBlocker).
-app.get("/retry", retryHandler);
-app.post("/retry", retryHandler);
-app.get("/employee-whitelist", employeeWhitelistPage);
-app.post("/employee-whitelist", employeeWhitelistSubmit);
+// app.get("/retry", retryHandler);
+// app.post("/retry", retryHandler);
+// app.get("/employee-whitelist", employeeWhitelistPage);
+// app.post("/employee-whitelist", employeeWhitelistSubmit);
 
 app.use(express.static(path.join(__dirname, "public")));
 
